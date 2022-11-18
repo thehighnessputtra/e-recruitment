@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "129283460848",
+    "project_id": "latihan-firebase-yogi",
+    "storage_bucket": "latihan-firebase-yogi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129283460848:android:d5676528f959ffb44a7c35",
+        "android_client_info": {
+          "package_name": "com.example.latihan_firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "129283460848-4sidts3utvktkjts7ka74n3p4ku6gn0b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJzY32IFV_dIdDhB66vXHsA9np1l7jPnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "129283460848-4sidts3utvktkjts7ka74n3p4ku6gn0b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "129283460848-p2sgodgb93825ost83d10h0q0di3ft25.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.latihanFirestore"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
