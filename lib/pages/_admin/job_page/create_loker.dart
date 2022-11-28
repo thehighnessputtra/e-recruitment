@@ -15,6 +15,7 @@ class _CreateLokerState extends State<CreateLoker> {
   final controllerTipePekerjaan = TextEditingController();
   final controllerLokasi = TextEditingController();
   final controllerGaji = TextEditingController();
+  final controllerLogo = TextEditingController();
   final controllerDeskripsiKualifikasi = TextEditingController();
   final controllerDeskripsiKeahlian = TextEditingController();
   final controllerDeskripsiPerusahaan = TextEditingController();
@@ -100,6 +101,7 @@ class _CreateLokerState extends State<CreateLoker> {
               ),
               TextFormField(
                 controller: controllerGaji,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -114,6 +116,20 @@ class _CreateLokerState extends State<CreateLoker> {
               ),
               const SizedBox(
                 height: 10.0,
+              ),
+              TextFormField(
+                controller: controllerLogo,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  labelText: "URL Logo Perusahaan",
+                  labelStyle:
+                      const TextStyle(color: Colors.black, fontSize: 18),
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 10.0,
@@ -181,6 +197,7 @@ class _CreateLokerState extends State<CreateLoker> {
                         "tipePekerjaan": controllerTipePekerjaan.text,
                         "lokasi": controllerLokasi.text,
                         "gaji": controllerGaji.text,
+                        "urlLogo": controllerLogo.text,
                         "deskripsiPerusahaan":
                             controllerDeskripsiPerusahaan.text,
                         "deskripsiKeahlian": controllerDeskripsiKeahlian.text,

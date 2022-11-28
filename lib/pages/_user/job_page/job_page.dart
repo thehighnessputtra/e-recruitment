@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:latihan_firebase/pages/_user/job_page/job_detail.dart';
 
 class JobPage extends StatefulWidget {
   const JobPage({super.key});
@@ -52,6 +53,7 @@ class ItemLoker extends StatelessWidget {
         String namaPerusahaan = itemsLoker['namaPerusahaan'].toString();
         String tipePekerjaan = itemsLoker['tipePekerjaan'].toString();
         String gaji = itemsLoker['gaji'].toString();
+        String urlLogo = itemsLoker['urlLogo'].toString();
         String deskripsiKualifikasi =
             itemsLoker['deskripsiKualifikasi'].toString();
         String deskripsiKeahlian = itemsLoker['deskripsiKeahlian'].toString();
@@ -86,61 +88,75 @@ class ItemLoker extends StatelessWidget {
               ],
             ),
             onTap: () async {
-              await showModalBottomSheet<void>(
-                context: context,
-                builder: (BuildContext context) {
-                  return Container(
-                    padding: const EdgeInsets.all(20.0),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(
-                              height: 10.0,
-                            ),
-                            const Text(
-                              "Deskripsi Perusahaan :",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                            Text(deskripsiPerusahaan),
-                            const SizedBox(
-                              height: 5.0,
-                            ),
-                            const Text(
-                              "Keahlian :",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                            Text(deskripsiKeahlian),
-                            const SizedBox(
-                              height: 5.0,
-                            ),
-                            const Text(
-                              "Kualifikasi :",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                            Text(deskripsiKualifikasi),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blueGrey,
-                              ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text("Ok"),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              );
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => JobDetailUser(
+                        deskripsiKeahlian: deskripsiKeahlian,
+                        deskripsiKualifikasi: deskripsiKualifikasi,
+                        deskripsiPerusahaan: deskripsiPerusahaan,
+                        gaji: gaji,
+                        urlLogo: urlLogo,
+                        lokasi: lokasi,
+                        namaLoker: namaLoker,
+                        namaPerusahaan: namaPerusahaan,
+                        tipePekerjaan: tipePekerjaan),
+                  ));
+              // await showModalBottomSheet<void>(
+              //   context: context,
+              //   builder: (BuildContext context) {
+              //     return Container(
+              //       padding: const EdgeInsets.all(20.0),
+              //       child: SizedBox(
+              //         width: MediaQuery.of(context).size.width,
+              //         child: SingleChildScrollView(
+              //           scrollDirection: Axis.vertical,
+              //           child: Column(
+              //             crossAxisAlignment: CrossAxisAlignment.start,
+              //             children: [
+              //               const SizedBox(
+              //                 height: 10.0,
+              //               ),
+              //               const Text(
+              //                 "Deskripsi Perusahaan :",
+              //                 style: TextStyle(
+              //                     fontSize: 15, fontWeight: FontWeight.bold),
+              //               ),
+              //               Text(deskripsiPerusahaan),
+              //               const SizedBox(
+              //                 height: 5.0,
+              //               ),
+              //               const Text(
+              //                 "Keahlian :",
+              //                 style: TextStyle(
+              //                     fontSize: 15, fontWeight: FontWeight.bold),
+              //               ),
+              //               Text(deskripsiKeahlian),
+              //               const SizedBox(
+              //                 height: 5.0,
+              //               ),
+              //               const Text(
+              //                 "Kualifikasi :",
+              //                 style: TextStyle(
+              //                     fontSize: 15, fontWeight: FontWeight.bold),
+              //               ),
+              //               Text(deskripsiKualifikasi),
+              //               ElevatedButton(
+              //                 style: ElevatedButton.styleFrom(
+              //                   backgroundColor: Colors.blueGrey,
+              //                 ),
+              //                 onPressed: () {
+              //                   Navigator.pop(context);
+              //                 },
+              //                 child: const Text("Ok"),
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //       ),
+              //     );
+              //   },
+              // );
             },
           ),
         );
