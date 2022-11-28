@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -8,6 +9,8 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
+
+int activeIndex = 0;
 
 class _HomeScreenState extends State<HomeScreen> {
   // List images = [
@@ -61,14 +64,12 @@ class _HomeScreenState extends State<HomeScreen> {
           options: CarouselOptions(
             autoPlay: true,
             aspectRatio: 2.0,
-            enlargeCenterPage: true,
+            autoPlayAnimationDuration: Duration(seconds: 7),
           ),
           itemBuilder: (context, index, realIdx) {
-            return Container(
-              child: Center(
-                  child: Image.asset(images[index],
-                      fit: BoxFit.cover, width: 1000)),
-            );
+            return Center(
+                child:
+                    Image.asset(images[index], fit: BoxFit.cover, width: 1000));
           },
         ),
         const SizedBox(

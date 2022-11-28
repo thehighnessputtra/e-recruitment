@@ -32,13 +32,16 @@ dependencies:
   carousel_slider: ^4.1.1
   cloud_firestore: ^4.0.4
   cupertino_icons: ^1.0.2
+  file_picker: ^5.2.2
   firebase_auth: ^4.1.1
   firebase_core: ^2.1.1
+  firebase_storage: ^11.0.6
   flutter:
     sdk: flutter
   get: ^4.6.5
   google_fonts: ^3.0.1
   hive_flutter: ^1.1.0
+  image_picker: ^0.8.6
   ionicons: ^0.2.1
   uuid: ^3.0.6
 

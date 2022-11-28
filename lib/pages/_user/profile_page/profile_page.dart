@@ -33,12 +33,18 @@ class _ProfilePageState extends State<ProfilePage> {
         body: FutureBuilder(
       future: getDocID(),
       builder: (context, snapshot) {
-        return ListView.builder(
-          itemCount: 1,
-          itemBuilder: (context, index) {
-            return GetProfileDetail(docsID: docsID[index]);
-          },
-        );
+        if (snapshot.connectionState == ConnectionState.done) {
+          return ListView.builder(
+            itemCount: 1,
+            itemBuilder: (context, index) {
+              return GetProfileDetail(docsID: docsID[index]);
+            },
+          );
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
       },
     ));
   }
