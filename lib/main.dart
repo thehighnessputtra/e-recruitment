@@ -52,27 +52,13 @@ class _MyAppState extends State<MyApp> {
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
         if (documentSnapshot.get('role') == "Admin") {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const NavBottomBarAdmin(),
-            ),
-          );
+          const NavBottomBarAdmin();
         } else {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const NavBottomBarUser(),
-            ),
-          );
+          const NavBottomBarUser();
         }
       } else {
         print('Document does not exist on the database');
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const LoginPage(),
-            ));
+        const LoginPage();
       }
     });
   }

@@ -16,8 +16,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   List docsID = [];
 
-  final TextEditingController filepickerCV = TextEditingController();
-  String hintTextCV = "Please input ur CV";
+  String hintTextCV = "CV Name";
   PlatformFile? pickedFile;
   UploadTask? uploadTask;
   String? name;
@@ -48,7 +47,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final Storage storage = Storage();
     return Scaffold(
         body: SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -73,26 +71,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     right: 4,
                     child: InkWell(
                       onTap: () async {
-                        final result = await FilePicker.platform.pickFiles(
-                            allowMultiple: false, type: FileType.image);
-                        if (result == null) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text("No file selected")));
-                        }
-
-                        final path = result!.files.single.path!;
-                        final fileName = result.files.single.name;
-                        print(path);
-                        print(fileName);
-                        setState(() {
-                          hintTextCV = fileName;
-                        });
-                        storage
-                            .uploadImage(path, fileName)
-                            .then((value) => print("done"));
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("Upload Sukses")));
+                        uploadCV();
                       },
                       child: ClipOval(
                           child: Container(
@@ -169,18 +148,20 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 10.0,
                 ),
                 TextFormField(
-                  controller: filepickerCV,
                   readOnly: true,
+                  onTap: () async {
+                    uploadCV();
+                  },
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
-                    labelText: "CV",
+                    // labelText: "CV",
                     hintText: hintTextCV,
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                   ),
                 ),
-                const SizedBox(
-                  height: 10.0,
-                ),
+                // const SizedBox(
+                //   height: 10.0,
+                // ),
                 Center(
                   child: ElevatedButton(
                       style: ButtonStyle(
@@ -201,49 +182,36 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       )),
                 ),
-                Center(
-                  child: ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              const MaterialStatePropertyAll(Colors.red),
-                          elevation: const MaterialStatePropertyAll(0),
-                          shape: MaterialStatePropertyAll(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25)))),
-                      onPressed: () async {
-                        final result = await FilePicker.platform.pickFiles(
-                            allowMultiple: false, type: FileType.any);
-                        if (result == null) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text("No file selected")));
-                        }
-
-                        final path = result!.files.single.path!;
-                        final fileName = result.files.single.name;
-                        print(path);
-                        print(fileName);
-                        setState(() {
-                          hintTextCV = fileName;
-                        });
-                        storage
-                            .uploadFile(path, fileName)
-                            .then((value) => print("done"));
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("Upload Sukses")));
-                      },
-                      child: const Text(
-                        "Upload CV",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      )),
-                ),
               ],
             ),
           ),
         ],
       ),
     ));
+  }
+
+  uploadCV() async {
+    final Storage storage = Storage();
+    final result = await FilePicker.platform
+        .pickFiles(allowMultiple: false, type: FileType.any);
+    if (result == null) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("No file selected")));
+    }
+    final path = result!.files.single.path!;
+    final fileName = result.files.single.name;
+    print(path);
+    print(fileName);
+    setState(() {
+      hintTextCV = fileName;
+    });
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    var user = FirebaseAuth.instance.currentUser;
+    CollectionReference ref = FirebaseFirestore.instance.collection('users');
+    ref.doc(user!.uid).update({'cvName': hintTextCV});
+
+    storage.uploadFile(path, fileName).then((value) => print("done"));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text("Upload Sukses")));
   }
 }

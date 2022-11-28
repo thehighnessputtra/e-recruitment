@@ -1,7 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,8 +9,6 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
-
-int activeIndex = 0;
 
 class _HomeScreenState extends State<HomeScreen> {
   // List images = [
@@ -45,7 +43,29 @@ class _HomeScreenState extends State<HomeScreen> {
         precacheImage(NetworkImage(imageUrl), context);
       });
     });
+
+    getDocID();
     super.initState();
+  }
+
+  String? name;
+  String? email;
+  String? role;
+
+  Future getDocID() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((snapshot) async {
+      if (snapshot.exists) {
+        setState(() {
+          name = snapshot.data()!['name'];
+          email = snapshot.data()!['email'];
+          role = snapshot.data()!['role'];
+        });
+      }
+    });
   }
 
   @override
@@ -55,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 0,
           backgroundColor: Colors.transparent,
           title: Text(
-            'Hi, ${FirebaseAuth.instance.currentUser!.email}',
+            'Hi, $name',
             style: const TextStyle(color: Colors.blueGrey),
           )),
       body: Column(children: [
@@ -64,12 +84,14 @@ class _HomeScreenState extends State<HomeScreen> {
           options: CarouselOptions(
             autoPlay: true,
             aspectRatio: 2.0,
-            autoPlayAnimationDuration: Duration(seconds: 7),
+            enlargeCenterPage: true,
           ),
           itemBuilder: (context, index, realIdx) {
-            return Center(
-                child:
-                    Image.asset(images[index], fit: BoxFit.cover, width: 1000));
+            return Container(
+              child: Center(
+                  child: Image.asset(images[index],
+                      fit: BoxFit.cover, width: 1000)),
+            );
           },
         ),
         const SizedBox(
