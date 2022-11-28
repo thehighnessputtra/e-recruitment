@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:latihan_firebase/firebase_options.dart';
 import 'package:latihan_firebase/pages/_admin/navbottom_bar.dart';
 import 'package:latihan_firebase/pages/_user/navbottom_bar.dart';
@@ -12,6 +13,8 @@ import 'pages/login_regist/login_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // FlutterNativeSplash.preserve(
+  //     widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
   runApp(const MyApp());
 }
 
@@ -48,18 +51,18 @@ class _MyAppState extends State<MyApp> {
         .get()
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
-        if (documentSnapshot.get('role') == "User") {
-          Navigator.push(
+        if (documentSnapshot.get('role') == "Admin") {
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => NavBottomBarUser(),
+              builder: (context) => const NavBottomBarAdmin(),
             ),
           );
         } else {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => NavBottomBarAdmin(),
+              builder: (context) => const NavBottomBarUser(),
             ),
           );
         }

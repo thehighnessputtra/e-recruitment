@@ -151,12 +151,7 @@ class _LoginPageState extends State<LoginPage> {
                                     password: _passwordController.text);
                             debugPrint("Sukses login");
                             // ignore: use_build_context_synchronously
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const LoginSukses(),
-                                ));
+                            route();
                           }
                         },
                         child: const Text("Login")),
@@ -176,23 +171,28 @@ class _LoginPageState extends State<LoginPage> {
         .get()
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
-        if (documentSnapshot.get('role') == "User") {
-          Navigator.push(
+        if (documentSnapshot.get('role') == "Admin") {
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => NavBottomBarUser(),
+              builder: (context) => const NavBottomBarAdmin(),
             ),
           );
         } else {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => NavBottomBarAdmin(),
+              builder: (context) => const NavBottomBarUser(),
             ),
           );
         }
       } else {
         print('Document does not exist on the database');
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const LoginPage(),
+            ));
       }
     });
   }

@@ -18,16 +18,18 @@ class _LoginSuksesState extends State<LoginSukses> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Dashboard"),
+        title: const Text("Locked"),
         actions: const [],
       ),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              ElevatedButton(onPressed: route, child: const Text("Start"))
-            ],
+          child: Center(
+            child: Column(
+              children: [
+                ElevatedButton(onPressed: route, child: const Text("Start"))
+              ],
+            ),
           ),
         ),
       ),

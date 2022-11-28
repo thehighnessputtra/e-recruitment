@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.latihan_firebase">
    <application
-        android:label="latihan_firebase"
+        android:label="Jobfinders"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

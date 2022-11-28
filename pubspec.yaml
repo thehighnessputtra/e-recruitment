@@ -38,6 +38,7 @@ dependencies:
   firebase_storage: ^11.0.6
   flutter:
     sdk: flutter
+  flutter_native_splash: ^2.2.16
   get: ^4.6.5
   google_fonts: ^3.0.1
   hive_flutter: ^1.1.0
@@ -46,10 +47,20 @@ dependencies:
   uuid: ^3.0.6
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.11.0
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
 
+flutter_native_splash:
+  color: "#E5F4FF"
+  image: "assets/images/logo.png"
+
+flutter_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "assets/images/logo.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
