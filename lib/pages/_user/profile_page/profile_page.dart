@@ -22,6 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String? name;
   String? email;
   String? role;
+  String? cvName;
 
   Future getDocID() async {
     await FirebaseFirestore.instance
@@ -34,6 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
           name = snapshot.data()!['name'];
           email = snapshot.data()!['email'];
           role = snapshot.data()!['role'];
+          cvName = snapshot.data()!['cvName'];
         });
       }
     });
@@ -155,7 +157,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     // labelText: "CV",
-                    hintText: hintTextCV,
+                    hintText: cvName,
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                   ),
                 ),

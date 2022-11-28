@@ -196,7 +196,8 @@ class _RegisterPageState extends State<RegisterPage> {
     ref.doc(user!.uid).set({
       'email': _emailController.text,
       'role': "User",
-      'name': _nameController.text
+      'name': _nameController.text,
+      'cvName': "Upload CV!"
     });
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => const LoginPage()));

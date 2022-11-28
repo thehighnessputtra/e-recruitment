@@ -31,8 +31,12 @@ class JobDetailUser extends StatefulWidget {
 class _JobDetailUserState extends State<JobDetailUser> {
   @override
   Widget build(BuildContext context) {
-    bool isClicked = false;
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        iconTheme: const IconThemeData(color: Colors.black),
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Stack(
@@ -51,6 +55,7 @@ class _JobDetailUserState extends State<JobDetailUser> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: const BoxDecoration(
+                    boxShadow: [BoxShadow(color: Colors.black, blurRadius: 3)],
                     borderRadius: BorderRadius.vertical(
                       top: Radius.circular(20),
                     ),
@@ -63,62 +68,38 @@ class _JobDetailUserState extends State<JobDetailUser> {
                         height: 30.0,
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 24),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.namaLoker,
-                                  style: blackTextStyle.copyWith(
-                                    fontSize: 22,
-                                    fontWeight: semiBold,
-                                  ),
+                            Text(
+                              widget.namaLoker,
+                              style: blackTextStyle.copyWith(
+                                fontSize: 22,
+                                fontWeight: semiBold,
+                              ),
+                            ),
+                            Text.rich(
+                              TextSpan(
+                                text: 'RP ${widget.gaji}',
+                                style: purpleTextStyle.copyWith(
+                                  fontSize: 16,
+                                  fontWeight: semiBold,
                                 ),
-                                Text.rich(
-                                  TextSpan(
-                                    text: '\$${widget.gaji}',
-                                    style: purpleTextStyle.copyWith(
-                                      fontSize: 16,
-                                      fontWeight: semiBold,
-                                    ),
-                                    children: [
-                                      TextSpan(
-                                        text: ' / month',
-                                        style: greyTextStyle.copyWith(
-                                          fontSize: 16,
-                                          fontWeight: light,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                             Row(
                               children: [
-                                Image.asset(
-                                  'assets/images/ic_star.png',
-                                  width: 20,
+                                const Icon(
+                                  Icons.location_on,
+                                  size: 20,
                                 ),
-                                Image.asset(
-                                  'assets/images/ic_star.png',
-                                  width: 20,
-                                ),
-                                Image.asset(
-                                  'assets/images/ic_star.png',
-                                  width: 20,
-                                ),
-                                Image.asset(
-                                  'assets/images/ic_star.png',
-                                  width: 20,
-                                ),
-                                Image.asset(
-                                  'assets/images/ic_star.png',
-                                  width: 20,
-                                  color: Color(0xff989BA1),
+                                Text(
+                                  "${widget.namaPerusahaan}, ${widget.lokasi}",
+                                  style: blackTextStyle.copyWith(
+                                    fontSize: 20,
+                                    fontWeight: regular,
+                                  ),
                                 ),
                               ],
                             ),
@@ -126,128 +107,79 @@ class _JobDetailUserState extends State<JobDetailUser> {
                         ),
                       ),
                       const SizedBox(
-                        height: 30.0,
+                        height: 20.0,
                       ),
-                      // TODO MAIN FASILITIES
                       Padding(
                         padding: EdgeInsets.only(
                           left: edge,
                         ),
                         child: Text(
-                          'Main Facilities',
+                          'Deskripsi Perusahaan',
                           style: blackTextStyle.copyWith(
                             fontSize: 16,
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 12.0,
-                      ),
-                      const SizedBox(
-                        height: 30.0,
-                      ),
-                      // TODO PHOTO
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: edge,
-                        ),
-                        child: Text(
-                          'Photos',
-                          style: blackTextStyle.copyWith(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-
-                      Container(
-                        margin: const EdgeInsets.only(top: 12),
-                        height: 88,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            SizedBox(
-                              width: edge,
-                            ),
-                            Image.asset(
-                              'assets/logo.png',
-                              width: 110,
-                              height: 88,
-                              fit: BoxFit.cover,
-                            ),
-                            const SizedBox(
-                              width: 18.0,
-                            ),
-                            Image.asset(
-                              'assets/logo.png',
-                              width: 110,
-                              height: 88,
-                              fit: BoxFit.cover,
-                            ),
-                            const SizedBox(
-                              width: 18.0,
-                            ),
-                            Image.asset(
-                              'assets/logo.png',
-                              width: 110,
-                              height: 88,
-                              fit: BoxFit.cover,
-                            ),
-                            const SizedBox(
-                              width: 18.0,
-                            ),
-                            Image.asset(
-                              'assets/logo.png',
-                              width: 110,
-                              height: 88,
-                              fit: BoxFit.cover,
-                            ),
-                            const SizedBox(
-                              width: 18.0,
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 30.0,
-                      ),
-                      // todo : location
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: edge,
-                        ),
-                        child: Text(
-                          'Location',
-                          style: blackTextStyle.copyWith(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 6.0,
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: edge,
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              widget.lokasi,
-                              style: greyTextStyle.copyWith(),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: Image.asset(
-                                'assets/admin.jpeg',
-                                width: 40,
-                              ),
-                            ),
-                          ],
+                        child: Text(
+                          widget.deskripsiPerusahaan,
+                          style: greyTextStyle.copyWith(),
+                          textAlign: TextAlign.justify,
                         ),
                       ),
                       const SizedBox(
-                        height: 40.0,
+                        height: 30.0,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: edge,
+                        ),
+                        child: Text(
+                          'Deskripsi Kualifikasi',
+                          style: blackTextStyle.copyWith(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: edge,
+                        ),
+                        child: Text(
+                          widget.deskripsiKualifikasi,
+                          style: greyTextStyle.copyWith(),
+                          textAlign: TextAlign.justify,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30.0,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: edge,
+                        ),
+                        child: Text(
+                          'Deskripsi Keahlian',
+                          style: blackTextStyle.copyWith(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: edge,
+                        ),
+                        child: Text(
+                          widget.deskripsiKeahlian,
+                          style: greyTextStyle.copyWith(),
+                          textAlign: TextAlign.justify,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30.0,
                       ),
                       Container(
                         margin: EdgeInsets.symmetric(
@@ -266,7 +198,7 @@ class _JobDetailUserState extends State<JobDetailUser> {
                             // showConfirm();
                           },
                           child: Text(
-                            'Book Now',
+                            'Lamar Pekerjaan',
                             style: whiteTextStyle.copyWith(
                               fontSize: 18,
                               fontWeight: semiBold,
@@ -283,80 +215,6 @@ class _JobDetailUserState extends State<JobDetailUser> {
               ],
             ),
             // todo : button back dan favorite
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: edge,
-                vertical: 30,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Container(
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.white,
-                  //     borderRadius: BorderRadius.circular(50),
-                  //     boxShadow: [
-                  //       BoxShadow(
-                  //         color: Colors.grey.withOpacity(0.25),
-                  //         spreadRadius: 5,
-                  //         blurRadius: 7,
-                  //         offset:
-                  //             const Offset(0, 3), // changes position of shadow
-                  //       ),
-                  //     ],
-                  //   ),
-                  //   child: IconButton(
-                  //     icon: const Icon(Icons.arrow_back),
-                  //     color: purpleColor,
-                  //     onPressed: () {
-                  //       Navigator.pop(context);
-                  //     },
-                  //   ),
-                  // ),
-                  // Container(
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.white,
-                  //     borderRadius: BorderRadius.circular(50),
-                  //     boxShadow: [
-                  //       BoxShadow(
-                  //         color: Colors.grey.withOpacity(0.25),
-                  //         spreadRadius: 5,
-                  //         blurRadius: 7,
-                  //         offset:
-                  //             const Offset(0, 3), // changes position of shadow
-                  //       ),
-                  //     ],
-                  //   ),
-                  //   child: IconButton(
-                  //     icon: const Icon(Icons.favorite),
-                  //     color: orangeColor,
-                  //     onPressed: () {},
-                  //   ),
-                  // ),
-
-                  InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Image.asset(
-                      'assets/btn_back.png',
-                      width: 40,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        isClicked = !isClicked;
-                      });
-                    },
-                    child: Image.asset(
-                      isClicked ? 'assets/logo.png' : 'assets/ic_star.png',
-                      width: 40,
-                    ),
-                  ),
-                ],
-              ),
-            ),
           ],
         ),
       ),
