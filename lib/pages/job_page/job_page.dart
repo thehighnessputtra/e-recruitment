@@ -3,7 +3,8 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:latihan_firebase/pages/_user/job_page/job_detail.dart';
+import 'package:latihan_firebase/pages/job_page/create_loker.dart';
+import 'package:latihan_firebase/pages/job_page/job_detail.dart';
 
 class JobPage extends StatefulWidget {
   const JobPage({super.key});
@@ -20,6 +21,7 @@ class _JobPageState extends State<JobPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: addJob(),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('listLoker').snapshots(),
         builder: (context, snapshot) {
@@ -35,6 +37,28 @@ class _JobPageState extends State<JobPage> {
         },
       ),
     );
+  }
+
+  addJob() {
+    User? user = FirebaseAuth.instance.currentUser;
+    var kk = FirebaseFirestore.instance
+        .collection('users')
+        .doc(user!.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        if (documentSnapshot.get('role') == "Admin") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const CreateLoker(),
+            ),
+          );
+        }
+      } else {
+        print('Document does not exist on the database');
+      }
+    });
   }
 }
 

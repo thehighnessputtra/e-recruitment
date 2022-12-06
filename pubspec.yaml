@@ -39,6 +39,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_native_splash: ^2.2.16
+  fluttertoast: ^8.1.1
   get: ^4.6.5
   google_fonts: ^3.0.1
   hive_flutter: ^1.1.0

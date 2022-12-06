@@ -4,8 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:latihan_firebase/firebase_options.dart';
-import 'package:latihan_firebase/pages/_admin/navbottom_bar.dart';
-import 'package:latihan_firebase/pages/_user/navbottom_bar.dart';
+import 'package:latihan_firebase/pages/home_page/home_page.dart';
+import 'package:latihan_firebase/pages/navbottom_bar.dart';
 import 'package:latihan_firebase/pages/login_regist/login_sukses.dart';
 
 import 'pages/login_regist/login_page.dart';
@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
           stream: FirebaseAuth.instance.userChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return const LoginSukses();
+              return const NavBottomBarUser();
             } else {
               return const LoginPage();
             }
@@ -43,23 +43,23 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  void route() {
-    User? user = FirebaseAuth.instance.currentUser;
-    var kk = FirebaseFirestore.instance
-        .collection('users')
-        .doc(user!.uid)
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        if (documentSnapshot.get('role') == "Admin") {
-          const NavBottomBarAdmin();
-        } else {
-          const NavBottomBarUser();
-        }
-      } else {
-        print('Document does not exist on the database');
-        const LoginPage();
-      }
-    });
-  }
+  // void route() {
+  //   User? user = FirebaseAuth.instance.currentUser;
+  //   var kk = FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(user!.uid)
+  //       .get()
+  //       .then((DocumentSnapshot documentSnapshot) {
+  //     if (documentSnapshot.exists) {
+  //       if (documentSnapshot.get('role') == "Admin") {
+  //         const NavBottomBarAdmin();
+  //       } else {
+  //         const NavBottomBarUser();
+  //       }
+  //     } else {
+  //       print('Document does not exist on the database');
+  //       const LoginPage();
+  //     }
+  //   });
+  // }
 }

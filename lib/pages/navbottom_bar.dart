@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:latihan_firebase/pages/applied_page/applied_job_page.dart';
+import 'package:latihan_firebase/pages/home_page/home_page.dart';
+import 'package:latihan_firebase/pages/job_page/job_page.dart';
+import 'package:latihan_firebase/pages/profile_page/profile_page.dart';
 
-import 'applied_page/applied_job_page.dart';
-import 'home_page/home_page.dart';
-import 'job_page/job_page.dart';
-import 'profile_page_admin/profile_page_admin.dart';
-
-class NavBottomBarAdmin extends StatefulWidget {
-  const NavBottomBarAdmin({super.key});
+class NavBottomBarUser extends StatefulWidget {
+  const NavBottomBarUser({super.key});
 
   @override
-  State<NavBottomBarAdmin> createState() => _NavBottomBarAdminState();
+  State<NavBottomBarUser> createState() => _NavBottomBarUserState();
 }
 
-class _NavBottomBarAdminState extends State<NavBottomBarAdmin> {
+class _NavBottomBarUserState extends State<NavBottomBarUser> {
   int currentIndex = 0;
   final List<Widget> screens = [
     const HomeScreen(),
     const JobPage(),
     const AppliedJobPage(),
-    const ProfilePageAdmin()
+    const ProfilePage()
   ];
   @override
   Widget build(BuildContext context) {
@@ -43,7 +42,7 @@ class _NavBottomBarAdminState extends State<NavBottomBarAdmin> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.history_rounded),
-                label: 'List Applied',
+                label: 'Job Applied',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person),
