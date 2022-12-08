@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'login_page.dart';
@@ -183,21 +184,25 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void signUp(String email, String password, String role, String name) async {
-    await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: email, password: password)
-        .then((value) => {postDetailsToFirestore(email, role, name)})
-        .catchError((e) {});
+    try {
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) => {postDetailsToFirestore(email, role, name)})
+          .catchError((e) {});
+    } on FirebaseAuthException catch (e) {
+      Fluttertoast.showToast(msg: e.message.toString());
+    }
   }
 
   postDetailsToFirestore(String email, String role, String name) async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     var user = FirebaseAuth.instance.currentUser;
     CollectionReference ref = FirebaseFirestore.instance.collection('users');
-    ref.doc(user!.uid).set({
+    ref.doc(user!.email).set({
       'email': _emailController.text,
       'role': "User",
       'name': _nameController.text,
-      'cvName': "Upload CV!"
+      'cvName': "Masukan CV anda!"
     });
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => const LoginPage()));

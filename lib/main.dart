@@ -1,20 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:latihan_firebase/firebase_options.dart';
-import 'package:latihan_firebase/pages/home_page/home_page.dart';
 import 'package:latihan_firebase/pages/navbottom_bar.dart';
-import 'package:latihan_firebase/pages/login_regist/login_sukses.dart';
 
 import 'pages/login_regist/login_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // FlutterNativeSplash.preserve(
-  //     widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
   runApp(const MyApp());
 }
 
@@ -42,24 +36,4 @@ class _MyAppState extends State<MyApp> {
           }),
     );
   }
-
-  // void route() {
-  //   User? user = FirebaseAuth.instance.currentUser;
-  //   var kk = FirebaseFirestore.instance
-  //       .collection('users')
-  //       .doc(user!.uid)
-  //       .get()
-  //       .then((DocumentSnapshot documentSnapshot) {
-  //     if (documentSnapshot.exists) {
-  //       if (documentSnapshot.get('role') == "Admin") {
-  //         const NavBottomBarAdmin();
-  //       } else {
-  //         const NavBottomBarUser();
-  //       }
-  //     } else {
-  //       print('Document does not exist on the database');
-  //       const LoginPage();
-  //     }
-  //   });
-  // }
 }

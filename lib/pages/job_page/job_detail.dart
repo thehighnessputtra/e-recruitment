@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:latihan_firebase/pages/job_page/apply_job.dart';
 import 'package:latihan_firebase/style/theme.dart';
 
 class JobDetailUser extends StatefulWidget {
@@ -29,6 +32,36 @@ class JobDetailUser extends StatefulWidget {
 }
 
 class _JobDetailUserState extends State<JobDetailUser> {
+  String? name;
+  String? email;
+  String? role;
+  String? cvName;
+  String? cvURL;
+
+  Future getDocID() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.email)
+        .get()
+        .then((snapshot) async {
+      if (snapshot.exists) {
+        setState(() {
+          name = snapshot.data()!['name'];
+          email = snapshot.data()!['email'];
+          role = snapshot.data()!['role'];
+          cvName = snapshot.data()!['cvName'];
+          cvURL = snapshot.data()!['cvURL'];
+        });
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    getDocID();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,12 +74,12 @@ class _JobDetailUserState extends State<JobDetailUser> {
       body: SafeArea(
         child: Stack(
           children: [
-            Image.network(
-              widget.urlLogo,
-              width: MediaQuery.of(context).size.width,
-              height: 350,
-              fit: BoxFit.cover,
-            ),
+            // Image.network(
+            //   widget.urlLogo,
+            //   width: MediaQuery.of(context).size.width,
+            //   height: 350,
+            //   fit: BoxFit.cover,
+            // ),
             ListView(
               children: [
                 const SizedBox(
@@ -195,10 +228,27 @@ class _JobDetailUserState extends State<JobDetailUser> {
                             ),
                           ),
                           onPressed: () {
-                            // showConfirm();
+                            FirebaseFirestore.instance
+                                .runTransaction((transaction) async {
+                              CollectionReference reference = FirebaseFirestore
+                                  .instance
+                                  .collection("listapply");
+                              await reference.add({
+                                "namaLoker": widget.namaLoker,
+                                "namaPerusahaan": widget.namaPerusahaan,
+                                "gaji": widget.gaji,
+                                "namaPelamar": name,
+                                "cvName": cvName,
+                                "cvURL": cvURL
+                              });
+                            });
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content:
+                                        Text("Berhasil Menambahkan Loker!")));
                           },
                           child: Text(
-                            'Lamar Pekerjaan',
+                            'Apply Vacancy',
                             style: whiteTextStyle.copyWith(
                               fontSize: 18,
                               fontWeight: semiBold,

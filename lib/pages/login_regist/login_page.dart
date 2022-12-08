@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:latihan_firebase/pages/login_regist/login_sukses.dart';
 import '../navbottom_bar.dart';
 import 'register_page.dart';
 
@@ -161,9 +160,7 @@ class _LoginPageState extends State<LoginPage> {
                             } on FirebaseAuthException catch (e) {
                               Fluttertoast.showToast(msg: e.message.toString());
                             }
-
                             debugPrint("Sukses login");
-                            // ignore: use_build_context_synchronously
                           }
                         },
                         child: const Text("Login")),

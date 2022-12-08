@@ -191,7 +191,7 @@ class _CreateLokerState extends State<CreateLoker> {
                         .runTransaction((transaction) async {
                       CollectionReference reference =
                           FirebaseFirestore.instance.collection("listLoker");
-                      await reference.add({
+                      await reference.doc(controllerNamaLoker.text).set({
                         "namaLoker": controllerNamaLoker.text,
                         "namaPerusahaan": controllerNamaPerusahaan.text,
                         "tipePekerjaan": controllerTipePekerjaan.text,

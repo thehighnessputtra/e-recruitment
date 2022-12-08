@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future getDocID() async {
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .doc(FirebaseAuth.instance.currentUser!.email)
         .get()
         .then((snapshot) async {
       if (snapshot.exists) {
