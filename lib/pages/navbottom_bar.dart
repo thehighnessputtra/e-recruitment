@@ -24,16 +24,17 @@ class _NavBottomBarUserState extends State<NavBottomBarUser> {
     return Scaffold(
         body: screens[currentIndex],
         bottomNavigationBar: BottomNavigationBar(
+            elevation: 0,
             type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.blueGrey[800],
-            selectedItemColor: Colors.blueAccent,
-            unselectedItemColor: Colors.white,
+            backgroundColor: Colors.blue[300],
+            selectedItemColor: Colors.blue.shade900,
+            unselectedItemColor: Color(0xFFF3F8F9),
             iconSize: 25,
             currentIndex: currentIndex,
             onTap: (index) => setState(() => currentIndex = index),
             items: const [
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
+                icon: Icon(Icons.home_filled),
                 label: 'Home',
               ),
               BottomNavigationBarItem(

@@ -96,6 +96,64 @@ class _ListApplyState extends State<ListApply> {
         String aboutPelamar = itemsApply['about'];
         String avatarUrlPelamar = itemsApply['avatarUrl'];
         String statusPelamar = itemsApply['status'];
+        colorChangeStatus() {
+          if (statusPelamar == "DITERIMA") {
+            return Expanded(
+              flex: 2,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.green,
+                ),
+                padding: const EdgeInsets.all(5),
+                child: Text(statusPelamar,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    )),
+              ),
+            );
+          } else if (statusPelamar == "DITOLAK") {
+            return Expanded(
+              flex: 2,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.red,
+                ),
+                padding: const EdgeInsets.all(5),
+                child: Text(statusPelamar,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    )),
+              ),
+            );
+          } else {
+            return Expanded(
+              flex: 2,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.blue,
+                ),
+                padding: const EdgeInsets.all(5),
+                child: Text(statusPelamar,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    )),
+              ),
+            );
+          }
+        }
+
         if (emailPelamar == email) {
           return GestureDetector(
             onTap: () {
@@ -200,23 +258,24 @@ class _ListApplyState extends State<ListApply> {
                         ],
                       ),
                     ),
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Colors.blue,
-                        ),
-                        padding: const EdgeInsets.all(5),
-                        child: Text(statusPelamar,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            )),
-                      ),
-                    ),
+                    colorChangeStatus()
+                    // Expanded(
+                    //   flex: 2,
+                    //   child: Container(
+                    //     decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.circular(30),
+                    //       color: Colors.blue,
+                    //     ),
+                    //     padding: const EdgeInsets.all(5),
+                    //     child: Text(statusPelamar,
+                    //         textAlign: TextAlign.center,
+                    //         style: const TextStyle(
+                    //           color: Colors.white,
+                    //           fontSize: 15,
+                    //           fontWeight: FontWeight.bold,
+                    //         )),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

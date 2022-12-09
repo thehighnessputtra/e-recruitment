@@ -2,7 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:latihan_firebase/firebase_options.dart';
+import 'package:latihan_firebase/pages/home_page/home_page.dart';
 import 'package:latihan_firebase/pages/navbottom_bar.dart';
+import 'package:latihan_firebase/pages/splashscreen.dart';
+import 'package:latihan_firebase/view_model/news_api_view_model.dart';
+import 'package:provider/provider.dart';
 
 import 'pages/login_regist/login_page.dart';
 
@@ -22,22 +26,29 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-          useMaterial3: true,
-          hoverColor: Colors.white,
-          fontFamily: "FontLato",
-          appBarTheme: const AppBarTheme(backgroundColor: Colors.transparent)),
-      debugShowCheckedModeBanner: false,
-      home: StreamBuilder<User?>(
-          stream: FirebaseAuth.instance.userChanges(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return const NavBottomBarUser();
-            } else {
-              return const LoginPage();
-            }
-          }),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => NewsViewModel(),
+        )
+      ],
+      child: MaterialApp(
+        theme: ThemeData(
+            useMaterial3: true,
+            fontFamily: "FontLato",
+            appBarTheme:
+                const AppBarTheme(backgroundColor: Colors.transparent)),
+        debugShowCheckedModeBanner: false,
+        home: StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.userChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return const SplashScreen();
+              } else {
+                return const LoginPage();
+              }
+            }),
+      ),
     );
   }
 }
