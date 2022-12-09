@@ -5,12 +5,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:latihan_firebase/pages/login_regist/login_page.dart';
 import 'package:latihan_firebase/pages/profile_page/edit_profile_page.dart';
-import 'package:latihan_firebase/services/firebase_storage_services.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -140,7 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Text(
                       "$about",
                       textAlign: TextAlign.justify,
-                      style: TextStyle(fontSize: 17, height: 1.3),
+                      style: const TextStyle(fontSize: 17, height: 1.3),
                     ),
                     const SizedBox(
                       height: 20.0,
@@ -181,12 +177,10 @@ class _ProfilePageState extends State<ProfilePage> {
       await storage.ref('cv/$email/$fileName').putFile(File(path));
       String getDownloadUrl =
           await storage.ref('cv/$email/$fileName').getDownloadURL();
-      print("DOWNLOAD CV = ${getDownloadUrl}");
       setState(() {
         cvName = fileName;
         cvURL = getDownloadUrl;
       });
-      FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
       var user = FirebaseAuth.instance.currentUser;
       CollectionReference ref = FirebaseFirestore.instance.collection('users');
       ref.doc(user!.email).update({
@@ -195,9 +189,11 @@ class _ProfilePageState extends State<ProfilePage> {
         'cvURL': getDownloadUrl
       });
 
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Upload Sukses!")));
     } else {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("No file selected!")));
     }

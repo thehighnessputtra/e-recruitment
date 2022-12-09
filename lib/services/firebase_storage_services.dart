@@ -13,10 +13,9 @@ class Storage {
   ) async {
     File file = File(filePath);
     try {
-      await storage.ref("files/${fileName}").putFile(file);
-    } on firebase_core.FirebaseException catch (e) {
-      print(e);
-    }
+      await storage.ref("files/$fileName").putFile(file);
+      // ignore: empty_catches, unused_catch_clause
+    } on firebase_core.FirebaseException catch (e) {}
   }
 
   Future<void> uploadImage(
@@ -25,9 +24,8 @@ class Storage {
   ) async {
     File file = File(filePath);
     try {
-      await storage.ref("avatar/${fileName}").putFile(file);
-    } on firebase_core.FirebaseException catch (e) {
-      print(e);
-    }
+      await storage.ref("avatar/$fileName").putFile(file);
+      // ignore: empty_catches, unused_catch_clause
+    } on firebase_core.FirebaseException catch (e) {}
   }
 }

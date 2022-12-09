@@ -28,7 +28,7 @@ class _NavBottomBarUserState extends State<NavBottomBarUser> {
             type: BottomNavigationBarType.fixed,
             backgroundColor: Colors.blue[300],
             selectedItemColor: Colors.blue.shade900,
-            unselectedItemColor: Color(0xFFF3F8F9),
+            unselectedItemColor: const Color(0xFFF3F8F9),
             iconSize: 25,
             currentIndex: currentIndex,
             onTap: (index) => setState(() => currentIndex = index),

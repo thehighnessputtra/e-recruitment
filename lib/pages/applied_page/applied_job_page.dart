@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:latihan_firebase/pages/applied_page/appllied_job_detail.dart';
-import 'package:latihan_firebase/pages/job_page/create_loker.dart';
-import 'package:latihan_firebase/pages/job_page/job_detail.dart';
 
 class AppliedJobPage extends StatefulWidget {
   const AppliedJobPage({super.key});
@@ -195,23 +193,7 @@ class _ListApplyState extends State<ListApply> {
                         ],
                       ),
                     ),
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Colors.blue,
-                        ),
-                        padding: const EdgeInsets.all(5),
-                        child: Text(statusPelamar,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            )),
-                      ),
-                    ),
+                    colorChangeStatus()
                   ],
                 ),
               ),

@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:latihan_firebase/view_model/news_api_view_model.dart';
-import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -54,7 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<NewsViewModel>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
           elevation: 0,
@@ -62,9 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
             'Hi, $name',
           )),
       body: SingleChildScrollView(
-        child: Column(children: [
+        child: Column(children: const [
           Center(
-            child: const Text(
+            child: Text(
               "Coming soon!",
               style: TextStyle(
                   fontSize: 30,

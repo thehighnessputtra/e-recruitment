@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:latihan_firebase/style/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AppliedJobDetail extends StatefulWidget {
@@ -115,10 +114,10 @@ class _AppliedJobDetailState extends State<AppliedJobDetail> {
                         borderRadius: BorderRadius.circular(30),
                         color: Colors.blue,
                       ),
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       child: Text(widget.statusPelamar,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -176,10 +175,10 @@ class _AppliedJobDetailState extends State<AppliedJobDetail> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
+                  const Expanded(
                       flex: 2,
                       child: Text("About", style: TextStyle(fontSize: 16))),
-                  Text(" : ", style: TextStyle(fontSize: 16)),
+                  const Text(" : ", style: TextStyle(fontSize: 16)),
                   Expanded(
                     flex: 4,
                     child: Text(widget.aboutPelamar,
@@ -197,7 +196,6 @@ class _AppliedJobDetailState extends State<AppliedJobDetail> {
   }
 
   adminController() {
-    User? user = FirebaseAuth.instance.currentUser;
     // if (user!.email == "prayogidwicahyoputra@gmail.com") {
     if (role == "Admin") {
       return Row(
@@ -205,9 +203,6 @@ class _AppliedJobDetailState extends State<AppliedJobDetail> {
         children: [
           ElevatedButton(
               onPressed: () {
-                FirebaseFirestore firebaseFirestore =
-                    FirebaseFirestore.instance;
-                var user = FirebaseAuth.instance.currentUser;
                 CollectionReference ref =
                     FirebaseFirestore.instance.collection('listapply');
                 ref.doc(widget.emailPelamar + widget.namaLokerPelamar).update({
@@ -218,12 +213,9 @@ class _AppliedJobDetailState extends State<AppliedJobDetail> {
                         "${widget.namaPelamar}-${widget.namaLokerPelamar} DITERIMA!")));
                 Navigator.pop(context);
               },
-              child: Text("Terima")),
+              child: const Text("Terima")),
           ElevatedButton(
               onPressed: () {
-                FirebaseFirestore firebaseFirestore =
-                    FirebaseFirestore.instance;
-                var user = FirebaseAuth.instance.currentUser;
                 CollectionReference ref =
                     FirebaseFirestore.instance.collection('listapply');
                 ref.doc(widget.emailPelamar + widget.namaLokerPelamar).update({
@@ -234,29 +226,29 @@ class _AppliedJobDetailState extends State<AppliedJobDetail> {
                         "${widget.namaPelamar}-${widget.namaLokerPelamar} DITOLAK!")));
                 Navigator.pop(context);
               },
-              child: Text("Tolak")),
+              child: const Text("Tolak")),
           ElevatedButton(
               onPressed: () async {
                 if (widget.emailPelamar != null) {
-                  final Uri _url = Uri.parse(
+                  final Uri url = Uri.parse(
                       "mailto:${widget.emailPelamar}?cc=&bcc=&subject=${widget.statusPelamar}_${widget.namaPelamar}_${widget.namaLokerPelamar}&body=Selamat%20anda%20${widget.namaPelamar}%20telah%20${widget.statusPelamar}%20di%20${widget.namaPerusahaanPelamar}%20sebagai%20${widget.namaLokerPelamar}");
-                  if (!await launchUrl(_url,
+                  if (!await launchUrl(url,
                       mode: LaunchMode.externalApplication)) {
-                    throw "Could not launch $_url";
+                    throw "Could not launch $url";
                   }
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("Could not launch URL!")));
                 }
               },
-              child: Text("Email")),
+              child: const Text("Email")),
           ElevatedButton(
               onPressed: () async {
                 if (widget.cvURLPelamar != null) {
-                  final Uri _url = Uri.parse(widget.cvURLPelamar);
-                  if (!await launchUrl(_url,
+                  final Uri url = Uri.parse(widget.cvURLPelamar);
+                  if (!await launchUrl(url,
                       mode: LaunchMode.externalApplication)) {
-                    throw "Could not launch $_url";
+                    throw "Could not launch $url";
                   }
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(

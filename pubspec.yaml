@@ -19,6 +19,7 @@ dependencies:
   firebase_storage: ^11.0.6
   flutter:
     sdk: flutter
+  flutter_native_splash: ^2.2.16
   fluttertoast: ^8.1.1
   get: ^4.6.5
   google_fonts: ^3.0.1
@@ -35,6 +36,10 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  color: "#ffffff"
+
 
 flutter_icons:
   android: "ic_launcher"

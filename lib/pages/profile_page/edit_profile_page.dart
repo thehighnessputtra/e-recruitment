@@ -5,11 +5,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:latihan_firebase/pages/login_regist/login_page.dart';
-import 'package:latihan_firebase/pages/profile_page/edit_profile_page.dart';
-import 'package:latihan_firebase/services/firebase_storage_services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EditProfile extends StatefulWidget {
@@ -117,7 +112,7 @@ class _EditProfileState extends State<EditProfile> {
               ),
               Center(
                 child: Text(
-                  "${email}",
+                  "$email",
                   style: const TextStyle(color: Colors.grey),
                 ),
               ),
@@ -174,10 +169,10 @@ class _EditProfileState extends State<EditProfile> {
                         ElevatedButton(
                             onPressed: () async {
                               if (cvURL != null) {
-                                final Uri _url = Uri.parse(cvURL!);
-                                if (!await launchUrl(_url,
+                                final Uri url = Uri.parse(cvURL!);
+                                if (!await launchUrl(url,
                                     mode: LaunchMode.externalApplication)) {
-                                  throw "Could not launch $_url";
+                                  throw "Could not launch $url";
                                 }
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -198,8 +193,6 @@ class _EditProfileState extends State<EditProfile> {
                             )),
                         ElevatedButton(
                             onPressed: () {
-                              FirebaseFirestore firebaseFirestore =
-                                  FirebaseFirestore.instance;
                               var user = FirebaseAuth.instance.currentUser;
                               CollectionReference ref = FirebaseFirestore
                                   .instance
@@ -233,12 +226,11 @@ class _EditProfileState extends State<EditProfile> {
       await storage.ref('avatar/$email/$fileName').putFile(File(path));
       String getDownloadUrl =
           await storage.ref('avatar/$email/$fileName').getDownloadURL();
-      print("DOWNLOAD AVATAR = ${getDownloadUrl}");
+      print("DOWNLOAD AVATAR = $getDownloadUrl");
       setState(() {
         avatarName = fileName;
         avatarUrl = getDownloadUrl;
       });
-      FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
       var user = FirebaseAuth.instance.currentUser;
       CollectionReference ref = FirebaseFirestore.instance.collection('users');
       ref.doc(user!.email).update({
@@ -247,6 +239,7 @@ class _EditProfileState extends State<EditProfile> {
         'avatarUrl': getDownloadUrl
       });
 
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Upload Sukses!")));
     } else {
@@ -266,12 +259,11 @@ class _EditProfileState extends State<EditProfile> {
       await storage.ref('cv/$email/$fileName').putFile(File(path));
       String getDownloadUrl =
           await storage.ref('cv/$email/$fileName').getDownloadURL();
-      print("DOWNLOAD CV = ${getDownloadUrl}");
+      print("DOWNLOAD CV = $getDownloadUrl");
       setState(() {
         cvName = fileName;
         cvURL = getDownloadUrl;
       });
-      FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
       var user = FirebaseAuth.instance.currentUser;
       CollectionReference ref = FirebaseFirestore.instance.collection('users');
       ref.doc(user!.email).update({
@@ -280,9 +272,11 @@ class _EditProfileState extends State<EditProfile> {
         'cvURL': getDownloadUrl
       });
 
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Upload Sukses!")));
     } else {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("No file selected!")));
     }
