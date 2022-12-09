@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:latihan_firebase/pages/login_regist/login_page.dart';
+import 'package:latihan_firebase/pages/profile_page/edit_profile_page.dart';
 import 'package:latihan_firebase/services/firebase_storage_services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -26,7 +27,8 @@ class _ProfilePageState extends State<ProfilePage> {
   String? role;
   String? cvName;
   String? cvURL;
-
+  String? about;
+  String? avatarUrl;
   Future getDocID() async {
     await FirebaseFirestore.instance
         .collection('users')
@@ -40,6 +42,8 @@ class _ProfilePageState extends State<ProfilePage> {
           role = snapshot.data()!['role'];
           cvName = snapshot.data()!['cvName'];
           cvURL = snapshot.data()!['cvURL'];
+          about = snapshot.data()!['about'];
+          avatarUrl = snapshot.data()!['avatarUrl'];
         });
       }
     });
@@ -54,75 +58,10 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 60.0,
-          ),
-          Center(
-            child: Stack(
-              children: [
-                ClipOval(
-                    child: Material(
-                        child: Ink.image(
-                  image: const AssetImage("assets/images/admin.jpeg"),
-                  fit: BoxFit.cover,
-                  width: 120,
-                  height: 120,
-                ))),
-                Positioned(
-                    bottom: 0,
-                    right: 4,
-                    child: InkWell(
-                      onTap: () async {
-                        // uploadCV();
-                      },
-                      child: ClipOval(
-                          child: Container(
-                              decoration: const BoxDecoration(
-                                  color: Colors.blue,
-                                  shape: BoxShape.circle,
-                                  border: Border.fromBorderSide(BorderSide(
-                                      width: 2.5, color: Colors.white))),
-                              padding: const EdgeInsets.all(8),
-                              child: const Icon(
-                                Icons.edit,
-                                size: 20,
-                                color: Colors.white,
-                              ))),
-                    ))
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 20.0,
-          ),
-          Center(
-            child: Text(
-              "$name ($role)",
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-            ),
-          ),
-          const SizedBox(
-            height: 5.0,
-          ),
-          Center(
-            child: Text(
-              "${email}",
-              style: const TextStyle(color: Colors.grey),
-            ),
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          Center(
-            child: ElevatedButton(
-                style: ButtonStyle(
-                    elevation: const MaterialStatePropertyAll(0),
-                    shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25)))),
+        appBar: AppBar(
+          title: const Text("Profile"),
+          actions: [
+            IconButton(
                 onPressed: () {
                   FirebaseAuth.instance.signOut();
                   Navigator.pushReplacement(
@@ -131,82 +70,123 @@ class _ProfilePageState extends State<ProfilePage> {
                         builder: (context) => const LoginPage(),
                       ));
                 },
-                child: const Text("Logout")),
-          ),
-          const SizedBox(
-            height: 20.0,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "About",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                icon: const Icon(Icons.logout))
+          ],
+        ),
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [
+              Center(
+                child: Stack(
+                  children: [
+                    ClipOval(
+                        child: Material(
+                            child: Ink.image(
+                      image: NetworkImage("$avatarUrl"),
+                      fit: BoxFit.cover,
+                      width: 120,
+                      height: 120,
+                    ))),
+                  ],
                 ),
-                const Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                  textAlign: TextAlign.justify,
-                  style: TextStyle(fontSize: 17, height: 1.3),
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              Center(
+                child: Text(
+                  "$name",
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                const SizedBox(
-                  height: 10.0,
+              ),
+              const SizedBox(
+                height: 5.0,
+              ),
+              Center(
+                child: Text(
+                  "$email",
+                  style: const TextStyle(color: Colors.grey),
                 ),
-                TextFormField(
-                  readOnly: true,
-                  onTap: () async {
-                    uploadCV();
-                  },
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    // labelText: "CV",
-                    hintText: cvName,
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                  ),
-                ),
-                // const SizedBox(
-                //   height: 10.0,
-                // ),
-                Center(
-                  child: ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              const MaterialStatePropertyAll(Colors.green),
-                          elevation: const MaterialStatePropertyAll(0),
-                          shape: MaterialStatePropertyAll(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25)))),
-                      onPressed: () async {
-                        if (cvURL != null) {
-                          final Uri _url = Uri.parse(cvURL!);
-                          if (!await launchUrl(_url,
-                              mode: LaunchMode.externalApplication)) {
-                            throw "Could not launch $_url";
-                          }
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text("Could not launch URL!")));
-                        }
-
-                        // testing();
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //     const SnackBar(content: Text("Coming soon")));
-                      },
-                      child: const Text(
-                        "Download CV",
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              Center(
+                child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const EditProfile(),
+                          ));
+                    },
+                    child: const Text("Edit Profile")),
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "About",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      "$about",
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(fontSize: 17, height: 1.3),
+                    ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    const Text("Curriculum Vitae",
                         style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      )),
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                    TextFormField(
+                      readOnly: true,
+                      onTap: () {},
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 2, color: Colors.lightBlue.shade100)),
+                        hintText: cvName,
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    Center(
+                      child: ElevatedButton(
+                          onPressed: () async {
+                            if (cvURL != null) {
+                              final Uri _url = Uri.parse(cvURL!);
+                              if (!await launchUrl(_url,
+                                  mode: LaunchMode.externalApplication)) {
+                                throw "Could not launch $_url";
+                              }
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text("Could not launch URL!")));
+                            }
+                          },
+                          child: const Text(
+                            "Download CV",
+                          )),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
-    ));
+        ));
   }
 
   uploadCV() async {

@@ -73,10 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.transparent,
           title: Text(
             'Hi, $name',
-            style: const TextStyle(color: Colors.blueGrey),
           )),
       body: Column(children: [
         CarouselSlider.builder(

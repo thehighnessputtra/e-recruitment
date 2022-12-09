@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:latihan_firebase/pages/job_page/apply_job.dart';
 import 'package:latihan_firebase/style/theme.dart';
 
 class JobDetailUser extends StatefulWidget {
@@ -37,7 +36,8 @@ class _JobDetailUserState extends State<JobDetailUser> {
   String? role;
   String? cvName;
   String? cvURL;
-
+  String? about;
+  String? avatarUrl;
   Future getDocID() async {
     await FirebaseFirestore.instance
         .collection('users')
@@ -51,6 +51,8 @@ class _JobDetailUserState extends State<JobDetailUser> {
           role = snapshot.data()!['role'];
           cvName = snapshot.data()!['cvName'];
           cvURL = snapshot.data()!['cvURL'];
+          about = snapshot.data()!['about'];
+          avatarUrl = snapshot.data()!['avatarUrl'];
         });
       }
     });
@@ -233,13 +235,19 @@ class _JobDetailUserState extends State<JobDetailUser> {
                               CollectionReference reference = FirebaseFirestore
                                   .instance
                                   .collection("listapply");
-                              await reference.add({
+                              await reference
+                                  .doc(email! + widget.namaLoker)
+                                  .set({
                                 "namaLoker": widget.namaLoker,
                                 "namaPerusahaan": widget.namaPerusahaan,
                                 "gaji": widget.gaji,
                                 "namaPelamar": name,
                                 "cvName": cvName,
-                                "cvURL": cvURL
+                                "cvURL": cvURL,
+                                "email": email,
+                                "about": about,
+                                "avatarUrl": avatarUrl,
+                                "status": "Menunggu",
                               });
                             });
                             ScaffoldMessenger.of(context).showSnackBar(

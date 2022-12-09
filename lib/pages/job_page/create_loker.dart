@@ -191,7 +191,10 @@ class _CreateLokerState extends State<CreateLoker> {
                         .runTransaction((transaction) async {
                       CollectionReference reference =
                           FirebaseFirestore.instance.collection("listLoker");
-                      await reference.doc(controllerNamaLoker.text).set({
+                      await reference
+                          .doc(controllerNamaLoker.text +
+                              DateTime.now().millisecondsSinceEpoch.toString())
+                          .set({
                         "namaLoker": controllerNamaLoker.text,
                         "namaPerusahaan": controllerNamaPerusahaan.text,
                         "tipePekerjaan": controllerTipePekerjaan.text,
@@ -202,7 +205,8 @@ class _CreateLokerState extends State<CreateLoker> {
                             controllerDeskripsiPerusahaan.text,
                         "deskripsiKeahlian": controllerDeskripsiKeahlian.text,
                         "deskripsiKualifikasi":
-                            controllerDeskripsiKualifikasi.text
+                            controllerDeskripsiKualifikasi.text,
+                        "createTime": DateTime.now().millisecondsSinceEpoch
                       });
                     });
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

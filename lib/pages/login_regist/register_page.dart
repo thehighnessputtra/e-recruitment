@@ -202,7 +202,12 @@ class _RegisterPageState extends State<RegisterPage> {
       'email': _emailController.text,
       'role': "User",
       'name': _nameController.text,
-      'cvName': "Masukan CV anda!"
+      'cvName': "Masukan CV anda!",
+      'about': "Masukan info tentang anda!",
+      'avatarUrl':
+          "https://firebasestorage.googleapis.com/v0/b/latihan-firebase-yogi.appspot.com/o/avatar%2Fadmin.jpeg?alt=media&token=5dfe6346-be26-46d0-9fa2-a0cd7148fe77",
+      'avatarUrl':
+          "https://firebasestorage.googleapis.com/v0/b/latihan-firebase-yogi.appspot.com/o/avatar%2Fadmin.jpeg?alt=media&token=5dfe6346-be26-46d0-9fa2-a0cd7148fe77"
     });
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => const LoginPage()));
