@@ -48,6 +48,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     getDocID();
+
     super.initState();
   }
 
@@ -146,13 +147,14 @@ class _ProfilePageState extends State<ProfilePage> {
                             fontSize: 18, fontWeight: FontWeight.bold)),
                     TextFormField(
                       readOnly: true,
-                      onTap: () {},
                       decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 2, color: Colors.lightBlue.shade100)),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                                 width: 2, color: Colors.lightBlue.shade100)),
                         hintText: cvName,
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
                       ),
                     ),
                     const SizedBox(
@@ -164,38 +166,5 @@ class _ProfilePageState extends State<ProfilePage> {
             ],
           ),
         ));
-  }
-
-  uploadCV() async {
-    final result = await FilePicker.platform
-        .pickFiles(allowMultiple: false, type: FileType.any);
-    if (result != null) {
-      final path = result.files.single.path!;
-      final fileName = result.files.single.name;
-
-      FirebaseStorage storage = FirebaseStorage.instance;
-      await storage.ref('cv/$email/$fileName').putFile(File(path));
-      String getDownloadUrl =
-          await storage.ref('cv/$email/$fileName').getDownloadURL();
-      setState(() {
-        cvName = fileName;
-        cvURL = getDownloadUrl;
-      });
-      var user = FirebaseAuth.instance.currentUser;
-      CollectionReference ref = FirebaseFirestore.instance.collection('users');
-      ref.doc(user!.email).update({
-        'cvName': cvName,
-        'cvPath': "cv/$email/$fileName",
-        'cvURL': getDownloadUrl
-      });
-
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Upload Sukses!")));
-    } else {
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("No file selected!")));
-    }
   }
 }

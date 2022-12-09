@@ -107,23 +107,7 @@ class _AppliedJobDetailState extends State<AppliedJobDetail> {
                   const SizedBox(
                     width: 10.0,
                   ),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: Colors.blue,
-                      ),
-                      padding: const EdgeInsets.all(5),
-                      child: Text(widget.statusPelamar,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          )),
-                    ),
-                  )
+                  colorStatus()
                 ],
               ),
               const SizedBox(
@@ -195,69 +179,146 @@ class _AppliedJobDetailState extends State<AppliedJobDetail> {
         ));
   }
 
+  colorStatus() {
+    if (widget.statusPelamar == "DITERIMA") {
+      return Expanded(
+        flex: 2,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: Colors.green,
+          ),
+          padding: const EdgeInsets.all(5),
+          child: Text(widget.statusPelamar,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              )),
+        ),
+      );
+    } else if (widget.statusPelamar == "DITOLAK") {
+      return Expanded(
+        flex: 2,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: Colors.red,
+          ),
+          padding: const EdgeInsets.all(5),
+          child: Text(widget.statusPelamar,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              )),
+        ),
+      );
+    } else {
+      return Expanded(
+        flex: 2,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: Colors.blue,
+          ),
+          padding: const EdgeInsets.all(5),
+          child: Text(widget.statusPelamar,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              )),
+        ),
+      );
+    }
+  }
+
   adminController() {
     // if (user!.email == "prayogidwicahyoputra@gmail.com") {
     if (role == "Admin") {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      return Column(
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    CollectionReference ref =
+                        FirebaseFirestore.instance.collection('listapply');
+                    ref
+                        .doc(widget.emailPelamar + widget.namaLokerPelamar)
+                        .update({
+                      'status': "DITERIMA",
+                    });
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                            "${widget.namaPelamar}-${widget.namaLokerPelamar} DITERIMA!")));
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Terima")),
+              ElevatedButton(
+                  onPressed: () {
+                    CollectionReference ref =
+                        FirebaseFirestore.instance.collection('listapply');
+                    ref
+                        .doc(widget.emailPelamar + widget.namaLokerPelamar)
+                        .update({
+                      'status': "DITOLAK",
+                    });
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                            "${widget.namaPelamar}-${widget.namaLokerPelamar} DITOLAK!")));
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Tolak")),
+              ElevatedButton(
+                  onPressed: () async {
+                    if (widget.emailPelamar != null) {
+                      final Uri url = Uri.parse(
+                          "mailto:${widget.emailPelamar}?cc=&bcc=&subject=${widget.statusPelamar}_${widget.namaPelamar}_${widget.namaLokerPelamar}&body=Selamat%20anda%20${widget.namaPelamar}%20telah%20${widget.statusPelamar}%20di%20${widget.namaPerusahaanPelamar}%20sebagai%20${widget.namaLokerPelamar}");
+                      if (!await launchUrl(url,
+                          mode: LaunchMode.externalApplication)) {
+                        throw "Could not launch $url";
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Could not launch URL!")));
+                    }
+                  },
+                  child: const Text("Email")),
+              ElevatedButton(
+                  onPressed: () async {
+                    if (widget.cvURLPelamar != null) {
+                      final Uri url = Uri.parse(widget.cvURLPelamar);
+                      if (!await launchUrl(url,
+                          mode: LaunchMode.externalApplication)) {
+                        throw "Could not launch $url";
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Could not launch URL!")));
+                    }
+                  },
+                  child: const Text(
+                    "Download CV",
+                  )),
+            ],
+          ),
           ElevatedButton(
               onPressed: () {
                 CollectionReference ref =
                     FirebaseFirestore.instance.collection('listapply');
-                ref.doc(widget.emailPelamar + widget.namaLokerPelamar).update({
-                  'status': "DITERIMA",
-                });
+                ref.doc(widget.emailPelamar + widget.namaLokerPelamar).delete();
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(
-                        "${widget.namaPelamar}-${widget.namaLokerPelamar} DITERIMA!")));
+                        "${widget.namaPelamar}-${widget.namaLokerPelamar} DIHAPUS!")));
                 Navigator.pop(context);
               },
-              child: const Text("Terima")),
-          ElevatedButton(
-              onPressed: () {
-                CollectionReference ref =
-                    FirebaseFirestore.instance.collection('listapply');
-                ref.doc(widget.emailPelamar + widget.namaLokerPelamar).update({
-                  'status': "DITOLAK",
-                });
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text(
-                        "${widget.namaPelamar}-${widget.namaLokerPelamar} DITOLAK!")));
-                Navigator.pop(context);
-              },
-              child: const Text("Tolak")),
-          ElevatedButton(
-              onPressed: () async {
-                if (widget.emailPelamar != null) {
-                  final Uri url = Uri.parse(
-                      "mailto:${widget.emailPelamar}?cc=&bcc=&subject=${widget.statusPelamar}_${widget.namaPelamar}_${widget.namaLokerPelamar}&body=Selamat%20anda%20${widget.namaPelamar}%20telah%20${widget.statusPelamar}%20di%20${widget.namaPerusahaanPelamar}%20sebagai%20${widget.namaLokerPelamar}");
-                  if (!await launchUrl(url,
-                      mode: LaunchMode.externalApplication)) {
-                    throw "Could not launch $url";
-                  }
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Could not launch URL!")));
-                }
-              },
-              child: const Text("Email")),
-          ElevatedButton(
-              onPressed: () async {
-                if (widget.cvURLPelamar != null) {
-                  final Uri url = Uri.parse(widget.cvURLPelamar);
-                  if (!await launchUrl(url,
-                      mode: LaunchMode.externalApplication)) {
-                    throw "Could not launch $url";
-                  }
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Could not launch URL!")));
-                }
-              },
-              child: const Text(
-                "Download CV",
-              )),
+              child: const Text("DELETE")),
         ],
       );
     } else {

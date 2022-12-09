@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:latihan_firebase/pages/navbottom_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EditProfile extends StatefulWidget {
@@ -51,9 +52,9 @@ class _EditProfileState extends State<EditProfile> {
     super.initState();
   }
 
+  final aboutController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final aboutController = TextEditingController();
     return Scaffold(
         appBar: AppBar(
           title: const Text("Edit Profile"),
@@ -150,6 +151,9 @@ class _EditProfileState extends State<EditProfile> {
                             fontSize: 18, fontWeight: FontWeight.bold)),
                     TextFormField(
                       readOnly: true,
+                      onTap: () {
+                        uploadCV();
+                      },
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -193,16 +197,18 @@ class _EditProfileState extends State<EditProfile> {
                             )),
                         ElevatedButton(
                             onPressed: () {
-                              var user = FirebaseAuth.instance.currentUser;
-                              CollectionReference ref = FirebaseFirestore
-                                  .instance
-                                  .collection('users');
-                              ref.doc(user!.email).update({
-                                'about': aboutController.text,
-                              });
+                              uploadAllFile();
+                              // var user = FirebaseAuth.instance.currentUser;
+                              // CollectionReference ref = FirebaseFirestore
+                              //     .instance
+                              //     .collection('users');
+                              // ref.doc(user!.email).update({
+                              //   'about': aboutController.text,
+                              // });
                               ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       content: Text("Save Changes!")));
+                              Navigator.pop(context);
                             },
                             child: const Text("Save Changes"))
                       ],
@@ -231,17 +237,17 @@ class _EditProfileState extends State<EditProfile> {
         avatarName = fileName;
         avatarUrl = getDownloadUrl;
       });
-      var user = FirebaseAuth.instance.currentUser;
-      CollectionReference ref = FirebaseFirestore.instance.collection('users');
-      ref.doc(user!.email).update({
-        'avatarName': cvName,
-        'avatarPath': "cv/$email/$fileName",
-        'avatarUrl': getDownloadUrl
-      });
+      // var user = FirebaseAuth.instance.currentUser;
+      // CollectionReference ref = FirebaseFirestore.instance.collection('users');
+      // ref.doc(user!.email).update({
+      //   'avatarName': cvName,
+      //   'avatarPath': "cv/$email/$fileName",
+      //   'avatarUrl': getDownloadUrl
+      // });
 
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Upload Sukses!")));
+          .showSnackBar(const SnackBar(content: Text("File Selected")));
     } else {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("No file selected!")));
@@ -264,21 +270,35 @@ class _EditProfileState extends State<EditProfile> {
         cvName = fileName;
         cvURL = getDownloadUrl;
       });
-      var user = FirebaseAuth.instance.currentUser;
-      CollectionReference ref = FirebaseFirestore.instance.collection('users');
-      ref.doc(user!.email).update({
-        'cvName': cvName,
-        'cvPath': "cv/$email/$fileName",
-        'cvURL': getDownloadUrl
-      });
+      // var user = FirebaseAuth.instance.currentUser;
+      // CollectionReference ref = FirebaseFirestore.instance.collection('users');
+      // ref.doc(user!.email).update({
+      //   'cvName': cvName,
+      //   'cvPath': "cv/$email/$fileName",
+      //   'cvURL': getDownloadUrl
+      // });
 
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Upload Sukses!")));
+          .showSnackBar(const SnackBar(content: Text("File Selected")));
     } else {
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("No file selected!")));
     }
+  }
+
+  uploadAllFile() {
+    var user = FirebaseAuth.instance.currentUser;
+    CollectionReference ref = FirebaseFirestore.instance.collection('users');
+    ref.doc(user!.email).update({
+      'avatarName': avatarName,
+      'avatarPath': "cv/$email/$avatarName",
+      'avatarUrl': avatarUrl,
+      'cvName': cvName,
+      'cvPath': "cv/$email/$cvName",
+      'about': aboutController.text,
+      'cvURL': cvURL
+    });
   }
 }

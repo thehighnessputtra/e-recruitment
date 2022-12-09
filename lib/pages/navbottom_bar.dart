@@ -6,7 +6,6 @@ import 'package:latihan_firebase/pages/profile_page/profile_page.dart';
 
 class NavBottomBarUser extends StatefulWidget {
   const NavBottomBarUser({super.key});
-
   @override
   State<NavBottomBarUser> createState() => _NavBottomBarUserState();
 }
