@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:latihan_firebase/pages/job_page/create_loker.dart';
 import 'package:latihan_firebase/pages/job_page/job_detail.dart';
 
@@ -74,7 +75,7 @@ class ItemLoker extends StatelessWidget {
         String namaLoker = itemsLoker['namaLoker'].toString();
         String namaPerusahaan = itemsLoker['namaPerusahaan'].toString();
         String tipePekerjaan = itemsLoker['tipePekerjaan'].toString();
-        String gaji = itemsLoker['gaji'].toString();
+        String gaji = itemsLoker['gaji'];
         String urlLogo = itemsLoker['urlLogo'].toString();
         String deskripsiKualifikasi =
             itemsLoker['deskripsiKualifikasi'].toString();
@@ -82,106 +83,114 @@ class ItemLoker extends StatelessWidget {
         String deskripsiPerusahaan =
             itemsLoker['deskripsiPerusahaan'].toString();
 
-        return Padding(
-          padding: const EdgeInsets.only(top: 5),
-          child: ListTile(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            tileColor: Colors.blue[800],
-            title: Text(
-              namaLoker,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold),
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => JobDetailUser(
+                    deskripsiKeahlian: deskripsiKeahlian,
+                    deskripsiKualifikasi: deskripsiKualifikasi,
+                    deskripsiPerusahaan: deskripsiPerusahaan,
+                    gaji: gaji,
+                    urlLogo: urlLogo,
+                    lokasi: lokasi,
+                    namaLoker: namaLoker,
+                    namaPerusahaan: namaPerusahaan,
+                    tipePekerjaan: tipePekerjaan),
+              ),
+            );
+          },
+          child: Card(
+            color: const Color(0xFFF3F8F9),
+            elevation: 2,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(namaLoker,
+                            style: TextStyle(
+                                fontSize: 20, color: Colors.blue[800])),
+                        Text("$namaPerusahaan, $lokasi"),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: Colors.blue,
+                      ),
+                      padding: const EdgeInsets.all(5),
+                      child: Text(
+                          NumberFormat.currency(
+                                  locale: 'id', symbol: 'RP ', decimalDigits: 0)
+                              .format(double.parse(gaji)),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            subtitle: Text(
-              "$namaPerusahaan, $lokasi",
-              style: const TextStyle(color: Colors.white),
-            ),
-            trailing: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.monetization_on, color: Colors.white),
-                Text(
-                  gaji,
-                  style: const TextStyle(color: Colors.white),
-                )
-              ],
-            ),
-            onTap: () async {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => JobDetailUser(
-                        deskripsiKeahlian: deskripsiKeahlian,
-                        deskripsiKualifikasi: deskripsiKualifikasi,
-                        deskripsiPerusahaan: deskripsiPerusahaan,
-                        gaji: gaji,
-                        urlLogo: urlLogo,
-                        lokasi: lokasi,
-                        namaLoker: namaLoker,
-                        namaPerusahaan: namaPerusahaan,
-                        tipePekerjaan: tipePekerjaan),
-                  ));
-              // await showModalBottomSheet<void>(
-              //   context: context,
-              //   builder: (BuildContext context) {
-              //     return Container(
-              //       padding: const EdgeInsets.all(20.0),
-              //       child: SizedBox(
-              //         width: MediaQuery.of(context).size.width,
-              //         child: SingleChildScrollView(
-              //           scrollDirection: Axis.vertical,
-              //           child: Column(
-              //             crossAxisAlignment: CrossAxisAlignment.start,
-              //             children: [
-              //               const SizedBox(
-              //                 height: 10.0,
-              //               ),
-              //               const Text(
-              //                 "Deskripsi Perusahaan :",
-              //                 style: TextStyle(
-              //                     fontSize: 15, fontWeight: FontWeight.bold),
-              //               ),
-              //               Text(deskripsiPerusahaan),
-              //               const SizedBox(
-              //                 height: 5.0,
-              //               ),
-              //               const Text(
-              //                 "Keahlian :",
-              //                 style: TextStyle(
-              //                     fontSize: 15, fontWeight: FontWeight.bold),
-              //               ),
-              //               Text(deskripsiKeahlian),
-              //               const SizedBox(
-              //                 height: 5.0,
-              //               ),
-              //               const Text(
-              //                 "Kualifikasi :",
-              //                 style: TextStyle(
-              //                     fontSize: 15, fontWeight: FontWeight.bold),
-              //               ),
-              //               Text(deskripsiKualifikasi),
-              //               ElevatedButton(
-              //                 style: ElevatedButton.styleFrom(
-              //                   backgroundColor: Colors.blueGrey,
-              //                 ),
-              //                 onPressed: () {
-              //                   Navigator.pop(context);
-              //                 },
-              //                 child: const Text("Ok"),
-              //               ),
-              //             ],
-              //           ),
-              //         ),
-              //       ),
-              //     );
-              //   },
-              // );
-            },
           ),
         );
+        // Padding(
+        //   padding: const EdgeInsets.only(top: 5),
+        //   child: ListTile(
+        //     shape:
+        //         RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        //     tileColor: Colors.blue[800],
+        //     title: Text(
+        //       namaLoker,
+        //       style: const TextStyle(
+        //           color: Colors.white,
+        //           fontSize: 15,
+        //           fontWeight: FontWeight.bold),
+        //     ),
+        //     subtitle: Text(
+        //       "$namaPerusahaan, $lokasi",
+        //       style: const TextStyle(color: Colors.white),
+        //     ),
+        //     trailing: Column(
+        //       mainAxisAlignment: MainAxisAlignment.center,
+        //       children: [
+        //         const Icon(Icons.monetization_on, color: Colors.white),
+        //         Text(
+        //           gaji,
+        //           style: const TextStyle(color: Colors.white),
+        //         )
+        //       ],
+        //     ),
+        //     onTap: () async {
+        //       Navigator.push(
+        //           context,
+        //           MaterialPageRoute(
+        //             builder: (context) => JobDetailUser(
+        //                 deskripsiKeahlian: deskripsiKeahlian,
+        //                 deskripsiKualifikasi: deskripsiKualifikasi,
+        //                 deskripsiPerusahaan: deskripsiPerusahaan,
+        //                 gaji: gaji,
+        //                 urlLogo: urlLogo,
+        //                 lokasi: lokasi,
+        //                 namaLoker: namaLoker,
+        //                 namaPerusahaan: namaPerusahaan,
+        //                 tipePekerjaan: tipePekerjaan),
+        //           ));
+        //     },
+        //   ),
+        // );
       },
     );
   }

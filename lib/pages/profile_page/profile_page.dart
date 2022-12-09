@@ -162,25 +162,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     const SizedBox(
                       height: 10.0,
                     ),
-                    Center(
-                      child: ElevatedButton(
-                          onPressed: () async {
-                            if (cvURL != null) {
-                              final Uri _url = Uri.parse(cvURL!);
-                              if (!await launchUrl(_url,
-                                  mode: LaunchMode.externalApplication)) {
-                                throw "Could not launch $_url";
-                              }
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text("Could not launch URL!")));
-                            }
-                          },
-                          child: const Text(
-                            "Download CV",
-                          )),
-                    ),
                   ],
                 ),
               ),

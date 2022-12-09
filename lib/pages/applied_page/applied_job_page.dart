@@ -97,99 +97,129 @@ class _ListApplyState extends State<ListApply> {
         String avatarUrlPelamar = itemsApply['avatarUrl'];
         String statusPelamar = itemsApply['status'];
         if (emailPelamar == email) {
-          return Padding(
-            padding: const EdgeInsets.only(top: 5),
-            child: ListTile(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              tileColor: Colors.blue[800],
-              title: Text(
-                namaLoker,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold),
-              ),
-              subtitle: Text(
-                "$namaPerusahaan, $namaPelamar",
-                style: const TextStyle(color: Colors.white),
-              ),
-              trailing: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.monetization_on, color: Colors.white),
-                  Text(
-                    gaji,
-                    style: const TextStyle(color: Colors.white),
-                  )
-                ],
-              ),
-              onTap: () async {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AppliedJobDetail(
-                        namaPelamar: namaPelamar,
-                        namaLokerPelamar: namaLoker,
-                        namaPerusahaanPelamar: namaPerusahaan,
-                        gajiPelamar: gaji,
-                        emailPelamar: emailPelamar,
-                        cvNamePelamar: cvNamePelamar,
-                        cvURLPelamar: cvURLPelamar,
-                        aboutPelamar: aboutPelamar,
-                        avatarUrlPelamar: avatarUrlPelamar,
-                        statusPelamar: statusPelamar,
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AppliedJobDetail(
+                      namaPelamar: namaPelamar,
+                      namaLokerPelamar: namaLoker,
+                      namaPerusahaanPelamar: namaPerusahaan,
+                      gajiPelamar: gaji,
+                      emailPelamar: emailPelamar,
+                      cvNamePelamar: cvNamePelamar,
+                      cvURLPelamar: cvURLPelamar,
+                      aboutPelamar: aboutPelamar,
+                      avatarUrlPelamar: avatarUrlPelamar,
+                      statusPelamar: statusPelamar,
+                    ),
+                  ));
+            },
+            child: Card(
+              color: const Color(0xFFF3F8F9),
+              elevation: 2,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 5,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(namaLoker,
+                              style: TextStyle(
+                                  fontSize: 20, color: Colors.blue[800])),
+                          Text(namaPelamar),
+                        ],
                       ),
-                    ));
-              },
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: Colors.blue,
+                        ),
+                        padding: const EdgeInsets.all(5),
+                        child: Text(statusPelamar,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           );
         } else if (role == "Admin") {
-          return Padding(
-            padding: const EdgeInsets.only(top: 5),
-            child: ListTile(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              tileColor: Colors.blue[800],
-              title: Text(
-                namaLoker,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold),
-              ),
-              subtitle: Text(
-                "$namaPerusahaan, $namaPelamar",
-                style: const TextStyle(color: Colors.white),
-              ),
-              trailing: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.monetization_on, color: Colors.white),
-                  Text(
-                    gaji,
-                    style: const TextStyle(color: Colors.white),
-                  )
-                ],
-              ),
-              onTap: () async {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AppliedJobDetail(
-                        namaPelamar: namaPelamar,
-                        namaLokerPelamar: namaLoker,
-                        namaPerusahaanPelamar: namaPerusahaan,
-                        gajiPelamar: gaji,
-                        emailPelamar: emailPelamar,
-                        cvNamePelamar: cvNamePelamar,
-                        cvURLPelamar: cvURLPelamar,
-                        aboutPelamar: aboutPelamar,
-                        avatarUrlPelamar: avatarUrlPelamar,
-                        statusPelamar: statusPelamar,
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AppliedJobDetail(
+                      namaPelamar: namaPelamar,
+                      namaLokerPelamar: namaLoker,
+                      namaPerusahaanPelamar: namaPerusahaan,
+                      gajiPelamar: gaji,
+                      emailPelamar: emailPelamar,
+                      cvNamePelamar: cvNamePelamar,
+                      cvURLPelamar: cvURLPelamar,
+                      aboutPelamar: aboutPelamar,
+                      avatarUrlPelamar: avatarUrlPelamar,
+                      statusPelamar: statusPelamar,
+                    ),
+                  ));
+            },
+            child: Card(
+              color: const Color(0xFFF3F8F9),
+              elevation: 2,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 5,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(namaLoker,
+                              style: TextStyle(
+                                  fontSize: 20, color: Colors.blue[800])),
+                          Text(namaPelamar),
+                        ],
                       ),
-                    ));
-              },
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: Colors.blue,
+                        ),
+                        padding: const EdgeInsets.all(5),
+                        child: Text(statusPelamar,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           );
         } else {

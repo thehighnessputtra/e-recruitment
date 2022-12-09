@@ -99,25 +99,31 @@ class _AppliedJobDetailState extends State<AppliedJobDetail> {
               ),
               Row(
                 children: [
-                  Text(widget.namaLokerPelamar,
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold)),
+                  Expanded(
+                    flex: 4,
+                    child: Text(widget.namaLokerPelamar,
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold)),
+                  ),
                   const SizedBox(
                     width: 10.0,
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Colors.blue,
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: Colors.blue,
+                      ),
+                      padding: EdgeInsets.all(5),
+                      child: Text(widget.statusPelamar,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          )),
                     ),
-                    padding: EdgeInsets.all(5),
-                    child: Text(widget.statusPelamar,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        )),
                   )
                 ],
               ),
@@ -207,8 +213,10 @@ class _AppliedJobDetailState extends State<AppliedJobDetail> {
                 ref.doc(widget.emailPelamar + widget.namaLokerPelamar).update({
                   'status': "DITERIMA",
                 });
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Save Changes!")));
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(
+                        "${widget.namaPelamar}-${widget.namaLokerPelamar} DITERIMA!")));
+                Navigator.pop(context);
               },
               child: Text("Terima")),
           ElevatedButton(
@@ -221,8 +229,10 @@ class _AppliedJobDetailState extends State<AppliedJobDetail> {
                 ref.doc(widget.emailPelamar + widget.namaLokerPelamar).update({
                   'status': "DITOLAK",
                 });
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Save Changes!")));
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(
+                        "${widget.namaPelamar}-${widget.namaLokerPelamar} DITOLAK!")));
+                Navigator.pop(context);
               },
               child: Text("Tolak")),
           ElevatedButton(

@@ -23,6 +23,7 @@ dependencies:
   google_fonts: ^3.0.1
   hive_flutter: ^1.1.0
   image_picker: ^0.8.6
+  intl: ^0.17.0
   ionicons: ^0.2.1
   url_launcher: ^6.1.7
   uuid: ^3.0.6
