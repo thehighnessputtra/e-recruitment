@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:latihan_firebase/pages/navbottom_bar.dart';
+import 'package:latihan_firebase/widget/dialog_widget.dart';
+import 'package:latihan_firebase/widget/transition_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EditProfile extends StatefulWidget {
@@ -26,6 +28,7 @@ class _EditProfileState extends State<EditProfile> {
   String? about;
   String? avatarUrl;
   String? avatarName;
+  String? biography;
   Future getDocID() async {
     await FirebaseFirestore.instance
         .collection('users')
@@ -52,9 +55,9 @@ class _EditProfileState extends State<EditProfile> {
     super.initState();
   }
 
-  final aboutController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    TextEditingController aboutController = TextEditingController(text: about);
     return Scaffold(
         appBar: AppBar(
           title: const Text("Edit Profile"),
@@ -69,7 +72,9 @@ class _EditProfileState extends State<EditProfile> {
                     ClipOval(
                         child: Material(
                             child: Ink.image(
-                      image: NetworkImage("$avatarUrl"),
+                      image: NetworkImage(avatarUrl == null
+                          ? "https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif"
+                          : "$avatarUrl"),
                       fit: BoxFit.cover,
                       width: 120,
                       height: 120,
@@ -103,7 +108,7 @@ class _EditProfileState extends State<EditProfile> {
               ),
               Center(
                 child: Text(
-                  "$name",
+                  name == null ? "Loading" : "$name",
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 20),
                 ),
@@ -113,7 +118,7 @@ class _EditProfileState extends State<EditProfile> {
               ),
               Center(
                 child: Text(
-                  "$email",
+                  email == null ? "Loading" : "$email",
                   style: const TextStyle(color: Colors.grey),
                 ),
               ),
@@ -126,14 +131,13 @@ class _EditProfileState extends State<EditProfile> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "About",
+                      "Biography",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     TextFormField(
                       controller: aboutController,
                       decoration: InputDecoration(
-                        hintText: about,
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
                                 width: 2, color: Colors.lightBlue.shade100)),
@@ -197,18 +201,18 @@ class _EditProfileState extends State<EditProfile> {
                             )),
                         ElevatedButton(
                             onPressed: () {
-                              uploadAllFile();
-                              // var user = FirebaseAuth.instance.currentUser;
-                              // CollectionReference ref = FirebaseFirestore
-                              //     .instance
-                              //     .collection('users');
-                              // ref.doc(user!.email).update({
-                              //   'about': aboutController.text,
-                              // });
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text("Save Changes!")));
-                              Navigator.pop(context);
+                              setState(() {
+                                biography = aboutController.text;
+                              });
+                              dialogValidasi(context, "Are you sure?", () {
+                                Navigator.pop(context);
+                                uploadAllFile();
+
+                                dialogInfo(context, "Success change profiles!");
+                                Future.delayed(const Duration(seconds: 3), () {
+                                  Navigator.pop(context);
+                                });
+                              });
                             },
                             child: const Text("Save Changes"))
                       ],
@@ -297,7 +301,7 @@ class _EditProfileState extends State<EditProfile> {
       'avatarUrl': avatarUrl,
       'cvName': cvName,
       'cvPath': "cv/$email/$cvName",
-      'about': aboutController.text,
+      'about': biography,
       'cvURL': cvURL
     });
   }

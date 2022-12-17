@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:latihan_firebase/widget/dialog_widget.dart';
 
 class CreateLoker extends StatefulWidget {
   const CreateLoker({Key? key}) : super(key: key);
@@ -100,7 +105,6 @@ class _CreateLokerState extends State<CreateLoker> {
               ),
               TextFormField(
                 controller: controllerGaji,
-                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -118,6 +122,10 @@ class _CreateLokerState extends State<CreateLoker> {
               ),
               TextFormField(
                 controller: controllerLogo,
+                onTap: () {
+                  uploadImage();
+                },
+                readOnly: false,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -208,13 +216,45 @@ class _CreateLokerState extends State<CreateLoker> {
                         "createTime": DateTime.now().millisecondsSinceEpoch
                       });
                     });
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Berhasil Menambahkan Loker!")));
-                    Navigator.pop(context);
+                    dialogInfo(context, "Success Create!");
+                    futureDelayNavBack(context, 3);
                   },
                   child: const Text("Simpan")),
             ],
           ),
         )));
+  }
+
+  uploadImage() async {
+    final result = await FilePicker.platform
+        .pickFiles(allowMultiple: false, type: FileType.image);
+    if (result != null) {
+      final path = result.files.single.path!;
+      final fileName = result.files.single.name;
+
+      FirebaseStorage storage = FirebaseStorage.instance;
+      await storage
+          .ref('job/${controllerNamaPerusahaan.text}/$fileName')
+          .putFile(File(path));
+      String getDownloadUrl = await storage
+          .ref('job/${controllerNamaPerusahaan.text}/$fileName')
+          .getDownloadURL();
+      print("DOWNLOAD AVATAR = $getDownloadUrl");
+      setState(() {
+        controllerLogo.text = getDownloadUrl;
+      });
+      // var user = FirebaseAuth.instance.currentUser;
+      // CollectionReference ref = FirebaseFirestore.instance.collection('users');
+      // ref.doc(user!.email).update({
+      //   'avatarName': cvName,
+      //   'avatarPath': "cv/$email/$fileName",
+      //   'avatarUrl': getDownloadUrl
+      // });
+
+      // ignore: use_build_context_synchronously
+      dialogInfo(context, "File selected");
+    } else {
+      dialogInfo(context, "No file selected!");
+    }
   }
 }

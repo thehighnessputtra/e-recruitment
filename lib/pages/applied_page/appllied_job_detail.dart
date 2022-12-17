@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:latihan_firebase/widget/dialog_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AppliedJobDetail extends StatefulWidget {
@@ -254,10 +255,9 @@ class _AppliedJobDetailState extends State<AppliedJobDetail> {
                         .update({
                       'status': "DITERIMA",
                     });
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text(
-                            "${widget.namaPelamar}-${widget.namaLokerPelamar} DITERIMA!")));
-                    Navigator.pop(context);
+                    dialogInfo(context,
+                        "${widget.namaPelamar}-${widget.namaLokerPelamar} DITERIMA!");
+                    futureDelayNavBack(context, 3);
                   },
                   child: const Text("Terima")),
               ElevatedButton(
@@ -269,10 +269,9 @@ class _AppliedJobDetailState extends State<AppliedJobDetail> {
                         .update({
                       'status': "DITOLAK",
                     });
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text(
-                            "${widget.namaPelamar}-${widget.namaLokerPelamar} DITOLAK!")));
-                    Navigator.pop(context);
+                    dialogInfo(context,
+                        "${widget.namaPelamar}-${widget.namaLokerPelamar} DITOLAK!");
+                    futureDelayNavBack(context, 3);
                   },
                   child: const Text("Tolak")),
               ElevatedButton(
@@ -313,10 +312,9 @@ class _AppliedJobDetailState extends State<AppliedJobDetail> {
                 CollectionReference ref =
                     FirebaseFirestore.instance.collection('listapply');
                 ref.doc(widget.emailPelamar + widget.namaLokerPelamar).delete();
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text(
-                        "${widget.namaPelamar}-${widget.namaLokerPelamar} DIHAPUS!")));
-                Navigator.pop(context);
+                dialogInfo(context,
+                    "${widget.namaPelamar}-${widget.namaLokerPelamar} DIHAPUS!");
+                futureDelayNavBack(context, 3);
               },
               child: const Text("DELETE")),
         ],

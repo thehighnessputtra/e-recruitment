@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:latihan_firebase/firebase_options.dart';
 import 'package:latihan_firebase/pages/splashscreen.dart';
+import 'package:latihan_firebase/view_model/job_profile_view_model.dart';
 import 'package:latihan_firebase/view_model/news_api_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -28,7 +29,10 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(
           create: (context) => NewsViewModel(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => JobProfileViewModel(),
+        ),
       ],
       child: MaterialApp(
         theme: ThemeData(

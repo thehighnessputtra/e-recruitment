@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:latihan_firebase/pages/job_page/create_loker.dart';
 import 'package:latihan_firebase/pages/job_page/job_detail.dart';
+import 'package:latihan_firebase/widget/transition_widget.dart';
 
 class JobPage extends StatefulWidget {
   const JobPage({super.key});
@@ -20,7 +21,6 @@ class _JobPageState extends State<JobPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: addJob(),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('listLoker').snapshots(),
         builder: (context, snapshot) {
@@ -29,6 +29,7 @@ class _JobPageState extends State<JobPage> {
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: ItemLoker(
                 listLoker: snapshot.data!.docs,
+                lenght: snapshot.data!.docs.length,
               ),
             );
           }
@@ -38,37 +39,38 @@ class _JobPageState extends State<JobPage> {
     );
   }
 
-  addJob() {
-    User? user = FirebaseAuth.instance.currentUser;
-    var kk = FirebaseFirestore.instance
-        .collection('users')
-        .doc(user!.email)
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        if (documentSnapshot.get('role') == "Admin") {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const CreateLoker(),
-            ),
-          );
-        }
-      } else {
-        print('Document does not exist on the database');
-      }
-    });
-  }
+  // addJob() {
+  //   User? user = FirebaseAuth.instance.currentUser;
+  //   var kk = FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(user!.email)
+  //       .get()
+  //       .then((DocumentSnapshot documentSnapshot) {
+  //     if (documentSnapshot.exists) {
+  //       if (documentSnapshot.get('role') == "Admin") {
+  //         Navigator.push(
+  //           context,
+  //           MaterialPageRoute(
+  //             builder: (context) => const CreateLoker(),
+  //           ),
+  //         );
+  //       }
+  //     } else {
+  //       print('Document does not exist on the database');
+  //     }
+  //   });
+  // }
 }
 
 class ItemLoker extends StatelessWidget {
   final List<DocumentSnapshot> listLoker;
-  const ItemLoker({super.key, required this.listLoker});
+  final int lenght;
+  const ItemLoker({super.key, required this.listLoker, required this.lenght});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: listLoker.length,
+      itemCount: lenght,
       itemBuilder: (context, index) {
         final itemsLoker = listLoker[index];
         String lokasi = itemsLoker['lokasi'].toString();
@@ -85,20 +87,18 @@ class ItemLoker extends StatelessWidget {
 
         return GestureDetector(
           onTap: () {
-            Navigator.push(
+            navPushTransition(
               context,
-              MaterialPageRoute(
-                builder: (context) => JobDetailUser(
-                    deskripsiKeahlian: deskripsiKeahlian,
-                    deskripsiKualifikasi: deskripsiKualifikasi,
-                    deskripsiPerusahaan: deskripsiPerusahaan,
-                    gaji: gaji,
-                    urlLogo: urlLogo,
-                    lokasi: lokasi,
-                    namaLoker: namaLoker,
-                    namaPerusahaan: namaPerusahaan,
-                    tipePekerjaan: tipePekerjaan),
-              ),
+              JobDetailUser(
+                  deskripsiKeahlian: deskripsiKeahlian,
+                  deskripsiKualifikasi: deskripsiKualifikasi,
+                  deskripsiPerusahaan: deskripsiPerusahaan,
+                  gaji: gaji,
+                  urlLogo: urlLogo,
+                  lokasi: lokasi,
+                  namaLoker: namaLoker,
+                  namaPerusahaan: namaPerusahaan,
+                  tipePekerjaan: tipePekerjaan),
             );
           },
           child: Card(
@@ -117,7 +117,7 @@ class ItemLoker extends StatelessWidget {
                         Text(namaLoker,
                             style: TextStyle(
                                 fontSize: 20, color: Colors.blue[800])),
-                        Text("$namaPerusahaan, $lokasi"),
+                        Text("$lokasi"),
                       ],
                     ),
                   ),
@@ -129,16 +129,26 @@ class ItemLoker extends StatelessWidget {
                         color: Colors.blue,
                       ),
                       padding: const EdgeInsets.all(5),
-                      child: Text(
-                          NumberFormat.currency(
-                                  locale: 'id', symbol: 'RP ', decimalDigits: 0)
-                              .format(double.parse(gaji)),
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          )),
+                      child: gaji == "Negosiasi"
+                          ? const Text("Negosiasi",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ))
+                          : Text(
+                              NumberFormat.currency(
+                                      locale: 'id',
+                                      symbol: 'RP ',
+                                      decimalDigits: 0)
+                                  .format(double.parse(gaji)),
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              )),
                     ),
                   ),
                 ],

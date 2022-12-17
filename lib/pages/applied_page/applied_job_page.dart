@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:latihan_firebase/pages/applied_page/appllied_job_detail.dart';
+import 'package:latihan_firebase/widget/transition_widget.dart';
 
 class AppliedJobPage extends StatefulWidget {
   const AppliedJobPage({super.key});
@@ -155,22 +156,21 @@ class _ListApplyState extends State<ListApply> {
         if (emailPelamar == email) {
           return GestureDetector(
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AppliedJobDetail(
-                      namaPelamar: namaPelamar,
-                      namaLokerPelamar: namaLoker,
-                      namaPerusahaanPelamar: namaPerusahaan,
-                      gajiPelamar: gaji,
-                      emailPelamar: emailPelamar,
-                      cvNamePelamar: cvNamePelamar,
-                      cvURLPelamar: cvURLPelamar,
-                      aboutPelamar: aboutPelamar,
-                      avatarUrlPelamar: avatarUrlPelamar,
-                      statusPelamar: statusPelamar,
-                    ),
-                  ));
+              navPushTransition(
+                context,
+                AppliedJobDetail(
+                  namaPelamar: namaPelamar,
+                  namaLokerPelamar: namaLoker,
+                  namaPerusahaanPelamar: namaPerusahaan,
+                  gajiPelamar: gaji,
+                  emailPelamar: emailPelamar,
+                  cvNamePelamar: cvNamePelamar,
+                  cvURLPelamar: cvURLPelamar,
+                  aboutPelamar: aboutPelamar,
+                  avatarUrlPelamar: avatarUrlPelamar,
+                  statusPelamar: statusPelamar,
+                ),
+              );
             },
             child: Card(
               color: const Color(0xFFF3F8F9),
@@ -202,22 +202,21 @@ class _ListApplyState extends State<ListApply> {
         } else if (role == "Admin") {
           return GestureDetector(
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AppliedJobDetail(
-                      namaPelamar: namaPelamar,
-                      namaLokerPelamar: namaLoker,
-                      namaPerusahaanPelamar: namaPerusahaan,
-                      gajiPelamar: gaji,
-                      emailPelamar: emailPelamar,
-                      cvNamePelamar: cvNamePelamar,
-                      cvURLPelamar: cvURLPelamar,
-                      aboutPelamar: aboutPelamar,
-                      avatarUrlPelamar: avatarUrlPelamar,
-                      statusPelamar: statusPelamar,
-                    ),
-                  ));
+              navPushTransition(
+                context,
+                AppliedJobDetail(
+                  namaPelamar: namaPelamar,
+                  namaLokerPelamar: namaLoker,
+                  namaPerusahaanPelamar: namaPerusahaan,
+                  gajiPelamar: gaji,
+                  emailPelamar: emailPelamar,
+                  cvNamePelamar: cvNamePelamar,
+                  cvURLPelamar: cvURLPelamar,
+                  aboutPelamar: aboutPelamar,
+                  avatarUrlPelamar: avatarUrlPelamar,
+                  statusPelamar: statusPelamar,
+                ),
+              );
             },
             child: Card(
               color: const Color(0xFFF3F8F9),

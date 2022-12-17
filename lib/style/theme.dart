@@ -1,6 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+class ImageUrl {
+  String masinis = "https://recruitment.kai.id/uploadfoto/content/IMG_3862.JPG";
+  String ppka = "https://recruitment.kai.id/uploadfoto/content/IMG_3749.JPG";
+  String kondektur =
+      "https://recruitment.kai.id/uploadfoto/content/IMG_3169.JPG";
+  String teknisiSarana =
+      "https://recruitment.kai.id/uploadfoto/content/IMG_3578.JPG";
+  String teknisisJalanReldanJembatan =
+      "https://recruitment.kai.id/uploadfoto/content/IMG_4555.JPG";
+  String pnc = "https://recruitment.kai.id/uploadfoto/content/IMG_4340.JPG";
+  String polisiKAI =
+      "https://recruitment.kai.id/uploadfoto/content/polsuska.jpg";
+  String kpjr = "https://recruitment.kai.id/uploadfoto/content/IMG_4170.JPG";
+  String plrorPrs =
+      "https://recruitment.kai.id/uploadfoto/content/IMG_2981.JPG";
+  String teknisiWorkshop =
+      "https://recruitment.kai.id/uploadfoto/content/IMG_4089.JPG";
+}
+
 const Color purpleColor = Color(0xff5843BE);
 const Color orangeColor = Color(0xffFF9376);
 const Color redColor = Color(0xffFF5B5B);
@@ -13,6 +32,8 @@ const Color greynavColor = Color(0xffF6F7F8);
 double edge = 24;
 double defaultMargin = 24.0;
 
+TextStyle mediumSize = const TextStyle(fontSize: 16);
+
 /// Get Device with
 double deviceWidth(BuildContext context) {
   return MediaQuery.of(context).size.width;
@@ -22,22 +43,6 @@ double deviceWidth(BuildContext context) {
 double deviceHeight(BuildContext context) {
   return MediaQuery.of(context).size.height;
 }
-
-TextStyle blackTextStyle = GoogleFonts.poppins(
-  color: blackColor,
-);
-
-TextStyle whiteTextStyle = GoogleFonts.poppins(
-  color: whiteColor,
-);
-
-TextStyle greyTextStyle = GoogleFonts.poppins(
-  color: greyColor,
-);
-
-TextStyle purpleTextStyle = GoogleFonts.poppins(
-  color: purpleColor,
-);
 
 FontWeight light = FontWeight.w300;
 FontWeight regular = FontWeight.w400;

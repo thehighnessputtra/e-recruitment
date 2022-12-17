@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:latihan_firebase/style/theme.dart';
+import 'package:latihan_firebase/widget/dialog_widget.dart';
 
 class JobDetailUser extends StatefulWidget {
   String tipePekerjaan;
@@ -58,6 +59,15 @@ class _JobDetailUserState extends State<JobDetailUser> {
     });
   }
 
+  validasiCV() {
+    Future.delayed(Duration(seconds: 1), () {
+      if (cvName == "Masukan CV anda!") {
+        dialogWarning(context,
+            "Anda belum melampirkan file CV anda! silahkan anda melampirkan CV anda pada halaman profile");
+      }
+    });
+  }
+
   @override
   void initState() {
     getDocID();
@@ -67,21 +77,17 @@ class _JobDetailUserState extends State<JobDetailUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(color: Colors.black),
-      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Stack(
           children: [
-            // Image.network(
-            //   widget.urlLogo,
-            //   width: MediaQuery.of(context).size.width,
-            //   height: 350,
-            //   fit: BoxFit.cover,
-            // ),
+            Image.network(
+              widget.urlLogo,
+              width: MediaQuery.of(context).size.width,
+              height: 350,
+              fit: BoxFit.cover,
+            ),
+
             ListView(
               children: [
                 const SizedBox(
@@ -109,7 +115,7 @@ class _JobDetailUserState extends State<JobDetailUser> {
                           children: [
                             Text(
                               widget.namaLoker,
-                              style: blackTextStyle.copyWith(
+                              style: mediumSize.copyWith(
                                 fontSize: 22,
                                 fontWeight: semiBold,
                               ),
@@ -117,8 +123,9 @@ class _JobDetailUserState extends State<JobDetailUser> {
                             Text.rich(
                               TextSpan(
                                 text: 'RP ${widget.gaji}',
-                                style: purpleTextStyle.copyWith(
+                                style: mediumSize.copyWith(
                                   fontSize: 16,
+                                  color: Colors.blue,
                                   fontWeight: semiBold,
                                 ),
                               ),
@@ -129,9 +136,12 @@ class _JobDetailUserState extends State<JobDetailUser> {
                                   Icons.location_on,
                                   size: 20,
                                 ),
+                                const SizedBox(
+                                  width: 5.0,
+                                ),
                                 Text(
-                                  "${widget.namaPerusahaan}, ${widget.lokasi}",
-                                  style: blackTextStyle.copyWith(
+                                  widget.lokasi,
+                                  style: mediumSize.copyWith(
                                     fontSize: 20,
                                     fontWeight: regular,
                                   ),
@@ -139,30 +149,6 @@ class _JobDetailUserState extends State<JobDetailUser> {
                               ],
                             ),
                           ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: edge,
-                        ),
-                        child: Text(
-                          'Deskripsi Perusahaan',
-                          style: blackTextStyle.copyWith(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: edge,
-                        ),
-                        child: Text(
-                          widget.deskripsiPerusahaan,
-                          style: greyTextStyle.copyWith(),
-                          textAlign: TextAlign.justify,
                         ),
                       ),
                       const SizedBox(
@@ -174,9 +160,8 @@ class _JobDetailUserState extends State<JobDetailUser> {
                         ),
                         child: Text(
                           'Deskripsi Kualifikasi',
-                          style: blackTextStyle.copyWith(
-                            fontSize: 16,
-                          ),
+                          style: mediumSize.copyWith(
+                              fontSize: 16, fontWeight: FontWeight.w800),
                         ),
                       ),
                       Padding(
@@ -185,7 +170,7 @@ class _JobDetailUserState extends State<JobDetailUser> {
                         ),
                         child: Text(
                           widget.deskripsiKualifikasi,
-                          style: greyTextStyle.copyWith(),
+                          style: mediumSize.copyWith(),
                           textAlign: TextAlign.justify,
                         ),
                       ),
@@ -198,9 +183,8 @@ class _JobDetailUserState extends State<JobDetailUser> {
                         ),
                         child: Text(
                           'Deskripsi Keahlian',
-                          style: blackTextStyle.copyWith(
-                            fontSize: 16,
-                          ),
+                          style: mediumSize.copyWith(
+                              fontSize: 16, fontWeight: FontWeight.w800),
                         ),
                       ),
                       Padding(
@@ -209,7 +193,7 @@ class _JobDetailUserState extends State<JobDetailUser> {
                         ),
                         child: Text(
                           widget.deskripsiKeahlian,
-                          style: greyTextStyle.copyWith(),
+                          style: mediumSize.copyWith(),
                           textAlign: TextAlign.justify,
                         ),
                       ),
@@ -224,43 +208,52 @@ class _JobDetailUserState extends State<JobDetailUser> {
                         width: MediaQuery.of(context).size.width - (2 * edge),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: purpleColor,
+                            backgroundColor: Colors.blue,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(17),
                             ),
                           ),
                           onPressed: () {
-                            FirebaseFirestore.instance
-                                .runTransaction((transaction) async {
-                              CollectionReference reference = FirebaseFirestore
-                                  .instance
-                                  .collection("listapply");
-                              await reference
-                                  .doc(email! + widget.namaLoker)
-                                  .set({
-                                "namaLoker": widget.namaLoker,
-                                "namaPerusahaan": widget.namaPerusahaan,
-                                "gaji": widget.gaji,
-                                "namaPelamar": name,
-                                "cvName": cvName,
-                                "cvURL": cvURL,
-                                "email": email,
-                                "about": about,
-                                "avatarUrl": avatarUrl,
-                                "status": "Menunggu",
-                              });
-                            });
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content:
-                                        Text("Berhasil Menambahkan Loker!")));
+                            if (cvName == "Masukan CV anda!") {
+                              validasiCV();
+                            } else {
+                              dialogValidasi(
+                                context,
+                                "Apakah kamu yakin?",
+                                () {
+                                  FirebaseFirestore.instance
+                                      .runTransaction((transaction) async {
+                                    CollectionReference reference =
+                                        FirebaseFirestore.instance
+                                            .collection("listapply");
+                                    await reference
+                                        .doc(email! + widget.namaLoker)
+                                        .set({
+                                      "namaLoker": widget.namaLoker,
+                                      "namaPerusahaan": widget.namaPerusahaan,
+                                      "gaji": widget.gaji,
+                                      "namaPelamar": name,
+                                      "cvName": cvName,
+                                      "cvURL": cvURL,
+                                      "email": email,
+                                      "about": about,
+                                      "avatarUrl": avatarUrl,
+                                      "status": "Menunggu",
+                                    });
+                                    Navigator.pop(context);
+                                    dialogInfo(context, "Success Apply Job!");
+                                    futureDelayNavBack(context, 3);
+                                  });
+                                },
+                              );
+                            }
                           },
                           child: Text(
                             'Apply Vacancy',
-                            style: whiteTextStyle.copyWith(
-                              fontSize: 18,
-                              fontWeight: semiBold,
-                            ),
+                            style: mediumSize.copyWith(
+                                fontSize: 18,
+                                fontWeight: semiBold,
+                                color: Colors.white),
                           ),
                         ),
                       ),
@@ -268,6 +261,35 @@ class _JobDetailUserState extends State<JobDetailUser> {
                         height: 40.0,
                       ),
                     ],
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(50),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.25),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset:
+                            const Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back,
+                    ),
+                    color: Colors.blue,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
                 ),
               ],

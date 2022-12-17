@@ -1,6 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:latihan_firebase/models/job_profile_model.dart';
+import 'package:latihan_firebase/pages/job_page/job_page.dart';
+import 'package:latihan_firebase/services/firebase_storage_services.dart';
+import 'package:latihan_firebase/style/theme.dart';
+import 'package:latihan_firebase/view_model/job_profile_view_model.dart';
+import 'package:latihan_firebase/widget/dialog_widget.dart';
+import 'package:latihan_firebase/widget/job_profile_card.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,28 +18,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // List images = [
-  //   "https://recruitment.kai.id/uploadfoto/content/IMG_3862.JPG",
-  //   "https://recruitment.kai.id/uploadfoto/content/IMG_3749.JPG",
-  //   "https://recruitment.kai.id/uploadfoto/content/IMG_3169.JPG",
-  //   "https://recruitment.kai.id/uploadfoto/content/IMG_3578.JPG",
-  //   "https://recruitment.kai.id/uploadfoto/content/IMG_4555.JPG",
-  //   "https://recruitment.kai.id/uploadfoto/content/IMG_4340.JPG",
-  //   "https://recruitment.kai.id/uploadfoto/content/polsuska.jpg",
-  //   "https://recruitment.kai.id/uploadfoto/content/IMG_4170.JPG",
-  //   "https://recruitment.kai.id/uploadfoto/content/IMG_2981.JPG",
-  //   "https://recruitment.kai.id/uploadfoto/content/IMG_4089.JPG"
-  // ];
+  String? name;
+  String? email;
+  String? role;
+  String? cvName;
 
   @override
   void initState() {
     getDocID();
+    validasiCV();
     super.initState();
   }
-
-  String? name;
-  String? email;
-  String? role;
 
   Future getDocID() async {
     await FirebaseFirestore.instance
@@ -44,7 +41,17 @@ class _HomeScreenState extends State<HomeScreen> {
           name = snapshot.data()!['name'];
           email = snapshot.data()!['email'];
           role = snapshot.data()!['role'];
+          cvName = snapshot.data()!['cvName'];
         });
+      }
+    });
+  }
+
+  validasiCV() {
+    Future.delayed(Duration(seconds: 1), () {
+      if (cvName == "Masukan CV anda!") {
+        dialogWarning(context,
+            "Anda belum melampirkan file CV anda! silahkan anda melampirkan CV anda pada halaman profile");
       }
     });
   }
@@ -56,26 +63,75 @@ class _HomeScreenState extends State<HomeScreen> {
           automaticallyImplyLeading: false,
           elevation: 0,
           title: Text(
-            'Hi, $name',
+            name == null ? "Loading" : 'Hi, $name',
           )),
-      body: SingleChildScrollView(
-        child: Column(children: const [
-          Center(
-            child: Text(
-              "Coming soon!",
-              style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),
-            ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(
+            "Jobfinders",
+            style:
+                mediumSize.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
           ),
-          // ListView.builder(
-          //   itemCount: provider.news.length,
-          //   itemBuilder: (context, index) {
-          //     final data = provider.news[index];
-          //     return Text(data.status!);
-          //   },
-          // )
+          Text(
+            "Merupakan aplikasi e-recruitment yang bertujuan untuk memasarkan perusahaan PT. XXX",
+            style: mediumSize,
+          ),
+          const SizedBox(
+            height: 10.0,
+          ),
+          Text(
+            "Job Profile",
+            style: mediumSize.copyWith(fontWeight: FontWeight.w600),
+          ),
+          const SizedBox(
+            height: 6.0,
+          ),
+          Consumer<JobProfileViewModel>(
+            builder: (context, value, child) {
+              return Flexible(
+                flex: 1,
+                child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      final jobProfile = value.getlistJobProfiles[index];
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          JobProfileCard(
+                            jobName: jobProfile.name!,
+                            urlImage: jobProfile.imgUrl == null
+                                ? "https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif"
+                                : jobProfile.imgUrl!,
+                          )
+                        ],
+                      );
+                    },
+                    separatorBuilder: (context, index) => const SizedBox(
+                          width: 10.0,
+                        ),
+                    itemCount: listJobProfile.length),
+              );
+            },
+          ),
+          Text(
+            "Recommended Job",
+            style: mediumSize.copyWith(fontWeight: FontWeight.w600),
+          ),
+          Flexible(
+            flex: 3,
+            child: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('listLoker')
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return ItemLoker(lenght: 5, listLoker: snapshot.data!.docs);
+                }
+                return const Center(child: CircularProgressIndicator());
+              },
+            ),
+          )
         ]),
       ),
     );

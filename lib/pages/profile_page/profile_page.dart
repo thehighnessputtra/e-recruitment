@@ -5,8 +5,11 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:latihan_firebase/pages/job_page/create_loker.dart';
 import 'package:latihan_firebase/pages/login_regist/login_page.dart';
 import 'package:latihan_firebase/pages/profile_page/edit_profile_page.dart';
+import 'package:latihan_firebase/widget/dialog_widget.dart';
+import 'package:latihan_firebase/widget/transition_widget.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -48,7 +51,6 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     getDocID();
-
     super.initState();
   }
 
@@ -60,12 +62,14 @@ class _ProfilePageState extends State<ProfilePage> {
           actions: [
             IconButton(
                 onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginPage(),
-                      ));
+                  dialogValidasi(
+                    context,
+                    "Are you sure?",
+                    () {
+                      FirebaseAuth.instance.signOut();
+                      navReplaceTransition(context, const LoginPage());
+                    },
+                  );
                 },
                 icon: const Icon(Icons.logout))
           ],
@@ -80,7 +84,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     ClipOval(
                         child: Material(
                             child: Ink.image(
-                      image: NetworkImage("$avatarUrl"),
+                      image: NetworkImage(avatarUrl == null
+                          ? "https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif"
+                          : "$avatarUrl"),
                       fit: BoxFit.cover,
                       width: 120,
                       height: 120,
@@ -93,7 +99,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               Center(
                 child: Text(
-                  "$name",
+                  name == null ? "Loading" : "$name",
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 20),
                 ),
@@ -103,7 +109,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               Center(
                 child: Text(
-                  "$email",
+                  email == null ? "Loading" : "$email",
                   style: const TextStyle(color: Colors.grey),
                 ),
               ),
@@ -113,11 +119,7 @@ class _ProfilePageState extends State<ProfilePage> {
               Center(
                 child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const EditProfile(),
-                          ));
+                      navPushTransition(context, const EditProfile());
                     },
                     child: const Text("Edit Profile")),
               ),
@@ -130,12 +132,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "About",
+                      "Biography",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "$about",
+                      about == null ? "Loading" : "$about",
                       textAlign: TextAlign.justify,
                       style: const TextStyle(fontSize: 17, height: 1.3),
                     ),
@@ -160,11 +162,84 @@ class _ProfilePageState extends State<ProfilePage> {
                     const SizedBox(
                       height: 10.0,
                     ),
+                    role == 'Admin' ? adminControllerProfile() : Container()
                   ],
                 ),
               ),
             ],
           ),
         ));
+  }
+
+  Widget adminControllerProfile() {
+    return Center(
+      child: Column(
+        children: [
+          const Text("Admin Controller",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    addJob();
+                  },
+                  child: const Text("Create Lowongan Kerja")),
+              ElevatedButton(
+                  onPressed: () {
+                    uploadImage();
+                  },
+                  child: const Text("Upload Image"))
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  addJob() {
+    User? user = FirebaseAuth.instance.currentUser;
+    var kk = FirebaseFirestore.instance
+        .collection('users')
+        .doc(user!.email)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        if (documentSnapshot.get('role') == "Admin") {
+          navPushTransition(context, const CreateLoker());
+        }
+      } else {
+        print('Document does not exist on the database');
+      }
+    });
+  }
+
+  uploadImage() async {
+    final result = await FilePicker.platform
+        .pickFiles(allowMultiple: true, type: FileType.image);
+    if (result != null) {
+      final path = result.files.single.path!;
+      final fileName = result.files.single.name;
+
+      FirebaseStorage storage = FirebaseStorage.instance;
+      await storage.ref('img/$fileName').putFile(File(path));
+      String getDownloadUrl =
+          await storage.ref('img/$fileName').getDownloadURL();
+      print("DOWNLOAD AVATAR = $getDownloadUrl");
+      // var user = FirebaseAuth.instance.currentUser;
+      // CollectionReference ref = FirebaseFirestore.instance.collection('users');
+      // ref.doc(user!.email).update({
+      //   'avatarName': cvName,
+      //   'avatarPath': "cv/$email/$fileName",
+      //   'avatarUrl': getDownloadUrl
+      // });
+
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("File Selected")));
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("No file selected!")));
+    }
   }
 }
