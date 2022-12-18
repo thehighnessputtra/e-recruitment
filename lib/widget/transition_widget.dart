@@ -8,7 +8,7 @@ navPushTransition(BuildContext context, Widget page) {
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return SlideTransition(
             position: animation.drive(
-              Tween(begin: const Offset(1.0, 0.0), end: Offset.zero),
+              Tween(begin: const Offset(2.0, 0.0), end: Offset.zero),
             ),
             child: child,
           );
@@ -26,7 +26,7 @@ navReplaceTransition(BuildContext context, Widget page) {
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return SlideTransition(
             position: animation.drive(
-              Tween(begin: const Offset(1.0, 0.0), end: Offset.zero),
+              Tween(begin: const Offset(2.0, 0.0), end: Offset.zero),
             ),
             child: child,
           );

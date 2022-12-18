@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:latihan_firebase/style/theme.dart';
+import 'package:latihan_firebase/utils/constant.dart';
 import 'package:latihan_firebase/widget/dialog_widget.dart';
 
 class JobDetailUser extends StatefulWidget {

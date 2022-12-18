@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:latihan_firebase/models/job_profile_model.dart';
 import 'package:latihan_firebase/pages/job_page/job_page.dart';
 import 'package:latihan_firebase/services/firebase_storage_services.dart';
-import 'package:latihan_firebase/style/theme.dart';
+import 'package:latihan_firebase/utils/constant.dart';
 import 'package:latihan_firebase/view_model/job_profile_view_model.dart';
 import 'package:latihan_firebase/widget/dialog_widget.dart';
 import 'package:latihan_firebase/widget/job_profile_card.dart';
@@ -68,15 +68,15 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(
-            "Jobfinders",
-            style:
-                mediumSize.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
-          ),
-          Text(
-            "Merupakan aplikasi e-recruitment yang bertujuan untuk memasarkan perusahaan PT. XXX",
-            style: mediumSize,
-          ),
+          // Text(
+          //   "Jobfinders",
+          //   style:
+          //       mediumSize.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+          // ),
+          // Text(
+          //   "Merupakan aplikasi e-recruitment yang bertujuan untuk memasarkan perusahaan PT. XXX",
+          //   style: mediumSize,
+          // ),
           const SizedBox(
             height: 10.0,
           ),

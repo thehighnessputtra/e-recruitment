@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:latihan_firebase/style/theme.dart';
+import 'package:latihan_firebase/utils/constant.dart';
 
 void dialogInfo(BuildContext context, String text) async {
   Future.delayed(const Duration(seconds: 3), () {
