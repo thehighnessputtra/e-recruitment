@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:latihan_firebase/models/news_api_model.dart';
-import 'package:latihan_firebase/services/news_api_services.dart';
+import 'package:latihan_firebase/services/news_api_service.dart';
 
 enum ActionState {
   none,

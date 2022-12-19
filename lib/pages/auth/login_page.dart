@@ -2,10 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:latihan_firebase/services/firebase_service.dart';
+import 'package:latihan_firebase/services/sharedpref_service.dart';
 import 'package:latihan_firebase/utils/constant.dart';
 import 'package:latihan_firebase/widget/dialog_widget.dart';
 import 'package:latihan_firebase/widget/transition_widget.dart';
-import '../navbottom_bar.dart';
+import '../navbar/navbottom_bar.dart';
 import 'register_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -182,22 +184,12 @@ class _LoginPageState extends State<LoginPage> {
                     child: ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            try {
-                              await FirebaseAuth.instance
-                                  .signInWithEmailAndPassword(
-                                      email: _emailController.text,
-                                      password: _passwordController.text)
-                                  .then((value) {
-                                dialogInfo(context, "Login Sukses");
-                                Future.delayed(const Duration(seconds: 3), () {
-                                  navReplaceTransition(
-                                      context, const NavBottomBarUser());
-                                });
-                              });
-                            } on FirebaseAuthException catch (e) {
-                              Fluttertoast.showToast(msg: e.message.toString());
-                            }
-                            debugPrint("Sukses login");
+                            final firebase =
+                                FirebaseService(FirebaseAuth.instance);
+                            firebase.signInEmail(
+                                email: _emailController.text,
+                                password: _passwordController.text,
+                                context: context);
                           }
                         },
                         child: const Text("Login")),
@@ -208,38 +200,4 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
-  // void route() {
-  //   User? user = FirebaseAuth.instance.currentUser;
-  //   var kk = FirebaseFirestore.instance
-  //       .collection('users')
-  //       .doc(user!.uid)
-  //       .get()
-  //       .then((DocumentSnapshot documentSnapshot) {
-  //     if (documentSnapshot.exists) {
-  //       if (documentSnapshot.get('role') == "Admin") {
-  //         Navigator.pushReplacement(
-  //           context,
-  //           MaterialPageRoute(
-  //             builder: (context) => const NavBottomBarAdmin(),
-  //           ),
-  //         );
-  //       } else {
-  //         Navigator.pushReplacement(
-  //           context,
-  //           MaterialPageRoute(
-  //             builder: (context) => const NavBottomBarUser(),
-  //           ),
-  //         );
-  //       }
-  //     } else {
-  //       print('Document does not exist on the database');
-  //       Navigator.push(
-  //           context,
-  //           MaterialPageRoute(
-  //             builder: (context) => const LoginPage(),
-  //           ));
-  //     }
-  //   });
-  // }
 }

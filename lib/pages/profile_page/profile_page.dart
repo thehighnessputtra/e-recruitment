@@ -6,10 +6,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:latihan_firebase/pages/job_page/create_loker.dart';
-import 'package:latihan_firebase/pages/login_regist/login_page.dart';
+import 'package:latihan_firebase/pages/auth/login_page.dart';
 import 'package:latihan_firebase/pages/profile_page/edit_profile_page.dart';
+import 'package:latihan_firebase/services/firebase_service.dart';
+import 'package:latihan_firebase/services/sharedpref_service.dart';
 import 'package:latihan_firebase/widget/dialog_widget.dart';
 import 'package:latihan_firebase/widget/transition_widget.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -56,6 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final userFirebase = context.read<FirebaseService>().user;
     return Scaffold(
         appBar: AppBar(
           title: const Text("Profile"),
@@ -66,8 +70,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     context,
                     "Are you sure?",
                     () {
-                      FirebaseAuth.instance.signOut();
-                      navReplaceTransition(context, const LoginPage());
+                      final firebase = FirebaseService(FirebaseAuth.instance);
+
+                      navBackTransition(context);
+                      firebase.signOut(context);
                     },
                   );
                 },
@@ -99,7 +105,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               Center(
                 child: Text(
-                  name == null ? "Loading" : "$name",
+                  name == null ? "Loading" : "${name}",
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 20),
                 ),

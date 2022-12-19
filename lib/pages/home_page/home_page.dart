@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:latihan_firebase/models/job_profile_model.dart';
 import 'package:latihan_firebase/pages/job_page/job_page.dart';
-import 'package:latihan_firebase/services/firebase_storage_services.dart';
+import 'package:latihan_firebase/services/firebase_service.dart';
 import 'package:latihan_firebase/utils/constant.dart';
 import 'package:latihan_firebase/view_model/job_profile_view_model.dart';
 import 'package:latihan_firebase/widget/dialog_widget.dart';
