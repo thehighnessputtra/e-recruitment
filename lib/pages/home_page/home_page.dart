@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:latihan_firebase/models/job_profile_model.dart';
+import 'package:latihan_firebase/pages/home_page/create_job_kai.dart';
+import 'package:latihan_firebase/pages/home_page/detail_job_kai.dart';
 import 'package:latihan_firebase/pages/home_page/testing.dart';
 import 'package:latihan_firebase/pages/job_page/job_page.dart';
 import 'package:latihan_firebase/services/firebase_service.dart';
@@ -130,10 +132,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const TestingAPI()),
+                            builder: (context) => const CreateJobKAI()),
                       );
                     },
-                    child: const Text("ROUTE")),
+                    child: const Text("CREATE JOB KAI")),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const DetailJobKAI()),
+                      );
+                    },
+                    child: const Text("DETAIL JOB KAI")),
                 Text(
                   "News",
                   style: size16.copyWith(fontWeight: fw600),
