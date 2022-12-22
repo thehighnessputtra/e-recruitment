@@ -39,9 +39,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               children: [
                 Text(
                   "Portal Lowongan Kerja Jobfinders",
-                  style: mediumSize.copyWith(
-                    fontSize: 20,
-                    fontWeight: semiBold,
+                  style: size20.copyWith(
+                    fontWeight: fw600,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -50,7 +49,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
                 Text(
                   "Jobfinders merupakan aplikasi mobile yang bertujuan untuk memasarkan lowongan pekerjaan yang telah disediakan oleh PT. KAI!",
-                  style: mediumSize.copyWith(
+                  style: size16.copyWith(
                     fontSize: 16,
                   ),
                   textAlign: TextAlign.center,
@@ -75,10 +74,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                         child: Text(
                           'Mulai',
-                          style: mediumSize.copyWith(
-                              fontSize: 16,
-                              fontWeight: semiBold,
-                              color: blackColor),
+                          style: size16.copyWith(
+                              fontWeight: fw600, color: blackColor),
                         ),
                       ),
                     ),

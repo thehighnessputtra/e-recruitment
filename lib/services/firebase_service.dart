@@ -13,6 +13,7 @@ class FirebaseService {
   FirebaseService(this.auth);
   final pref = SharedServices();
   User get user => auth.currentUser!;
+  bool isLoading = false;
 
   Stream<User?> get authState => auth.authStateChanges();
 
@@ -25,9 +26,11 @@ class FirebaseService {
       await auth
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) => {postDetailsToFirestore(email, name)});
+
+      // ignore: use_build_context_synchronously
       authRoute(context, "Register success!", const LoginPage());
     } on FirebaseAuthException catch (e) {
-      dialogInfo(context, e.message!);
+      dialogInfo(context, "Email sudah digunakan!", 2);
     }
   }
 
@@ -37,11 +40,19 @@ class FirebaseService {
       required BuildContext context}) async {
     try {
       await auth.signInWithEmailAndPassword(email: email, password: password);
+
       pref.saveEmail(email);
+
       // ignore: use_build_context_synchronously
       authRoute(context, "Login success!", const NavBottomBarUser());
     } on FirebaseAuthException catch (e) {
-      dialogInfo(context, e.message!);
+      // dialogInfo(context, e.message!);
+      if (e.message ==
+          "The password is invalid or the user does not have a password.") {
+        return dialogInfo(context, "Password salah!", 2);
+      } else {
+        return dialogInfo(context, "Email tidak terdaftar!", 2);
+      }
     }
   }
 
@@ -52,14 +63,14 @@ class FirebaseService {
       // ignore: use_build_context_synchronously
       authRoute(context, "Logout success!", const LoginPage());
     } on FirebaseAuthException catch (e) {
-      dialogInfo(context, e.message!);
+      dialogInfo(context, e.message!, 2);
     }
   }
 
   authRoute(context, String text, Widget page) {
-    dialogInfo(context, text);
+    dialogInfo(context, text, 2);
     Future.delayed(
-      const Duration(seconds: 3),
+      const Duration(seconds: 2),
       () => navReplaceTransition(context, page),
     );
   }

@@ -216,7 +216,7 @@ class _CreateLokerState extends State<CreateLoker> {
                         "createTime": DateTime.now().millisecondsSinceEpoch
                       });
                     });
-                    dialogInfo(context, "Success Create!");
+                    dialogInfo(context, "Success Create!", 2);
                     futureDelayNavBack(context, 3);
                   },
                   child: const Text("Simpan")),
@@ -252,9 +252,9 @@ class _CreateLokerState extends State<CreateLoker> {
       // });
 
       // ignore: use_build_context_synchronously
-      dialogInfo(context, "File selected");
+      dialogInfo(context, "File selected", 2);
     } else {
-      dialogInfo(context, "No file selected!");
+      dialogInfo(context, "No file selected!", 2);
     }
   }
 }

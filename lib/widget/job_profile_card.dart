@@ -29,7 +29,7 @@ class JobProfileCard extends StatelessWidget {
               color: Colors.white.withOpacity(0.8),
               child: Text(
                 jobName,
-                style: mediumSize.copyWith(fontWeight: FontWeight.w600),
+                style: size16.copyWith(fontWeight: fw600),
               )),
         )
       ]),

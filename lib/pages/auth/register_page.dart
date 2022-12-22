@@ -46,9 +46,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   Text(
                     "Register Page",
-                    style: mediumSize.copyWith(
-                      fontSize: 35,
-                    ),
+                    style: size30,
                   ),
                   const SizedBox(
                     height: 30.0,

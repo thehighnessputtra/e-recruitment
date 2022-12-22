@@ -1,34 +1,29 @@
-class NewsAPIModel {
+class NewApiModel {
   String? status;
   int? totalResults;
-  List<Articles>? articles;
+  List? articles;
 
-  NewsAPIModel({this.status, this.totalResults, this.articles});
+  NewApiModel({this.status, this.totalResults, this.articles});
 
-  NewsAPIModel.fromJson(Map<String, dynamic> json) {
+  NewApiModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     totalResults = json['totalResults'];
-    if (json['articles'] != null) {
-      articles = <Articles>[];
-      json['articles'].forEach((v) {
-        articles!.add(Articles.fromJson(v));
-      });
-    }
+    articles = json['articles'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['status'] = status;
-    data['totalResults'] = totalResults;
-    if (articles != null) {
-      data['articles'] = articles!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
+  // Map<String, dynamic> toJson() {
+  //   final Map<String, dynamic> data = new Map<String, dynamic>();
+  //   data['status'] = this.status;
+  //   data['totalResults'] = this.totalResults;
+  //   if (this.articles != null) {
+  //     data['articles'] = this.articles!.map((v) => v.toJson()).toList();
+  //   }
+  //   return data;
+  // }
 }
 
-class Articles {
-  Source? source;
+class ArticlesData {
+  Map? source;
   String? author;
   String? title;
   String? description;
@@ -37,7 +32,7 @@ class Articles {
   String? publishedAt;
   String? content;
 
-  Articles(
+  ArticlesData(
       {this.source,
       this.author,
       this.title,
@@ -47,48 +42,117 @@ class Articles {
       this.publishedAt,
       this.content});
 
-  Articles.fromJson(Map<String, dynamic> json) {
-    source = json['source'] != null ? Source.fromJson(json['source']) : null;
-    author = json['author'];
-    title = json['title'];
-    description = json['description'];
-    url = json['url'];
-    urlToImage = json['urlToImage'];
-    publishedAt = json['publishedAt'];
-    content = json['content'];
-  }
+  // Articles.fromJson(Map<String, dynamic> json) {
+  //   source =
+  //       json['source'] != null ? new Source.fromJson(json['source']) : null;
+  //   author = json['author'];
+  //   title = json['title'];
+  //   description = json['description'];
+  //   url = json['url'];
+  //   urlToImage = json['urlToImage'];
+  //   publishedAt = json['publishedAt'];
+  //   content = json['content'];
+  // }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (source != null) {
-      data['source'] = source!.toJson();
-    }
-    data['author'] = author;
-    data['title'] = title;
-    data['description'] = description;
-    data['url'] = url;
-    data['urlToImage'] = urlToImage;
-    data['publishedAt'] = publishedAt;
-    data['content'] = content;
-    return data;
-  }
+  // Map<String, dynamic> toJson() {
+  //   final Map<String, dynamic> data = new Map<String, dynamic>();
+  //   if (this.source != null) {
+  //     data['source'] = this.source!.toJson();
+  //   }
+  //   data['author'] = this.author;
+  //   data['title'] = this.title;
+  //   data['description'] = this.description;
+  //   data['url'] = this.url;
+  //   data['urlToImage'] = this.urlToImage;
+  //   data['publishedAt'] = this.publishedAt;
+  //   data['content'] = this.content;
+  //   return data;
+  // }
 }
 
-class Source {
-  Null? id;
-  String? name;
+// class Source {
+//   Null? id;
+//   String? name;
 
-  Source({this.id, this.name});
+//   Source({this.id, this.name});
 
-  Source.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-  }
+//   Source.fromJson(Map<String, dynamic> json) {
+//     id = json['id'];
+//     name = json['name'];
+//   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    return data;
-  }
-}
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['id'] = this.id;
+//     data['name'] = this.name;
+//     return data;
+//   }
+// }
+
+
+// class ApiServices {
+//   ApiServices({
+//     required this.status,
+//     required this.totalResults,
+//     required this.articles,
+//   });
+
+//   String status;
+//   int totalResults;
+//   List articles;
+
+//   factory ApiServices.fromJson(Map<String, dynamic> json) => ApiServices(
+//       status: json["status"],
+//       totalResults: json["totalResults"],
+//       articles: json["articles"]);
+
+//   // Map<String, dynamic> toJson() => {
+//   //       "status": status,
+//   //       "totalResults": totalResults,
+//   //       "articles": List<dynamic>.from(articles.map((x) => x.toJson())),
+//   //     };
+// }
+
+// class ArticleData {
+//   ArticleData({
+//     // required this.source,
+//     required this.author,
+//     required this.title,
+//     required this.description,
+//     required this.url,
+//     required this.urlToImage,
+//     // required this.publishedAt,
+//     required this.content,
+//   });
+
+//   // Map source;
+//   String author;
+//   String title;
+//   String description;
+//   String url;
+//   String urlToImage;
+//   // String publishedAt;
+//   String content;
+
+//   // factory Article.fromJson(Map<String, dynamic> json) => Article(
+//   //       source: Source.fromJson(json["source"]),
+//   //       author: json["author"] == null ? null : json["author"],
+//   //       title: json["title"],
+//   //       description: json["description"],
+//   //       url: json["url"],
+//   //       urlToImage: json["urlToImage"],
+//   //       publishedAt: DateTime.parse(json["publishedAt"]),
+//   //       content: json["content"],
+//   //     );
+
+//   // Map<String, dynamic> toJson() => {
+//   //       "source": source.toJson(),
+//   //       "author": author == null ? null : author,
+//   //       "title": title,
+//   //       "description": description,
+//   //       "url": url,
+//   //       "urlToImage": urlToImage,
+//   //       "publishedAt": publishedAt.toIso8601String(),
+//   //       "content": content,
+//   //     };
+// }

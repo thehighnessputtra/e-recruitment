@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
             create: (context) => FirebaseService(FirebaseAuth.instance),
           ),
           ChangeNotifierProvider(
-            create: (context) => NewsViewModel(),
+            create: (context) => NewsAPIViewModel(),
           ),
           ChangeNotifierProvider(
             create: (context) => JobProfileViewModel(),

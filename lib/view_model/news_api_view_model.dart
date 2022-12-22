@@ -2,25 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:latihan_firebase/models/news_api_model.dart';
 import 'package:latihan_firebase/services/news_api_service.dart';
 
-enum ActionState {
-  none,
-  loading,
-  error,
-}
+class NewsAPIViewModel extends ChangeNotifier {
+  List<ArticlesData> _listArticle = [];
+  ArticlesData? _modelArticle;
 
-class NewsViewModel extends ChangeNotifier {
-  List<NewsAPIModel> _news = [];
-  List<NewsAPIModel> get news => _news;
-  NewsAPIModel? _newsModel;
-  final NewsApiService _newsApi = NewsApiService();
+  List<ArticlesData> get getListArticle => _listArticle;
+  ArticlesData? get getModelArticle => _modelArticle;
 
-  NewsViewModel() {
-    getSportNews();
+  getAllDoctor() async {
+    // try {
+    var response = await NewsApiService().getAll();
+    NewApiModel modelApi = NewApiModel.fromJson(response.data);
+    _listArticle = (modelApi.articles)!
+        .map((e) => ArticlesData(
+            // source: e['source'],
+            author: e['author'],
+            title: e['title'],
+            description: e['description'],
+            url: e['url'],
+            urlToImage: e['urlToImage'],
+            // publishedAt: e['publishedAt'],
+            content: e['content']))
+        .toList();
+    print(_listArticle[1].title);
+    // } catch (e) {
+    //   print(e.toString());
   }
 
-  Future<void> getSportNews() async {
-    final newsPaper = await _newsApi.getNewsData();
-    _news = newsPaper;
-    notifyListeners();
-  }
+  notifyListeners();
 }
+
+  // void selectedDoctor(DataDoctor doctorModel) {
+  //   _doctorModel = doctorModel;
+  //   notifyListeners();
+  // }
+// }

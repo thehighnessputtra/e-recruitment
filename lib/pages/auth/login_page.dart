@@ -7,6 +7,7 @@ import 'package:latihan_firebase/services/sharedpref_service.dart';
 import 'package:latihan_firebase/utils/constant.dart';
 import 'package:latihan_firebase/widget/dialog_widget.dart';
 import 'package:latihan_firebase/widget/transition_widget.dart';
+import 'package:provider/provider.dart';
 import '../navbar/navbottom_bar.dart';
 import 'register_page.dart';
 
@@ -47,8 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                   Center(
                     child: Text(
                       "Sign In",
-                      style: mediumSize.copyWith(
-                          fontSize: 34, fontWeight: FontWeight.w700),
+                      style: size30,
                     ),
                   ),
                   const SizedBox(
@@ -58,12 +58,11 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Text(
                         "Email ",
-                        style: mediumSize.copyWith(fontSize: 14),
+                        style: size14,
                       ),
                       Text(
                         "*",
-                        style:
-                            mediumSize.copyWith(color: redColor, fontSize: 14),
+                        style: size14.copyWith(color: colorRed),
                       ),
                     ],
                   ),
@@ -89,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                       _emailController.text = value!;
                     },
                     decoration: InputDecoration(
-                        errorStyle: mediumSize.copyWith(color: Colors.red),
+                        errorStyle: size16.copyWith(color: colorRed),
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: const BorderSide(color: blackColor)),
@@ -110,12 +109,11 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Text(
                         "Password ",
-                        style: mediumSize.copyWith(fontSize: 14),
+                        style: size14,
                       ),
                       Text(
                         "*",
-                        style:
-                            mediumSize.copyWith(color: redColor, fontSize: 14),
+                        style: size14.copyWith(color: colorRed),
                       ),
                     ],
                   ),
@@ -170,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Dont have a account?", style: mediumSize),
+                      Text("Dont have a account?", style: size16),
                       TextButton(
                           onPressed: () {
                             navReplaceTransition(context, const RegisterPage());

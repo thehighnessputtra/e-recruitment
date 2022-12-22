@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:latihan_firebase/utils/constant.dart';
 
-void dialogInfo(BuildContext context, String text) async {
-  Future.delayed(const Duration(seconds: 3), () {
+void dialogInfo(BuildContext context, String text, int durationDelay) async {
+  Future.delayed(Duration(seconds: durationDelay), () {
     Navigator.pop(context);
   });
   await showDialog<void>(
     context: context,
-    barrierDismissible: false,
+    // barrierDismissible: false,
     builder: (BuildContext context) {
       return AlertDialog(
         shape: const RoundedRectangleBorder(
@@ -15,7 +15,7 @@ void dialogInfo(BuildContext context, String text) async {
         title: Text(
           text,
           textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+          style: size16,
         ),
       );
     },
@@ -55,7 +55,7 @@ void dialogWarning(BuildContext context, String text) async {
         ),
         content: Text(
           text,
-          style: mediumSize,
+          style: size14,
         ),
       );
     },

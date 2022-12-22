@@ -115,18 +115,18 @@ class _JobDetailUserState extends State<JobDetailUser> {
                           children: [
                             Text(
                               widget.namaLoker,
-                              style: mediumSize.copyWith(
+                              style: size22.copyWith(
                                 fontSize: 22,
-                                fontWeight: semiBold,
+                                fontWeight: fw600,
                               ),
                             ),
                             Text.rich(
                               TextSpan(
                                 text: 'RP ${widget.gaji}',
-                                style: mediumSize.copyWith(
+                                style: size16.copyWith(
                                   fontSize: 16,
                                   color: Colors.blue,
-                                  fontWeight: semiBold,
+                                  fontWeight: fw600,
                                 ),
                               ),
                             ),
@@ -141,9 +141,8 @@ class _JobDetailUserState extends State<JobDetailUser> {
                                 ),
                                 Text(
                                   widget.lokasi,
-                                  style: mediumSize.copyWith(
-                                    fontSize: 20,
-                                    fontWeight: regular,
+                                  style: size16.copyWith(
+                                    fontWeight: fw500,
                                   ),
                                 ),
                               ],
@@ -156,21 +155,20 @@ class _JobDetailUserState extends State<JobDetailUser> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(
-                          left: edge,
+                          left: clip24,
                         ),
                         child: Text(
                           'Deskripsi Kualifikasi',
-                          style: mediumSize.copyWith(
-                              fontSize: 16, fontWeight: FontWeight.w800),
+                          style: size16.copyWith(fontWeight: fw800),
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: edge,
+                          horizontal: clip24,
                         ),
                         child: Text(
                           widget.deskripsiKualifikasi,
-                          style: mediumSize.copyWith(),
+                          style: size16,
                           textAlign: TextAlign.justify,
                         ),
                       ),
@@ -179,21 +177,20 @@ class _JobDetailUserState extends State<JobDetailUser> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(
-                          left: edge,
+                          left: clip24,
                         ),
                         child: Text(
                           'Deskripsi Keahlian',
-                          style: mediumSize.copyWith(
-                              fontSize: 16, fontWeight: FontWeight.w800),
+                          style: size16.copyWith(fontWeight: fw800),
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: edge,
+                          horizontal: clip24,
                         ),
                         child: Text(
                           widget.deskripsiKeahlian,
-                          style: mediumSize.copyWith(),
+                          style: size16,
                           textAlign: TextAlign.justify,
                         ),
                       ),
@@ -202,10 +199,10 @@ class _JobDetailUserState extends State<JobDetailUser> {
                       ),
                       Container(
                         margin: EdgeInsets.symmetric(
-                          horizontal: edge,
+                          horizontal: clip24,
                         ),
                         height: 50,
-                        width: MediaQuery.of(context).size.width - (2 * edge),
+                        width: MediaQuery.of(context).size.width - (2 * clip24),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.blue,
@@ -241,8 +238,9 @@ class _JobDetailUserState extends State<JobDetailUser> {
                                       "status": "Menunggu",
                                     });
                                     Navigator.pop(context);
-                                    dialogInfo(context, "Success Apply Job!");
-                                    futureDelayNavBack(context, 3);
+                                    dialogInfo(
+                                        context, "Success Apply Job!", 2);
+                                    futureDelayNavBack(context, 2);
                                   });
                                 },
                               );
@@ -250,9 +248,9 @@ class _JobDetailUserState extends State<JobDetailUser> {
                           },
                           child: Text(
                             'Apply Vacancy',
-                            style: mediumSize.copyWith(
+                            style: size18.copyWith(
                                 fontSize: 18,
-                                fontWeight: semiBold,
+                                fontWeight: fw600,
                                 color: Colors.white),
                           ),
                         ),

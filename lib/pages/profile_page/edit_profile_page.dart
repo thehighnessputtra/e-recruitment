@@ -208,7 +208,8 @@ class _EditProfileState extends State<EditProfile> {
                                 Navigator.pop(context);
                                 uploadAllFile();
 
-                                dialogInfo(context, "Success change profiles!");
+                                dialogInfo(
+                                    context, "Success change profiles!", 2);
                                 Future.delayed(const Duration(seconds: 3), () {
                                   Navigator.pop(context);
                                 });

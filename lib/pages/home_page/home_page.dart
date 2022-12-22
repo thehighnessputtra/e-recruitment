@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:latihan_firebase/models/job_profile_model.dart';
+import 'package:latihan_firebase/pages/home_page/testing.dart';
 import 'package:latihan_firebase/pages/job_page/job_page.dart';
 import 'package:latihan_firebase/services/firebase_service.dart';
 import 'package:latihan_firebase/utils/constant.dart';
@@ -48,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   validasiCV() {
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 1), () {
       if (cvName == "Masukan CV anda!") {
         dialogWarning(context,
             "Anda belum melampirkan file CV anda! silahkan anda melampirkan CV anda pada halaman profile");
@@ -65,74 +66,85 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Text(
             name == null ? "Loading" : 'Hi, $name',
           )),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          // Text(
-          //   "Jobfinders",
-          //   style:
-          //       mediumSize.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
-          // ),
-          // Text(
-          //   "Merupakan aplikasi e-recruitment yang bertujuan untuk memasarkan perusahaan PT. XXX",
-          //   style: mediumSize,
-          // ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          Text(
-            "Job Profile",
-            style: mediumSize.copyWith(fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(
-            height: 6.0,
-          ),
-          Consumer<JobProfileViewModel>(
-            builder: (context, value, child) {
-              return Flexible(
-                flex: 1,
-                child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      final jobProfile = value.getlistJobProfiles[index];
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          JobProfileCard(
-                            jobName: jobProfile.name!,
-                            urlImage: jobProfile.imgUrl == null
-                                ? "https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif"
-                                : jobProfile.imgUrl!,
-                          )
-                        ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Text(
+                //   "Jobfinders",
+                //   style:
+                //       mediumSize.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+                // ),
+                // Text(
+                //   "Merupakan aplikasi e-recruitment yang bertujuan untuk memasarkan perusahaan PT. XXX",
+                //   style: mediumSize,
+                // ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                Text(
+                  "Job Profile",
+                  style: size16.copyWith(fontWeight: fw600),
+                ),
+                const SizedBox(
+                  height: 6.0,
+                ),
+                Consumer<JobProfileViewModel>(
+                  builder: (context, value, child) {
+                    return SizedBox(
+                      height: 120,
+                      child: ListView.separated(
+                          physics: const BouncingScrollPhysics(),
+                          separatorBuilder: (context, index) => const SizedBox(
+                                width: 10.0,
+                              ),
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            final jobProfile = value.getlistJobProfiles[index];
+                            return Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                JobProfileCard(
+                                  jobName: jobProfile.name!,
+                                  urlImage: jobProfile.imgUrl == null
+                                      ? "https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif"
+                                      : jobProfile.imgUrl!,
+                                )
+                              ],
+                            );
+                          },
+                          itemCount: listJobProfile.length),
+                    );
+                  },
+                ),
+
+                const SizedBox(
+                  height: 15.0,
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const TestingAPI()),
                       );
                     },
-                    separatorBuilder: (context, index) => const SizedBox(
-                          width: 10.0,
-                        ),
-                    itemCount: listJobProfile.length),
-              );
-            },
-          ),
-          Text(
-            "Recommended Job",
-            style: mediumSize.copyWith(fontWeight: FontWeight.w600),
-          ),
-          Flexible(
-            flex: 3,
-            child: StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection('listLoker')
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return ItemLoker(lenght: 5, listLoker: snapshot.data!.docs);
-                }
-                return const Center(child: CircularProgressIndicator());
-              },
-            ),
-          )
-        ]),
+                    child: const Text("ROUTE")),
+                Text(
+                  "News",
+                  style: size16.copyWith(fontWeight: fw600),
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                const TestingAPI(),
+                const TestingAPI(),
+              ]),
+        ),
       ),
     );
   }

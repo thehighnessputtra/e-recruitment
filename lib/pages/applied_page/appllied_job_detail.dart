@@ -255,9 +255,11 @@ class _AppliedJobDetailState extends State<AppliedJobDetail> {
                         .update({
                       'status': "DITERIMA",
                     });
-                    dialogInfo(context,
-                        "${widget.namaPelamar}-${widget.namaLokerPelamar} DITERIMA!");
-                    futureDelayNavBack(context, 3);
+                    dialogInfo(
+                        context,
+                        "${widget.namaPelamar}-${widget.namaLokerPelamar} DITERIMA!",
+                        1);
+                    futureDelayNavBack(context, 1);
                   },
                   child: const Text("Terima")),
               ElevatedButton(
@@ -269,9 +271,11 @@ class _AppliedJobDetailState extends State<AppliedJobDetail> {
                         .update({
                       'status': "DITOLAK",
                     });
-                    dialogInfo(context,
-                        "${widget.namaPelamar}-${widget.namaLokerPelamar} DITOLAK!");
-                    futureDelayNavBack(context, 3);
+                    dialogInfo(
+                        context,
+                        "${widget.namaPelamar}-${widget.namaLokerPelamar} DITOLAK!",
+                        1);
+                    futureDelayNavBack(context, 1);
                   },
                   child: const Text("Tolak")),
               ElevatedButton(
@@ -312,9 +316,11 @@ class _AppliedJobDetailState extends State<AppliedJobDetail> {
                 CollectionReference ref =
                     FirebaseFirestore.instance.collection('listapply');
                 ref.doc(widget.emailPelamar + widget.namaLokerPelamar).delete();
-                dialogInfo(context,
-                    "${widget.namaPelamar}-${widget.namaLokerPelamar} DIHAPUS!");
-                futureDelayNavBack(context, 3);
+                dialogInfo(
+                    context,
+                    "${widget.namaPelamar}-${widget.namaLokerPelamar} DIHAPUS!",
+                    1);
+                futureDelayNavBack(context, 1);
               },
               child: const Text("DELETE")),
         ],
