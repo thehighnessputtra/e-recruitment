@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, duplicate_ignore
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -5,9 +7,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:latihan_firebase/pages/navbar/navbottom_bar.dart';
 import 'package:latihan_firebase/widget/dialog_widget.dart';
-import 'package:latihan_firebase/widget/transition_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EditProfile extends StatefulWidget {
@@ -237,7 +237,7 @@ class _EditProfileState extends State<EditProfile> {
       await storage.ref('avatar/$email/$fileName').putFile(File(path));
       String getDownloadUrl =
           await storage.ref('avatar/$email/$fileName').getDownloadURL();
-      print("DOWNLOAD AVATAR = $getDownloadUrl");
+      // print("DOWNLOAD AVATAR = $getDownloadUrl");
       setState(() {
         avatarName = fileName;
         avatarUrl = getDownloadUrl;
@@ -270,7 +270,7 @@ class _EditProfileState extends State<EditProfile> {
       await storage.ref('cv/$email/$fileName').putFile(File(path));
       String getDownloadUrl =
           await storage.ref('cv/$email/$fileName').getDownloadURL();
-      print("DOWNLOAD CV = $getDownloadUrl");
+      // print("DOWNLOAD CV = $getDownloadUrl");
       setState(() {
         cvName = fileName;
         cvURL = getDownloadUrl;

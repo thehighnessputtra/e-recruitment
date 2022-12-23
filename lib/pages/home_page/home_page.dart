@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:latihan_firebase/models/job_profile_model.dart';
 import 'package:latihan_firebase/pages/home_page/create_job_kai.dart';
 import 'package:latihan_firebase/pages/home_page/detail_job_kai.dart';
+import 'package:latihan_firebase/pages/home_page/job_card_kai.dart';
 import 'package:latihan_firebase/pages/home_page/testing.dart';
-import 'package:latihan_firebase/pages/job_page/job_page.dart';
-import 'package:latihan_firebase/services/firebase_service.dart';
 import 'package:latihan_firebase/utils/constant.dart';
 import 'package:latihan_firebase/view_model/job_profile_view_model.dart';
 import 'package:latihan_firebase/widget/dialog_widget.dart';
@@ -145,6 +144,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     },
                     child: const Text("DETAIL JOB KAI")),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const JobCardKAI()),
+                      );
+                    },
+                    child: const Text("JOB CARD KAI")),
                 Text(
                   "News",
                   style: size16.copyWith(fontWeight: fw600),

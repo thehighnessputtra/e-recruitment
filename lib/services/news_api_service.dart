@@ -1,9 +1,8 @@
-import 'package:dio/dio.dart';
+// ignore_for_file: unused_local_variable
+
 import 'package:intl/intl.dart';
 
 class NewsApiService {
-  final _dio = Dio();
-
   int dateNow = DateTime.now().millisecondsSinceEpoch;
   int dateMonth = 2629800000;
   String apiKey = "3979c4c66301497a97eb1bb0fbcef7e8";

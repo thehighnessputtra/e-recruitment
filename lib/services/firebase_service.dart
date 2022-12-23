@@ -1,3 +1,5 @@
+// ignore_for_file: unused_catch_clause
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +78,6 @@ class FirebaseService {
   }
 
   postDetailsToFirestore(String email, String name) async {
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     var user = FirebaseAuth.instance.currentUser;
     CollectionReference ref = FirebaseFirestore.instance.collection('users');
     ref.doc(user!.email).set({

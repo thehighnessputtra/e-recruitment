@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:latihan_firebase/pages/job_page/create_loker.dart';
 import 'package:latihan_firebase/pages/job_page/job_detail.dart';
 import 'package:latihan_firebase/widget/transition_widget.dart';
 
@@ -117,7 +115,7 @@ class ItemLoker extends StatelessWidget {
                         Text(namaLoker,
                             style: TextStyle(
                                 fontSize: 20, color: Colors.blue[800])),
-                        Text("$lokasi"),
+                        Text(lokasi),
                       ],
                     ),
                   ),

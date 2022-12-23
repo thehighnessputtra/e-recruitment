@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:latihan_firebase/utils/constant.dart';
 
 class NewsCard extends StatelessWidget {
-  String title;
-  String subtitle;
-  String urlImage;
-  NewsCard(
+  final String title;
+  final String subtitle;
+  final String urlImage;
+  const NewsCard(
       {super.key,
       required this.title,
       required this.subtitle,

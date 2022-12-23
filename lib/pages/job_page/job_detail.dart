@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -5,17 +7,17 @@ import 'package:latihan_firebase/utils/constant.dart';
 import 'package:latihan_firebase/widget/dialog_widget.dart';
 
 class JobDetailUser extends StatefulWidget {
-  String tipePekerjaan;
-  String namaPerusahaan;
-  String namaLoker;
-  String lokasi;
-  String gaji;
-  String urlLogo;
-  String deskripsiPerusahaan;
-  String deskripsiKualifikasi;
-  String deskripsiKeahlian;
+  final String tipePekerjaan;
+  final String namaPerusahaan;
+  final String namaLoker;
+  final String lokasi;
+  final String gaji;
+  final String urlLogo;
+  final String deskripsiPerusahaan;
+  final String deskripsiKualifikasi;
+  final String deskripsiKeahlian;
 
-  JobDetailUser(
+  const JobDetailUser(
       {super.key,
       required this.tipePekerjaan,
       required this.namaPerusahaan,
@@ -60,7 +62,7 @@ class _JobDetailUserState extends State<JobDetailUser> {
   }
 
   validasiCV() {
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 1), () {
       if (cvName == "Masukan CV anda!") {
         dialogWarning(context,
             "Anda belum melampirkan file CV anda! silahkan anda melampirkan CV anda pada halaman profile");

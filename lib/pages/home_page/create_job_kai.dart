@@ -117,13 +117,30 @@ class _CreateJobKAIState extends State<CreateJobKAI> {
                           actions: <Widget>[
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blueGrey,
+                                backgroundColor: Colors.white,
                               ),
                               onPressed: () {
                                 Navigator.pop(context);
                                 FocusManager.instance.primaryFocus?.unfocus();
                               },
-                              child: const Text("Ok"),
+                              child: Text(
+                                "OK",
+                                style:
+                                    size14.copyWith(color: colorBlueSecondKAI),
+                              ),
+                            ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: colorBlueSecondKAI,
+                              ),
+                              onPressed: () {
+                                Navigator.pop(context);
+                                FocusManager.instance.primaryFocus?.unfocus();
+                              },
+                              child: Text(
+                                "Batal",
+                                style: size14.copyWith(color: Colors.white),
+                              ),
                             ),
                           ],
                         );

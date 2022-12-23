@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:latihan_firebase/pages/navbar/navbottom_bar.dart';
 import 'package:latihan_firebase/pages/onboarding/on_boarding.dart';
@@ -16,9 +14,9 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> route() async {
     final pref = SharedServices();
     String? email = await pref.getEmail();
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       if (email != null) {
-        print(email);
+        // print(email);
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const NavBottomBarUser()),

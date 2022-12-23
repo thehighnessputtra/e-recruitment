@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, use_build_context_synchronously, duplicate_ignore
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,13 +8,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:latihan_firebase/pages/job_page/create_loker.dart';
-import 'package:latihan_firebase/pages/auth/login_page.dart';
 import 'package:latihan_firebase/pages/profile_page/edit_profile_page.dart';
 import 'package:latihan_firebase/services/firebase_service.dart';
-import 'package:latihan_firebase/services/sharedpref_service.dart';
 import 'package:latihan_firebase/widget/dialog_widget.dart';
 import 'package:latihan_firebase/widget/transition_widget.dart';
-import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -59,7 +58,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final userFirebase = context.read<FirebaseService>().user;
     return Scaffold(
         appBar: AppBar(
           title: const Text("Profile"),
@@ -105,7 +103,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               Center(
                 child: Text(
-                  name == null ? "Loading" : "${name}",
+                  name == null ? "Loading" : "$name",
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 20),
                 ),
@@ -215,7 +213,7 @@ class _ProfilePageState extends State<ProfilePage> {
           navPushTransition(context, const CreateLoker());
         }
       } else {
-        print('Document does not exist on the database');
+        // print('Document does not exist on the database');
       }
     });
   }
@@ -231,7 +229,7 @@ class _ProfilePageState extends State<ProfilePage> {
       await storage.ref('img/$fileName').putFile(File(path));
       String getDownloadUrl =
           await storage.ref('img/$fileName').getDownloadURL();
-      print("DOWNLOAD AVATAR = $getDownloadUrl");
+      // print("DOWNLOAD AVATAR = $getDownloadUrl");
       // var user = FirebaseAuth.instance.currentUser;
       // CollectionReference ref = FirebaseFirestore.instance.collection('users');
       // ref.doc(user!.email).update({

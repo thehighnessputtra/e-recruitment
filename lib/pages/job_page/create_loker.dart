@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, duplicate_ignore
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -228,6 +230,7 @@ class _CreateLokerState extends State<CreateLoker> {
   uploadImage() async {
     final result = await FilePicker.platform
         .pickFiles(allowMultiple: false, type: FileType.image);
+    // ignore: duplicate_ignore
     if (result != null) {
       final path = result.files.single.path!;
       final fileName = result.files.single.name;
@@ -239,7 +242,7 @@ class _CreateLokerState extends State<CreateLoker> {
       String getDownloadUrl = await storage
           .ref('job/${controllerNamaPerusahaan.text}/$fileName')
           .getDownloadURL();
-      print("DOWNLOAD AVATAR = $getDownloadUrl");
+      // print("DOWNLOAD AVATAR = $getDownloadUrl");
       setState(() {
         controllerLogo.text = getDownloadUrl;
       });

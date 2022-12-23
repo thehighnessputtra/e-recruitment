@@ -2,8 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:latihan_firebase/firebase_options.dart';
-import 'package:latihan_firebase/pages/onboarding/on_boarding.dart';
-import 'package:latihan_firebase/pages/profile_page/profile_page.dart';
 import 'package:latihan_firebase/pages/splashscreen/splashscreen.dart';
 import 'package:latihan_firebase/services/firebase_service.dart';
 import 'package:latihan_firebase/view_model/job_profile_view_model.dart';

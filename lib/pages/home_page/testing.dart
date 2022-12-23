@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:latihan_firebase/utils/constant.dart';
-import 'package:latihan_firebase/view_model/news_api_view_model.dart';
 import 'package:latihan_firebase/widget/news_card_widget.dart';
-import 'package:provider/provider.dart';
 
 class TestingAPI extends StatefulWidget {
   const TestingAPI({super.key});
@@ -22,7 +18,7 @@ class _TestingAPIState extends State<TestingAPI> {
         //       padding: const EdgeInsets.all(12),
         //       child:
         Column(
-      children: [
+      children: const [
         NewsCard(
           urlImage:
               "https://thumb.viva.co.id/media/frontend/thumbs3/2022/05/06/6274b6f4b003c-krl-solo-yogyakarta_665_374.jpg",
@@ -30,7 +26,7 @@ class _TestingAPIState extends State<TestingAPI> {
           subtitle:
               "KAI Commuter sebagai operator Commuterline dan KA Lokal di beberapa wilayah siap menyukseskan agenda angkutan Nataru tahun ini dari 19 Desember 2022 hingga 3 Januari 2022",
         ),
-        const SizedBox(
+        SizedBox(
           height: 10.0,
         ),
         NewsCard(
@@ -41,7 +37,7 @@ class _TestingAPIState extends State<TestingAPI> {
           subtitle:
               "Duta khas setiausaha agung PBB untuk keselamatan jalan raya, Jean Todt menyatakan bahawa satu perjanjian di antara semua pengeluar kenderaan berkenaan standard keselamatan minimum untuk semua kenderaan baru yang dijual, boleh menjadi tonggak penting untuk asp…",
         ),
-        const SizedBox(
+        SizedBox(
           height: 10.0,
         ),
         NewsCard(
@@ -52,7 +48,7 @@ class _TestingAPIState extends State<TestingAPI> {
           subtitle:
               "Menjelang Natal, tak sedikit orangtua yang ingin menunjukkan tampilan gemas dari anak dengan sebuah aksesori kepala, salah satunya bandana. Tapi, ada bahaya mengintai.",
         ),
-        const SizedBox(
+        SizedBox(
           height: 10.0,
         ),
         NewsCard(
@@ -63,7 +59,7 @@ class _TestingAPIState extends State<TestingAPI> {
           subtitle:
               "Dalam satu sidang media yang diadakan semalam, pengerusi Institut Penyelidikan Keselamatan Jalan Raya Malaysia (MIROS), Wong Shaw Voon menyatakan harapan supaya penunggang motosikal di Malaysia dapat beralih kepada pengangkutan awam untuk pergerakan harian. ",
         ),
-        const SizedBox(
+        SizedBox(
           height: 10.0,
         ),
       ],

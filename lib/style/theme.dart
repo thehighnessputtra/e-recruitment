@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ImageUrl {
   String masinis = "https://recruitment.kai.id/uploadfoto/content/IMG_3862.JPG";
