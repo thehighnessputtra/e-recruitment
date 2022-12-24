@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:latihan_firebase/firebase_options.dart';
 import 'package:latihan_firebase/pages/splashscreen/splashscreen.dart';
 import 'package:latihan_firebase/services/firebase_service.dart';
+import 'package:latihan_firebase/view_model/firebase_view_model.dart';
 import 'package:latihan_firebase/view_model/job_profile_view_model.dart';
 import 'package:latihan_firebase/view_model/news_api_view_model.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +29,9 @@ class _MyAppState extends State<MyApp> {
         providers: [
           Provider<FirebaseService>(
             create: (context) => FirebaseService(FirebaseAuth.instance),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => FirebaseViewModel(),
           ),
           ChangeNotifierProvider(
             create: (context) => NewsAPIViewModel(),

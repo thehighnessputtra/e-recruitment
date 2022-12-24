@@ -5,6 +5,7 @@ import 'package:latihan_firebase/models/job_profile_model.dart';
 import 'package:latihan_firebase/pages/home_page/create_job_kai.dart';
 import 'package:latihan_firebase/pages/home_page/detail_job_kai.dart';
 import 'package:latihan_firebase/pages/home_page/job_card_kai.dart';
+import 'package:latihan_firebase/pages/home_page/job_page_kai.dart';
 import 'package:latihan_firebase/pages/home_page/testing.dart';
 import 'package:latihan_firebase/utils/constant.dart';
 import 'package:latihan_firebase/view_model/job_profile_view_model.dart';
@@ -140,10 +141,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const DetailJobKAI()),
+                            builder: (context) => const JobPageKAI()),
                       );
                     },
-                    child: const Text("DETAIL JOB KAI")),
+                    child: const Text("JOB PAGE KAI")),
+
                 ElevatedButton(
                     onPressed: () {
                       Navigator.push(

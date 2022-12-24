@@ -4,7 +4,36 @@ import 'package:flutter/material.dart';
 import 'package:latihan_firebase/utils/constant.dart';
 
 class DetailJobKAI extends StatefulWidget {
-  const DetailJobKAI({Key? key}) : super(key: key);
+  final int createAt;
+  final String formasi;
+  final String jenisKelamin;
+  final String jurusan;
+  final String ketentuanUmum;
+  final String keterangan;
+  final String kriteriaUmum;
+  final String lokasi;
+  final String pendidikan;
+  final String prosedurSeleksi;
+  final String syaratDokumen;
+  final String tahapanSeleksi;
+  final String urlPict;
+  final String persyaratanUmum;
+
+  DetailJobKAI(
+      {required this.createAt,
+      required this.formasi,
+      required this.jenisKelamin,
+      required this.jurusan,
+      required this.ketentuanUmum,
+      required this.keterangan,
+      required this.kriteriaUmum,
+      required this.lokasi,
+      required this.pendidikan,
+      required this.prosedurSeleksi,
+      required this.syaratDokumen,
+      required this.tahapanSeleksi,
+      required this.urlPict,
+      required this.persyaratanUmum});
 
   @override
   State<DetailJobKAI> createState() => _DetailJobKAIState();
@@ -15,6 +44,7 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
   Color btnColor2 = Colors.transparent;
   Color txtbtnColor1 = colorBlueSecondKAI;
   Color txtbtnColor2 = Colors.grey;
+  // PageController _pageController = PageController()
   bool isClick = false;
 
   bookmarkClick() {
@@ -53,13 +83,10 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Container(
-        height: 50,
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                backgroundColor: colorBlueKAI,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10))),
+                elevation: 0, backgroundColor: colorBlueSecondKAI),
             onPressed: () {},
             child: Text(
               "Lamar",
@@ -92,7 +119,8 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
               height: 10.0,
             ),
             Text(
-              "Nama Formasi",
+              widget.formasi,
+              textAlign: TextAlign.center,
               style: size20.copyWith(fontWeight: fw700),
             ),
             const SizedBox(
@@ -107,7 +135,7 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
                   size: 16,
                 ),
                 Text(
-                  "Semarang, Indonesia",
+                  widget.lokasi,
                   style: size16.copyWith(color: Colors.black.withOpacity(0.4)),
                 )
               ],
@@ -115,32 +143,32 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
             const SizedBox(
               height: 10.0,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 5),
-                  padding: const EdgeInsets.all(7),
-                  color: Colors.grey.withOpacity(0.2),
-                  child: Text("Full Time", style: size16),
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 5),
-                  padding: const EdgeInsets.all(7),
-                  color: Colors.grey.withOpacity(0.2),
-                  child: Text("Designer", style: size16),
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 5),
-                  padding: const EdgeInsets.all(7),
-                  color: Colors.grey.withOpacity(0.2),
-                  child: Text("Onsite", style: size16),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Container(
+            //       margin: const EdgeInsets.symmetric(horizontal: 5),
+            //       padding: const EdgeInsets.all(7),
+            //       color: Colors.grey.withOpacity(0.2),
+            //       child: Text("Full Time", style: size16),
+            //     ),
+            //     Container(
+            //       margin: const EdgeInsets.symmetric(horizontal: 5),
+            //       padding: const EdgeInsets.all(7),
+            //       color: Colors.grey.withOpacity(0.2),
+            //       child: Text("Designer", style: size16),
+            //     ),
+            //     Container(
+            //       margin: const EdgeInsets.symmetric(horizontal: 5),
+            //       padding: const EdgeInsets.all(7),
+            //       color: Colors.grey.withOpacity(0.2),
+            //       child: Text("Onsite", style: size16),
+            //     ),
+            //   ],
+            // ),
+            // const SizedBox(
+            //   height: 20.0,
+            // ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 5),
               margin: const EdgeInsets.only(bottom: 15),
@@ -234,7 +262,7 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,
                           style: size16,
-                          "Pendidikan D4/S1"),
+                          widget.pendidikan),
                     ),
                   ],
                 ),
@@ -252,7 +280,7 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,
                           style: size16,
-                          "PRIA & WANITA"),
+                          widget.jenisKelamin),
                     ),
                   ],
                 ),
@@ -270,7 +298,7 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,
                           style: size16,
-                          "Semua Jurusan Program Beasiswa Perkeretaapian Rusia"),
+                          widget.jurusan),
                     ),
                   ],
                 ),
@@ -288,7 +316,7 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,
                           style: size16,
-                          "Khusus Program Beasiswa Perkeretaapian Rusia (Dinas Perhubungan Provinsi Kalimantan Timur)"),
+                          widget.keterangan),
                     ),
                   ],
                 ),
@@ -325,7 +353,7 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
                 textAlign: TextAlign.justify,
                 style:
                     size16.copyWith(color: colorOrangeSecondKAI.withOpacity(1)),
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."),
+                widget.kriteriaUmum),
           ]),
         ),
         Container(
@@ -339,7 +367,7 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
                 textAlign: TextAlign.justify,
                 style:
                     size16.copyWith(color: colorOrangeSecondKAI.withOpacity(1)),
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."),
+                widget.ketentuanUmum),
           ]),
         ),
         Container(
@@ -350,10 +378,11 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
                 style: size20.copyWith(
                     fontWeight: fw600, color: colorBlueSecondKAI)),
             Text(
-                textAlign: TextAlign.justify,
-                style:
-                    size16.copyWith(color: colorOrangeSecondKAI.withOpacity(1)),
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."),
+              widget.persyaratanUmum,
+              textAlign: TextAlign.justify,
+              style:
+                  size16.copyWith(color: colorOrangeSecondKAI.withOpacity(1)),
+            ),
           ]),
         ),
       ],
@@ -377,10 +406,13 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
             Text("Tahap Seleksi",
                 style: size22.copyWith(
                     fontWeight: fw700, color: colorOrangeSecondKAI)),
+            const SizedBox(
+              height: 10.0,
+            ),
             Text(
                 textAlign: TextAlign.justify,
                 style: size16,
-                "Tahap 1 	: Seleksi Administrasi\nTahap 2	: Seleksi Psikologi\nTahap 3 	: Seleksi Wawancara\nTahap 4 	: Seleksi Kesehatan"),
+                widget.tahapanSeleksi),
           ]),
         ),
         const SizedBox(
@@ -397,7 +429,7 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
                 textAlign: TextAlign.justify,
                 style:
                     size16.copyWith(color: colorOrangeSecondKAI.withOpacity(1)),
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."),
+                widget.prosedurSeleksi),
           ]),
         ),
       ],

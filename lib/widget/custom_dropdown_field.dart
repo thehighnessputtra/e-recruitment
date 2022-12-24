@@ -4,8 +4,9 @@ import 'package:latihan_firebase/utils/constant.dart';
 class CustomDropdownField extends StatelessWidget {
   final List listItem;
   final String hint;
+  final ValueChanged? onChanged;
   const CustomDropdownField(
-      {super.key, required this.listItem, required this.hint});
+      {super.key, required this.listItem, required this.hint, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +23,18 @@ class CustomDropdownField extends StatelessWidget {
               borderSide:
                   BorderSide(width: 1, color: Colors.grey.withOpacity(0.5))),
         ),
+        // value: value,
         hint: Text(
           hint,
           style: size16.copyWith(color: Colors.grey.withOpacity(0.8)),
         ),
         items: listItem
-            .map<DropdownMenuItem<dynamic>>((e) => DropdownMenuItem(
+            .map((e) => DropdownMenuItem(
                   value: e,
                   child: Text(e),
                 ))
             .toList(),
-        onChanged: (value) {},
+        onChanged: onChanged,
       ),
     );
   }
