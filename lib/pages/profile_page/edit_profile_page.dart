@@ -7,6 +7,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:latihan_firebase/utils/constant.dart';
+import 'package:latihan_firebase/widget/custom_button.dart';
 import 'package:latihan_firebase/widget/dialog_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -131,7 +133,7 @@ class _EditProfileState extends State<EditProfile> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Biography",
+                      "Biografi",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
@@ -140,10 +142,10 @@ class _EditProfileState extends State<EditProfile> {
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
-                                width: 2, color: Colors.lightBlue.shade100)),
+                                width: 2, color: colorBlueSecondKAI)),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                width: 2, color: Colors.lightBlue.shade100)),
+                                width: 2, color: colorBlueSecondKAI)),
                       ),
                       maxLines: 5,
                     ),
@@ -161,10 +163,10 @@ class _EditProfileState extends State<EditProfile> {
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
-                                width: 2, color: Colors.lightBlue.shade100)),
+                                width: 2, color: colorBlueSecondKAI)),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                width: 2, color: Colors.lightBlue.shade100)),
+                                width: 2, color: colorBlueSecondKAI)),
                         hintText: cvName,
                       ),
                     ),
@@ -174,8 +176,9 @@ class _EditProfileState extends State<EditProfile> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        ElevatedButton(
-                            onPressed: () async {
+                        CustomButton(
+                            text: "Download CV",
+                            onPress: () async {
                               if (cvURL != null) {
                                 final Uri url = Uri.parse(cvURL!);
                                 if (!await launchUrl(url,
@@ -188,34 +191,29 @@ class _EditProfileState extends State<EditProfile> {
                                         content:
                                             Text("Could not launch URL!")));
                               }
-                            },
-                            child: const Text(
-                              "Download CV",
-                            )),
-                        ElevatedButton(
-                            onPressed: () async {
-                              uploadCV();
-                            },
-                            child: const Text(
-                              "Upload CV",
-                            )),
-                        ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                biography = aboutController.text;
-                              });
-                              dialogValidasi(context, "Are you sure?", () {
-                                Navigator.pop(context);
-                                uploadAllFile();
+                            }),
+                        CustomButton(
+                          onPress: () => uploadCV(),
+                          text: "Upload CV",
+                        ),
+                        CustomButton(
+                          onPress: () {
+                            setState(() {
+                              biography = aboutController.text;
+                            });
+                            dialogValidasi(context, "Are you sure?", () {
+                              Navigator.pop(context);
+                              uploadAllFile();
 
-                                dialogInfo(
-                                    context, "Success change profiles!", 2);
-                                Future.delayed(const Duration(seconds: 3), () {
-                                  Navigator.pop(context);
-                                });
+                              dialogInfo(
+                                  context, "Success change profiles!", 2);
+                              Future.delayed(const Duration(seconds: 2), () {
+                                Navigator.pop(context);
                               });
-                            },
-                            child: const Text("Save Changes"))
+                            });
+                          },
+                          text: "Simpan",
+                        )
                       ],
                     ),
                   ],

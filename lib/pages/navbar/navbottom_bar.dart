@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:latihan_firebase/pages/applied_page/applied_job_page.dart';
+import 'package:latihan_firebase/pages/applied_page/applied_job_kai.dart';
 import 'package:latihan_firebase/pages/home_page/home_page.dart';
-import 'package:latihan_firebase/pages/job_page/job_page.dart';
+import 'package:latihan_firebase/pages/job_page/job_page_kai.dart';
 import 'package:latihan_firebase/pages/profile_page/profile_page.dart';
+import 'package:latihan_firebase/utils/constant.dart';
 
 class NavBottomBarUser extends StatefulWidget {
   const NavBottomBarUser({super.key});
@@ -14,8 +15,8 @@ class _NavBottomBarUserState extends State<NavBottomBarUser> {
   int currentIndex = 0;
   final List<Widget> screens = [
     const HomeScreen(),
-    const JobPage(),
-    const AppliedJobPage(),
+    const JobPageKAI(),
+    const AppliedJobKAI(),
     const ProfilePage()
   ];
   @override
@@ -25,9 +26,9 @@ class _NavBottomBarUserState extends State<NavBottomBarUser> {
         bottomNavigationBar: BottomNavigationBar(
             elevation: 0,
             type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.blue[300],
-            selectedItemColor: Colors.blue.shade900,
-            unselectedItemColor: const Color(0xFFF3F8F9),
+            backgroundColor: colorBlueSecondKAI,
+            selectedItemColor: colorOrangeKAI,
+            unselectedItemColor: colorWhiteKAI,
             iconSize: 25,
             currentIndex: currentIndex,
             onTap: (index) => setState(() => currentIndex = index),
@@ -38,11 +39,11 @@ class _NavBottomBarUserState extends State<NavBottomBarUser> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.work),
-                label: 'Job vacancies',
+                label: 'Daftar Loker',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.history_rounded),
-                label: 'Job Applied',
+                label: 'Status Lamaran',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person),

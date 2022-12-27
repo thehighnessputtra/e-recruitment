@@ -52,13 +52,10 @@ class _CreateJobKAIState extends State<CreateJobKAI> {
           child: Column(
             children: [
               CustomTextField(
-                isReadOnly: true,
+                isReadOnly: false,
                 controllerName: controllerUrlPict,
                 hintText: "Upload Logo",
                 maxLine: 1,
-                onPress: () {
-                  uploadLogoJob();
-                },
               ),
               CustomTextField(
                 isReadOnly: false,

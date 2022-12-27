@@ -7,9 +7,12 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:latihan_firebase/pages/home_page/create_job_kai.dart';
 import 'package:latihan_firebase/pages/job_page/create_loker.dart';
 import 'package:latihan_firebase/pages/profile_page/edit_profile_page.dart';
 import 'package:latihan_firebase/services/firebase_service.dart';
+import 'package:latihan_firebase/utils/constant.dart';
+import 'package:latihan_firebase/widget/custom_button.dart';
 import 'package:latihan_firebase/widget/dialog_widget.dart';
 import 'package:latihan_firebase/widget/transition_widget.dart';
 
@@ -121,12 +124,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 height: 10.0,
               ),
               Center(
-                child: ElevatedButton(
-                    onPressed: () {
-                      navPushTransition(context, const EditProfile());
-                    },
-                    child: const Text("Edit Profile")),
-              ),
+                  child: CustomButton(
+                text: "Edit Profile",
+                onPress: () => navPushTransition(context, const EditProfile()),
+              )),
               const SizedBox(
                 height: 20.0,
               ),
@@ -136,7 +137,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Biography",
+                      "Biografi",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
@@ -156,10 +157,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
-                                width: 2, color: Colors.lightBlue.shade100)),
+                                width: 2, color: colorBlueSecondKAI)),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                width: 2, color: Colors.lightBlue.shade100)),
+                                width: 2, color: colorBlueSecondKAI)),
                         hintText: cvName,
                       ),
                     ),
@@ -184,16 +185,14 @@ class _ProfilePageState extends State<ProfilePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ElevatedButton(
-                  onPressed: () {
-                    addJob();
-                  },
-                  child: const Text("Create Lowongan Kerja")),
-              ElevatedButton(
-                  onPressed: () {
-                    uploadImage();
-                  },
-                  child: const Text("Upload Image"))
+              CustomButton(
+                text: "Create Lowongan Kerja",
+                onPress: () => addJob(),
+              ),
+              CustomButton(
+                onPress: () => uploadImage(),
+                text: "Upload Image",
+              )
             ],
           ),
         ],
@@ -210,7 +209,7 @@ class _ProfilePageState extends State<ProfilePage> {
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
         if (documentSnapshot.get('role') == "Admin") {
-          navPushTransition(context, const CreateLoker());
+          navPushTransition(context, const CreateJobKAI());
         }
       } else {
         // print('Document does not exist on the database');

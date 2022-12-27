@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:latihan_firebase/models/job_kai_model.dart';
-import 'package:latihan_firebase/pages/home_page/detail_job_kai.dart';
+import 'package:latihan_firebase/pages/job_page/detail_job_kai.dart';
 import 'package:latihan_firebase/utils/constant.dart';
 import 'package:latihan_firebase/widget/transition_widget.dart';
 
@@ -38,7 +37,10 @@ class ItemCardKAI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView.separated(
+      separatorBuilder: (context, index) => const SizedBox(
+        height: 10.0,
+      ),
       itemCount: lenght,
       itemBuilder: (context, index) {
         final dataJobKAI = listJobKAI[index];
@@ -117,26 +119,33 @@ class ItemCardKAI extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: colorBlueKAI),
-                        width: 44,
-                        height: 44,
-                        child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.bookmark_add_outlined,
-                              size: 30,
-                              color: colorWhiteKAI,
-                            )),
-                      )
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: colorBlueKAI),
+                          width: 44,
+                          height: 44,
+                          child: Center(
+                            child: Text(
+                              pendidikan,
+                              style:
+                                  size14.copyWith(color: colorWhiteSecondKAI),
+                            ),
+                          )
+                          // IconButton(
+                          //     onPressed: () {},
+                          //     icon: Icon(
+                          //       Icons.bookmark_add_outlined,
+                          //       size: 30,
+                          //       color: colorWhiteKAI,
+                          //     )),
+                          )
                     ],
                   ),
                   Divider(
                     color: colorWhiteSecondKAI,
                   ),
                   Text(
-                    "Deskripsi : ",
+                    "Keterangan : ",
                     style: size16.copyWith(
                         color: colorWhiteKAI, fontWeight: fw600),
                   ),

@@ -1,7 +1,11 @@
 // ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:latihan_firebase/utils/constant.dart';
+import 'package:latihan_firebase/widget/custom_button.dart';
+import 'package:latihan_firebase/widget/dialog_widget.dart';
 
 class DetailJobKAI extends StatefulWidget {
   final int createAt;
@@ -79,20 +83,92 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
     }
   }
 
+  String? name;
+  String? email;
+  String? role;
+  String? cvName;
+  String? cvURL;
+  String? about;
+  String? avatarUrl;
+  Future getDocID() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.email)
+        .get()
+        .then((snapshot) async {
+      if (snapshot.exists) {
+        setState(() {
+          name = snapshot.data()!['name'];
+          email = snapshot.data()!['email'];
+          role = snapshot.data()!['role'];
+          cvName = snapshot.data()!['cvName'];
+          cvURL = snapshot.data()!['cvURL'];
+          about = snapshot.data()!['about'];
+          avatarUrl = snapshot.data()!['avatarUrl'];
+        });
+      }
+    });
+  }
+
+  validasiCV() {
+    Future.delayed(const Duration(seconds: 1), () {
+      if (cvName == "Masukan CV anda!") {
+        dialogWarning(context,
+            "Anda belum melampirkan file CV anda! silahkan anda melampirkan CV anda pada halaman profile");
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    getDocID();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                elevation: 0, backgroundColor: colorBlueSecondKAI),
-            onPressed: () {},
-            child: Text(
-              "Lamar",
-              style: size20.copyWith(color: Colors.white),
-            )),
-      ),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: CustomButton(
+            onPress: () {
+              if (cvName == "Masukan CV anda!") {
+                validasiCV();
+              } else {
+                dialogValidasi(
+                  context,
+                  "Apakah kamu yakin?",
+                  () {
+                    FirebaseFirestore.instance
+                        .runTransaction((transaction) async {
+                      CollectionReference reference =
+                          FirebaseFirestore.instance.collection("listApplyKAI");
+                      await reference
+                          .doc(widget.formasi + widget.pendidikan == "D4/S1"
+                              ? widget.pendidikan + email!
+                              : "${widget.formasi}D4S1$email")
+                          .set({
+                        "namaFormasi": widget.formasi,
+                        "lokasi": widget.lokasi,
+                        "namaPelamar": name,
+                        "cvName": cvName,
+                        "cvURL": cvURL,
+                        "email": email,
+                        "about": about,
+                        "avatarUrl": avatarUrl,
+                        "status": "Menunggu",
+                        "pendidikan": widget.pendidikan
+                      });
+                      Navigator.pop(context);
+                      dialogInfo(context, "Success Apply Job!", 2);
+                      futureDelayNavBack(context, 2);
+                    });
+                  },
+                );
+              }
+            },
+            text: "LAMAR",
+          )),
       appBar: AppBar(
         title: const Text("Job Details"),
         actions: [
@@ -112,7 +188,7 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
                   height: 70,
                   width: 70,
                   child: CircleAvatar(
-                    backgroundColor: colorBlueSecondKAI,
+                    backgroundImage: NetworkImage(widget.urlPict),
                   )),
             ),
             const SizedBox(
@@ -243,7 +319,40 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
                     style: size22.copyWith(
                         fontWeight: fw600, color: colorOrangeSecondKAI)),
                 const Spacer(),
-                TextButton(onPressed: () {}, child: const Text("Lebih banyak"))
+                TextButton(
+                    onPressed: () async {
+                      await showDialog<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15))),
+                            title: const Text(
+                              "Deskripsi Pekerjaan",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w600),
+                            ),
+                            content: SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Pendidikan : \n${widget.pendidikan}\n"),
+                                  Text(
+                                      "Jenis Kelamin : \n${widget.jenisKelamin}\n"),
+                                  Text("Jurusan : \n${widget.jurusan}\n"),
+                                  Text("Keterangan : \n${widget.keterangan}\n"),
+                                  Text(
+                                      "Syarat Dokumen : \n${widget.syaratDokumen}\n"),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: const Text("Lebih banyak"))
               ],
             ),
             Column(
@@ -350,7 +459,6 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
                 style: size20.copyWith(
                     fontWeight: fw600, color: colorBlueSecondKAI)),
             Text(
-                textAlign: TextAlign.justify,
                 style:
                     size16.copyWith(color: colorOrangeSecondKAI.withOpacity(1)),
                 widget.kriteriaUmum),
@@ -364,7 +472,6 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
                 style: size20.copyWith(
                     fontWeight: fw600, color: colorBlueSecondKAI)),
             Text(
-                textAlign: TextAlign.justify,
                 style:
                     size16.copyWith(color: colorOrangeSecondKAI.withOpacity(1)),
                 widget.ketentuanUmum),
@@ -379,7 +486,6 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
                     fontWeight: fw600, color: colorBlueSecondKAI)),
             Text(
               widget.persyaratanUmum,
-              textAlign: TextAlign.justify,
               style:
                   size16.copyWith(color: colorOrangeSecondKAI.withOpacity(1)),
             ),
@@ -422,14 +528,14 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
           padding: const EdgeInsets.all(10),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text("Prosedur Seleksi",
-                style: size20.copyWith(
-                    fontWeight: fw600, color: colorBlueSecondKAI)),
-            Text(
-                textAlign: TextAlign.justify,
-                style:
-                    size16.copyWith(color: colorOrangeSecondKAI.withOpacity(1)),
-                widget.prosedurSeleksi),
+            // Text("Prosedur Seleksi",
+            //     style: size20.copyWith(
+            //         fontWeight: fw600, color: colorBlueSecondKAI)),
+            // Text(
+            //     textAlign: TextAlign.justify,
+            //     style:
+            //         size16.copyWith(color: colorOrangeSecondKAI.withOpacity(1)),
+            //     widget.prosedurSeleksi),
           ]),
         ),
       ],
