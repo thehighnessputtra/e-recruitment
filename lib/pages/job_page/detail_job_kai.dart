@@ -144,9 +144,7 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
                       CollectionReference reference =
                           FirebaseFirestore.instance.collection("listApplyKAI");
                       await reference
-                          .doc(widget.formasi + widget.pendidikan == "D4/S1"
-                              ? widget.pendidikan + email!
-                              : "${widget.formasi}D4S1$email")
+                          .doc(widget.formasi + widget.pendidikan + email!)
                           .set({
                         "namaFormasi": widget.formasi,
                         "lokasi": widget.lokasi,

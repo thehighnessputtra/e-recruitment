@@ -50,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   validasiCV() {
     Future.delayed(const Duration(seconds: 1), () {
+      print(cvName);
       if (cvName == "Masukan CV anda!") {
         dialogWarning(context,
             "Anda belum melampirkan file CV anda! silahkan anda melampirkan CV anda pada halaman profile");

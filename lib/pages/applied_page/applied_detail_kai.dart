@@ -254,7 +254,9 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                     CollectionReference ref =
                         FirebaseFirestore.instance.collection('listApplyKAI');
                     ref
-                        .doc(widget.namaFormasiPelamar + widget.emailPelamar)
+                        .doc(widget.namaFormasiPelamar +
+                            widget.pendidikan +
+                            widget.emailPelamar)
                         .update({
                       'status': "DITERIMA",
                     });
@@ -270,7 +272,9 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                     CollectionReference ref =
                         FirebaseFirestore.instance.collection('listApplyKAI');
                     ref
-                        .doc(widget.namaFormasiPelamar + widget.emailPelamar)
+                        .doc(widget.namaFormasiPelamar +
+                            widget.pendidikan +
+                            widget.emailPelamar)
                         .update({
                       'status': "DITOLAK",
                     });
@@ -284,15 +288,32 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
               ElevatedButton(
                   onPressed: () async {
                     if (widget.emailPelamar != null) {
-                      final Uri url = Uri.parse(
-                          "mailto:${widget.emailPelamar}?cc=&bcc=&subject=${widget.statusPelamar}_${widget.namaPelamar}_${widget.namaFormasiPelamar}&body=Selamat%20anda%20${widget.namaPelamar}%20telah%20${widget.statusPelamar}%20di%20${widget.lokasiPelamar}%20sebagai%20${widget.namaFormasiPelamar}");
-                      if (!await launchUrl(url,
-                          mode: LaunchMode.externalApplication)) {
-                        throw "Could not launch $url";
+                      if (widget.statusPelamar == "DITERIMA") {
+                        final Uri url = Uri.parse(
+                            "mailto:${widget.emailPelamar}?cc=&bcc=&subject=${widget.statusPelamar}_${widget.namaPelamar}_${widget.namaFormasiPelamar}&body=Selamat%20anda%20${widget.namaPelamar}%20telah%20${widget.statusPelamar}%20di%20PT%20KAI%20${widget.lokasiPelamar}%20sebagai%20${widget.namaFormasiPelamar}.%20Untuk%20informasi%20seleksi%20silahkan%20kunjungi%20website%20https://recruitment.kai.id/news");
+                        if (!await launchUrl(url,
+                            mode: LaunchMode.externalApplication)) {
+                          throw "Could not launch $url";
+                        }
+                      } else if (widget.statusPelamar == "DITOLAK") {
+                        final Uri url = Uri.parse(
+                            "mailto:${widget.emailPelamar}?cc=&bcc=&subject=${widget.statusPelamar}_${widget.namaPelamar}_${widget.namaFormasiPelamar}&body=Mohon%20maaf%20anda%20${widget.namaPelamar}%20telah%20${widget.statusPelamar}%20di%20PT%20KAI%20${widget.lokasiPelamar}%20sebagai%20${widget.namaFormasiPelamar}.");
+                        if (!await launchUrl(url,
+                            mode: LaunchMode.externalApplication)) {
+                          throw "Could not launch $url";
+                        }
+                      } else if (widget.statusPelamar == "Menunggu") {
+                        final Uri url = Uri.parse(
+                            "mailto:${widget.emailPelamar}?cc=&bcc=&subject=${widget.statusPelamar}_${widget.namaPelamar}_${widget.namaFormasiPelamar}&body=Informasi%20status%20${widget.namaPelamar}%20masih%20menunggu");
+                        if (!await launchUrl(url,
+                            mode: LaunchMode.externalApplication)) {
+                          throw "Could not launch $url";
+                        }
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text("Could not launch URL!")));
                       }
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text("Could not launch URL!")));
                     }
                   },
                   child: const Text("Email")),
@@ -319,7 +340,9 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                 CollectionReference ref =
                     FirebaseFirestore.instance.collection('listApplyKAI');
                 ref
-                    .doc(widget.namaFormasiPelamar + widget.emailPelamar)
+                    .doc(widget.namaFormasiPelamar +
+                        widget.pendidikan +
+                        widget.emailPelamar)
                     .delete();
                 dialogInfo(
                     context,
