@@ -19,7 +19,7 @@ class NewsCard extends StatelessWidget {
         borderRadius: const BorderRadius.horizontal(
             left: Radius.circular(15), right: Radius.circular(10)),
       ),
-      height: 89,
+      height: 110,
       width: MediaQuery.of(context).size.width,
       child: Row(
         children: [

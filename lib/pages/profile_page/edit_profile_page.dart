@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:latihan_firebase/utils/constant.dart';
 import 'package:latihan_firebase/widget/custom_button.dart';
 import 'package:latihan_firebase/widget/dialog_widget.dart';
+import 'package:latihan_firebase/widget/edit_administrasi_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EditProfile extends StatefulWidget {
@@ -26,6 +27,14 @@ class _EditProfileState extends State<EditProfile> {
   String? email;
   String? role;
   String? cvName;
+  String? ktpName;
+  String? ktpURL;
+  String? ijazahName;
+  String? ijazahURL;
+  String? toeflName;
+  String? toeflURL;
+  String? transNilaiName;
+  String? transNilaiURL;
   String? cvURL;
   String? about;
   String? avatarUrl;
@@ -42,6 +51,14 @@ class _EditProfileState extends State<EditProfile> {
           name = snapshot.data()!['name'];
           email = snapshot.data()!['email'];
           role = snapshot.data()!['role'];
+          ktpName = snapshot.data()!['ktpName'];
+          ktpURL = snapshot.data()!['ktpURL'];
+          ijazahName = snapshot.data()!['ijazahName'];
+          ijazahURL = snapshot.data()!['ijazahURL'];
+          toeflName = snapshot.data()!['toeflName'];
+          toeflURL = snapshot.data()!['toeflURL'];
+          transNilaiName = snapshot.data()!['transNilaiName'];
+          transNilaiURL = snapshot.data()!['transNilaiURL'];
           cvName = snapshot.data()!['cvName'];
           cvURL = snapshot.data()!['cvURL'];
           about = snapshot.data()!['about'];
@@ -132,6 +149,34 @@ class _EditProfileState extends State<EditProfile> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    EditAdministrasiWidget(
+                      fileAdministrasi: cvName != null ? cvName! : "kosong",
+                      namaAdministrasi: "Curriculum Vitae",
+                      onPress: () => uploadCV(),
+                    ),
+                    EditAdministrasiWidget(
+                      fileAdministrasi: ktpName != null ? ktpName! : "kosong",
+                      namaAdministrasi: "Identitas KTP",
+                      onPress: () => uploadKTP(),
+                    ),
+                    EditAdministrasiWidget(
+                      fileAdministrasi:
+                          ijazahName != null ? ijazahName! : "kosong",
+                      namaAdministrasi: "Ijazah SLTA/D3/S1",
+                      onPress: () => uploadIjazah(),
+                    ),
+                    EditAdministrasiWidget(
+                      fileAdministrasi:
+                          toeflName != null ? toeflName! : "kosong",
+                      namaAdministrasi: "Sertifikat TOELF",
+                      onPress: () => uploadTOEFL(),
+                    ),
+                    EditAdministrasiWidget(
+                      fileAdministrasi:
+                          transNilaiName != null ? transNilaiName! : "kosong",
+                      namaAdministrasi: "Transkrip Nilai SLTA/D3/S1",
+                      onPress: () => uploadTransNilai(),
+                    ),
                     const Text(
                       "Biografi",
                       style:
@@ -148,30 +193,6 @@ class _EditProfileState extends State<EditProfile> {
                                 width: 2, color: colorBlueSecondKAI)),
                       ),
                       maxLines: 5,
-                    ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    const Text("Curriculum Vitae",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold)),
-                    TextFormField(
-                      readOnly: true,
-                      onTap: () {
-                        uploadCV();
-                      },
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                width: 2, color: colorBlueSecondKAI)),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                width: 2, color: colorBlueSecondKAI)),
-                        hintText: cvName,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10.0,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -232,9 +253,9 @@ class _EditProfileState extends State<EditProfile> {
       final fileName = result.files.single.name;
 
       FirebaseStorage storage = FirebaseStorage.instance;
-      await storage.ref('avatar/$email/$fileName').putFile(File(path));
+      await storage.ref('users/$email/avatar/$fileName').putFile(File(path));
       String getDownloadUrl =
-          await storage.ref('avatar/$email/$fileName').getDownloadURL();
+          await storage.ref('users/$email/avatar/$fileName').getDownloadURL();
       // print("DOWNLOAD AVATAR = $getDownloadUrl");
       setState(() {
         avatarName = fileName;
@@ -265,9 +286,9 @@ class _EditProfileState extends State<EditProfile> {
       final fileName = result.files.single.name;
 
       FirebaseStorage storage = FirebaseStorage.instance;
-      await storage.ref('cv/$email/$fileName').putFile(File(path));
+      await storage.ref('users/$email/cv/$fileName').putFile(File(path));
       String getDownloadUrl =
-          await storage.ref('cv/$email/$fileName').getDownloadURL();
+          await storage.ref('users/$email/cv/$fileName').getDownloadURL();
       // print("DOWNLOAD CV = $getDownloadUrl");
       setState(() {
         cvName = fileName;
@@ -291,17 +312,126 @@ class _EditProfileState extends State<EditProfile> {
     }
   }
 
+  uploadKTP() async {
+    final result = await FilePicker.platform
+        .pickFiles(allowMultiple: false, type: FileType.any);
+    if (result != null) {
+      final path = result.files.single.path!;
+      final fileName = result.files.single.name;
+
+      FirebaseStorage storage = FirebaseStorage.instance;
+      await storage.ref('users/$email/ktp/$fileName').putFile(File(path));
+      String getDownloadUrl =
+          await storage.ref('users/$email/ktp/$fileName').getDownloadURL();
+      setState(() {
+        ktpName = fileName;
+        ktpURL = getDownloadUrl;
+      });
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("File Selected")));
+    } else {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("No file selected!")));
+    }
+  }
+
+  uploadIjazah() async {
+    final result = await FilePicker.platform
+        .pickFiles(allowMultiple: false, type: FileType.any);
+    if (result != null) {
+      final path = result.files.single.path!;
+      final fileName = result.files.single.name;
+
+      FirebaseStorage storage = FirebaseStorage.instance;
+      await storage.ref('users/$email/ijazah/$fileName').putFile(File(path));
+      String getDownloadUrl =
+          await storage.ref('users/$email/ijazah/$fileName').getDownloadURL();
+      setState(() {
+        ijazahName = fileName;
+        ijazahURL = getDownloadUrl;
+      });
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("File Selected")));
+    } else {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("No file selected!")));
+    }
+  }
+
+  uploadTOEFL() async {
+    final result = await FilePicker.platform
+        .pickFiles(allowMultiple: false, type: FileType.any);
+    if (result != null) {
+      final path = result.files.single.path!;
+      final fileName = result.files.single.name;
+
+      FirebaseStorage storage = FirebaseStorage.instance;
+      await storage.ref('users/$email/toefl/$fileName').putFile(File(path));
+      String getDownloadUrl =
+          await storage.ref('users/$email/toefl/$fileName').getDownloadURL();
+      setState(() {
+        toeflName = fileName;
+        toeflURL = getDownloadUrl;
+      });
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("File Selected")));
+    } else {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("No file selected!")));
+    }
+  }
+
+  uploadTransNilai() async {
+    final result = await FilePicker.platform
+        .pickFiles(allowMultiple: false, type: FileType.any);
+    if (result != null) {
+      final path = result.files.single.path!;
+      final fileName = result.files.single.name;
+
+      FirebaseStorage storage = FirebaseStorage.instance;
+      await storage
+          .ref('users/$email/transnilai/$fileName')
+          .putFile(File(path));
+      String getDownloadUrl = await storage
+          .ref('users/$email/transnilai/$fileName')
+          .getDownloadURL();
+      setState(() {
+        transNilaiName = fileName;
+        transNilaiURL = getDownloadUrl;
+      });
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("File Selected")));
+    } else {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("No file selected!")));
+    }
+  }
+
   uploadAllFile() {
     var user = FirebaseAuth.instance.currentUser;
     CollectionReference ref = FirebaseFirestore.instance.collection('users');
     ref.doc(user!.email).update({
+      'about': biography,
       'avatarName': avatarName,
-      'avatarPath': "cv/$email/$avatarName",
       'avatarUrl': avatarUrl,
       'cvName': cvName,
-      'cvPath': "cv/$email/$cvName",
-      'about': biography,
-      'cvURL': cvURL
+      'cvURL': cvURL,
+      'ktpName': ktpName,
+      'ktpURL': ktpURL,
+      'ijazahName': ijazahName,
+      'ijazahURL': ijazahURL,
+      'toeflName': toeflName,
+      'toeflURL': toeflURL,
+      'transNilaiName': transNilaiName,
+      'transNilaiURL': transNilaiURL,
     });
   }
 }

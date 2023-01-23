@@ -111,7 +111,28 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                   const SizedBox(
                     width: 10.0,
                   ),
-                  colorStatus()
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: widget.statusPelamar == "DITERIMA"
+                              ? Colors.green
+                              : widget.statusPelamar == "DITOLAK"
+                                  ? Colors.red
+                                  : widget.statusPelamar == "Menunggu"
+                                      ? colorOrangeSecondKAI
+                                      : Colors.blue),
+                      padding: const EdgeInsets.all(5),
+                      child: Text(widget.statusPelamar,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ),
+                  )
                 ],
               ),
               const SizedBox(
@@ -165,7 +186,52 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                 children: [
                   const Expanded(
                       flex: 2,
-                      child: Text("Biografi", style: TextStyle(fontSize: 16))),
+                      child: Text("Identitas KTP",
+                          style: TextStyle(fontSize: 16))),
+                  const Text(" : ", style: TextStyle(fontSize: 16)),
+                  Expanded(
+                    flex: 4,
+                    child: Text(widget.cvNamePelamar,
+                        style: const TextStyle(fontSize: 16)),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Expanded(
+                      flex: 2,
+                      child: Text("Ijazah", style: TextStyle(fontSize: 16))),
+                  const Text(" : ", style: TextStyle(fontSize: 16)),
+                  Expanded(
+                    flex: 4,
+                    child: Text(widget.cvNamePelamar,
+                        style: const TextStyle(fontSize: 16)),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Expanded(
+                      flex: 2,
+                      child: Text("Sertifikat TOEFL",
+                          style: TextStyle(fontSize: 16))),
+                  const Text(" : ", style: TextStyle(fontSize: 16)),
+                  Expanded(
+                    flex: 4,
+                    child: Text(widget.cvNamePelamar,
+                        style: const TextStyle(fontSize: 16)),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Expanded(
+                      flex: 2,
+                      child: Text("Transkrip Nilai",
+                          style: TextStyle(fontSize: 16))),
                   const Text(" : ", style: TextStyle(fontSize: 16)),
                   Expanded(
                     flex: 4,
@@ -181,64 +247,6 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
             ],
           ),
         ));
-  }
-
-  colorStatus() {
-    if (widget.statusPelamar == "DITERIMA") {
-      return Expanded(
-        flex: 2,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: Colors.green,
-          ),
-          padding: const EdgeInsets.all(5),
-          child: Text(widget.statusPelamar,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              )),
-        ),
-      );
-    } else if (widget.statusPelamar == "DITOLAK") {
-      return Expanded(
-        flex: 2,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: Colors.red,
-          ),
-          padding: const EdgeInsets.all(5),
-          child: Text(widget.statusPelamar,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              )),
-        ),
-      );
-    } else {
-      return Expanded(
-        flex: 2,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: colorOrangeSecondKAI,
-          ),
-          padding: const EdgeInsets.all(5),
-          child: Text(widget.statusPelamar,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              )),
-        ),
-      );
-    }
   }
 
   adminController() {

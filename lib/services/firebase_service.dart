@@ -89,11 +89,19 @@ class FirebaseService {
       'role': "User",
       'name': name,
       'cvName': "Masukan CV anda!",
+      'cvURL':
+          "https://firebasestorage.googleapis.com/v0/b/latihan-firebase-yogi.appspot.com/o/cv%2FSILAHKAN%20INPUT%20CV%20ANDA.pdf?alt=media&token=00531920-3c28-417f-b9f8-8940e6c15e36",
+      'ktpName': "Masukan KTP anda!",
+      'ktpUrl': "",
+      'ijazahName': "Masukan Ijazah anda!",
+      'ijazahURL': "",
+      'toeflName': "Masukan Sertifikat TOEFL anda!",
+      'toeflURL': "",
+      'transNilaiName': "Masukan Transkrip Nilai anda!",
+      'transNilaiURL': "",
       'about': "Masukan info tentang anda!",
       'avatarUrl':
           "https://firebasestorage.googleapis.com/v0/b/latihan-firebase-yogi.appspot.com/o/avatar%2Fadmin.jpeg?alt=media&token=5dfe6346-be26-46d0-9fa2-a0cd7148fe77",
-      'cvURL':
-          "https://firebasestorage.googleapis.com/v0/b/latihan-firebase-yogi.appspot.com/o/cv%2FSILAHKAN%20INPUT%20CV%20ANDA.pdf?alt=media&token=00531920-3c28-417f-b9f8-8940e6c15e36"
     });
   }
 

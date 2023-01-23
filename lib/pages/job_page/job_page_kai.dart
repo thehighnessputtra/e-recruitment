@@ -80,7 +80,7 @@ class ItemCardKAI extends StatelessWidget {
                       urlPict: urlPict));
             },
             child: Container(
-              height: 200,
+              height: 220,
               padding: const EdgeInsets.all(18),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
