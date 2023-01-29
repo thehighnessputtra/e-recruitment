@@ -88,6 +88,14 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
   String? role;
   String? cvName;
   String? cvURL;
+  String? ktpName;
+  String? ktpURL;
+  String? ijazahName;
+  String? ijazahURL;
+  String? toeflName;
+  String? toeflURL;
+  String? transNilaiName;
+  String? transNilaiURL;
   String? about;
   String? avatarUrl;
   Future getDocID() async {
@@ -103,6 +111,14 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
           role = snapshot.data()!['role'];
           cvName = snapshot.data()!['cvName'];
           cvURL = snapshot.data()!['cvURL'];
+          ktpName = snapshot.data()!['ktpName'];
+          ktpURL = snapshot.data()!['ktpURL'];
+          ijazahName = snapshot.data()!['ijazahName'];
+          ijazahURL = snapshot.data()!['ijazahURL'];
+          toeflName = snapshot.data()!['toeflName'];
+          toeflURL = snapshot.data()!['toeflURL'];
+          transNilaiName = snapshot.data()!['transNilaiName'];
+          transNilaiURL = snapshot.data()!['transNilaiURL'];
           about = snapshot.data()!['about'];
           avatarUrl = snapshot.data()!['avatarUrl'];
         });
@@ -149,8 +165,16 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
                         "namaFormasi": widget.formasi,
                         "lokasi": widget.lokasi,
                         "namaPelamar": name,
-                        "cvName": cvName,
-                        "cvURL": cvURL,
+                        'cvName': cvName,
+                        'cvURL': cvURL,
+                        'ktpName': ktpName,
+                        'ktpURL': ktpURL,
+                        'ijazahName': ijazahName,
+                        'ijazahURL': ijazahURL,
+                        'toeflName': toeflName,
+                        'toeflURL': toeflURL,
+                        'transNilaiName': transNilaiName,
+                        'transNilaiURL': transNilaiURL,
                         "email": email,
                         "about": about,
                         "avatarUrl": avatarUrl,

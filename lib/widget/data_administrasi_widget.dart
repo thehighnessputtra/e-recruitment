@@ -20,6 +20,8 @@ class DataAdministrasi extends StatelessWidget {
         TextFormField(
           readOnly: true,
           decoration: InputDecoration(
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             border: OutlineInputBorder(
                 borderSide: BorderSide(width: 2, color: colorBlueSecondKAI)),
             enabledBorder: OutlineInputBorder(

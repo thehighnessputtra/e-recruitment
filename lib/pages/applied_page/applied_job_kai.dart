@@ -91,6 +91,14 @@ class _ListApplyState extends State<ListApply> {
           String avatarUrl = itemsApply['avatarUrl'];
           String cvName = itemsApply['cvName'];
           String cvURL = itemsApply['cvURL'];
+          String ktpName = itemsApply['ktpName'];
+          String ktpURL = itemsApply['ktpURL'];
+          String ijazahName = itemsApply['ijazahName'];
+          String ijazahURL = itemsApply['ijazahURL'];
+          String toeflName = itemsApply['toeflName'];
+          String toeflURL = itemsApply['toeflURL'];
+          String transNilaiName = itemsApply['transNilaiName'];
+          String transNilaiURL = itemsApply['transNilaiURL'];
           String emailPelamar = itemsApply['email'];
           String lokasi = itemsApply['lokasi'];
           String namaFormasi = itemsApply['namaFormasi'];
@@ -108,6 +116,14 @@ class _ListApplyState extends State<ListApply> {
                         avatarUrlPelamar: avatarUrl,
                         cvNamePelamar: cvName,
                         cvURLPelamar: cvURL,
+                        ktpNamePelamar: ktpName,
+                        ktpURLPelamar: ktpURL,
+                        ijazahNamePelamar: ijazahName,
+                        ijazahURLPelamar: ijazahURL,
+                        toeflNamePelamar: toeflName,
+                        toeflURLPelamar: toeflURL,
+                        transNilaiNamePelamar: transNilaiName,
+                        transNilaiURLPelamar: transNilaiURL,
                         emailPelamar: emailPelamar,
                         lokasiPelamar: lokasi,
                         namaFormasiPelamar: namaFormasi,

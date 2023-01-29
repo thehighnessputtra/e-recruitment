@@ -12,6 +12,14 @@ class AppliedDetailKAI extends StatefulWidget {
   final String avatarUrlPelamar;
   final String cvNamePelamar;
   final String cvURLPelamar;
+  final String ktpNamePelamar;
+  final String ktpURLPelamar;
+  final String ijazahNamePelamar;
+  final String ijazahURLPelamar;
+  final String toeflNamePelamar;
+  final String toeflURLPelamar;
+  final String transNilaiNamePelamar;
+  final String transNilaiURLPelamar;
   final String emailPelamar;
   final String lokasiPelamar;
   final String namaFormasiPelamar;
@@ -29,7 +37,15 @@ class AppliedDetailKAI extends StatefulWidget {
       required this.namaFormasiPelamar,
       required this.namaPelamar,
       required this.statusPelamar,
-      required this.pendidikan});
+      required this.pendidikan,
+      required this.ktpNamePelamar,
+      required this.ktpURLPelamar,
+      required this.ijazahNamePelamar,
+      required this.ijazahURLPelamar,
+      required this.toeflNamePelamar,
+      required this.toeflURLPelamar,
+      required this.transNilaiNamePelamar,
+      required this.transNilaiURLPelamar});
 
   @override
   State<AppliedDetailKAI> createState() => _AppliedDetailKAIState();
@@ -191,7 +207,7 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                   const Text(" : ", style: TextStyle(fontSize: 16)),
                   Expanded(
                     flex: 4,
-                    child: Text(widget.cvNamePelamar,
+                    child: Text(widget.ktpNamePelamar,
                         style: const TextStyle(fontSize: 16)),
                   ),
                 ],
@@ -205,7 +221,7 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                   const Text(" : ", style: TextStyle(fontSize: 16)),
                   Expanded(
                     flex: 4,
-                    child: Text(widget.cvNamePelamar,
+                    child: Text(widget.ijazahNamePelamar,
                         style: const TextStyle(fontSize: 16)),
                   ),
                 ],
@@ -220,7 +236,7 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                   const Text(" : ", style: TextStyle(fontSize: 16)),
                   Expanded(
                     flex: 4,
-                    child: Text(widget.cvNamePelamar,
+                    child: Text(widget.toeflNamePelamar,
                         style: const TextStyle(fontSize: 16)),
                   ),
                 ],
@@ -232,6 +248,20 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                       flex: 2,
                       child: Text("Transkrip Nilai",
                           style: TextStyle(fontSize: 16))),
+                  const Text(" : ", style: TextStyle(fontSize: 16)),
+                  Expanded(
+                    flex: 4,
+                    child: Text(widget.transNilaiNamePelamar,
+                        style: const TextStyle(fontSize: 16)),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Expanded(
+                      flex: 2,
+                      child: Text("Biografi", style: TextStyle(fontSize: 16))),
                   const Text(" : ", style: TextStyle(fontSize: 16)),
                   Expanded(
                     flex: 4,
