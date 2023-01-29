@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:latihan_firebase/utils/constant.dart';
+import 'package:latihan_firebase/widget/data_administrasi_widget.dart';
 import 'package:latihan_firebase/widget/dialog_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -154,119 +155,136 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
               const SizedBox(
                 height: 10.0,
               ),
-              Row(
+              widget.statusPelamar == "TAHAP1" ||
+                      widget.statusPelamar == "TAHAP2" ||
+                      widget.statusPelamar == "TAHAP3" ||
+                      widget.statusPelamar == "TAHAP4" ||
+                      widget.statusPelamar == "TAHAP5"
+                  ? const Text("Nilai Psikotest = ")
+                  : const SizedBox(),
+              widget.statusPelamar == "TAHAP1"
+                  ? const Text(
+                      "Mohon menunggu beberapa hari untuk seleksi TAHAP1 Administrasi")
+                  : widget.statusPelamar == "TAHAP2"
+                      ? TextButton(
+                          onPressed: () {},
+                          child: const Text("Mengejarkan Psikotest"))
+                      : widget.statusPelamar == "TAHAP3"
+                          ? TextButton(
+                              onPressed: () {},
+                              child: const Text("Mengerjakan Toefl"))
+                          : widget.statusPelamar == "TAHAP4"
+                              ? TextButton(
+                                  onPressed: () {},
+                                  child: const Text("Mulai Test Wawancara"))
+                              : widget.statusPelamar == "TAHAP5"
+                                  ? const Text(
+                                      "Lampirkan hasil medical checkup")
+                                  : const SizedBox(),
+              DataAdministrasi(
+                  fileAdministrasi: widget.namaPelamar,
+                  namaAdminstrasi: "Nama"),
+              DataAdministrasi(
+                  fileAdministrasi: widget.emailPelamar,
+                  namaAdminstrasi: "Email"),
+              DataAdministrasi(
+                  onTap: () async {
+                    if (widget.cvURLPelamar != null) {
+                      final Uri url = Uri.parse(widget.cvURLPelamar);
+                      if (!await launchUrl(url,
+                          mode: LaunchMode.externalApplication)) {
+                        throw "Could not launch $url";
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Could not launch URL!")));
+                    }
+                  },
+                  fileAdministrasi: widget.cvNamePelamar,
+                  namaAdminstrasi: "Curriculum Vitae"),
+              DataAdministrasi(
+                  onTap: () async {
+                    if (widget.ktpURLPelamar != null) {
+                      final Uri url = Uri.parse(widget.ktpURLPelamar);
+                      if (!await launchUrl(url,
+                          mode: LaunchMode.externalApplication)) {
+                        throw "Could not launch $url";
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Could not launch URL!")));
+                    }
+                  },
+                  fileAdministrasi: widget.ktpNamePelamar,
+                  namaAdminstrasi: "Identitas KTP"),
+              DataAdministrasi(
+                  onTap: () async {
+                    if (widget.ijazahURLPelamar != null) {
+                      final Uri url = Uri.parse(widget.ijazahURLPelamar);
+                      if (!await launchUrl(url,
+                          mode: LaunchMode.externalApplication)) {
+                        throw "Could not launch $url";
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Could not launch URL!")));
+                    }
+                  },
+                  fileAdministrasi: widget.ijazahNamePelamar,
+                  namaAdminstrasi: "Ijazah"),
+              DataAdministrasi(
+                  onTap: () async {
+                    if (widget.toeflURLPelamar != null) {
+                      final Uri url = Uri.parse(widget.toeflURLPelamar);
+                      if (!await launchUrl(url,
+                          mode: LaunchMode.externalApplication)) {
+                        throw "Could not launch $url";
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Could not launch URL!")));
+                    }
+                  },
+                  fileAdministrasi: widget.toeflNamePelamar,
+                  namaAdminstrasi: "TOEFL"),
+              DataAdministrasi(
+                  onTap: () async {
+                    if (widget.transNilaiURLPelamar != null) {
+                      final Uri url = Uri.parse(widget.transNilaiURLPelamar);
+                      if (!await launchUrl(url,
+                          mode: LaunchMode.externalApplication)) {
+                        throw "Could not launch $url";
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Could not launch URL!")));
+                    }
+                  },
+                  fileAdministrasi: widget.transNilaiNamePelamar,
+                  namaAdminstrasi: "Transkrip Nilai"),
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Expanded(
-                      flex: 2,
-                      child: Text("Nama", style: TextStyle(fontSize: 16))),
-                  const Text(" : ", style: TextStyle(fontSize: 16)),
-                  Expanded(
-                    flex: 4,
-                    child: Text(widget.namaPelamar,
-                        style: const TextStyle(fontSize: 16)),
+                  const Text("Biografi",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  TextFormField(
+                    maxLines: 5,
+                    readOnly: true,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 10),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              width: 1.5, color: colorBlueSecondKAI)),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              width: 1.5, color: colorBlueSecondKAI)),
+                      hintText: widget.biografiPelamar,
+                    ),
                   ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Expanded(
-                      flex: 2,
-                      child: Text("Email", style: TextStyle(fontSize: 16))),
-                  const Text(" : ", style: TextStyle(fontSize: 16)),
-                  Expanded(
-                    flex: 4,
-                    child: Text(widget.emailPelamar,
-                        style: const TextStyle(fontSize: 16)),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Expanded(
-                      flex: 2,
-                      child: Text("Curriculum Vitae",
-                          style: TextStyle(fontSize: 16))),
-                  const Text(" : ", style: TextStyle(fontSize: 16)),
-                  Expanded(
-                    flex: 4,
-                    child: Text(widget.cvNamePelamar,
-                        style: const TextStyle(fontSize: 16)),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Expanded(
-                      flex: 2,
-                      child: Text("Identitas KTP",
-                          style: TextStyle(fontSize: 16))),
-                  const Text(" : ", style: TextStyle(fontSize: 16)),
-                  Expanded(
-                    flex: 4,
-                    child: Text(widget.ktpNamePelamar,
-                        style: const TextStyle(fontSize: 16)),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Expanded(
-                      flex: 2,
-                      child: Text("Ijazah", style: TextStyle(fontSize: 16))),
-                  const Text(" : ", style: TextStyle(fontSize: 16)),
-                  Expanded(
-                    flex: 4,
-                    child: Text(widget.ijazahNamePelamar,
-                        style: const TextStyle(fontSize: 16)),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Expanded(
-                      flex: 2,
-                      child: Text("Sertifikat TOEFL",
-                          style: TextStyle(fontSize: 16))),
-                  const Text(" : ", style: TextStyle(fontSize: 16)),
-                  Expanded(
-                    flex: 4,
-                    child: Text(widget.toeflNamePelamar,
-                        style: const TextStyle(fontSize: 16)),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Expanded(
-                      flex: 2,
-                      child: Text("Transkrip Nilai",
-                          style: TextStyle(fontSize: 16))),
-                  const Text(" : ", style: TextStyle(fontSize: 16)),
-                  Expanded(
-                    flex: 4,
-                    child: Text(widget.transNilaiNamePelamar,
-                        style: const TextStyle(fontSize: 16)),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Expanded(
-                      flex: 2,
-                      child: Text("Biografi", style: TextStyle(fontSize: 16))),
-                  const Text(" : ", style: TextStyle(fontSize: 16)),
-                  Expanded(
-                    flex: 4,
-                    child: Text(widget.biografiPelamar,
-                        style: const TextStyle(fontSize: 16)),
+                  const SizedBox(
+                    height: 3.0,
                   ),
                 ],
               ),
@@ -287,6 +305,105 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              widget.statusPelamar == "Menunggu"
+                  ? ElevatedButton(
+                      onPressed: () {
+                        CollectionReference ref = FirebaseFirestore.instance
+                            .collection('listApplyKAI');
+                        ref
+                            .doc(widget.namaFormasiPelamar +
+                                widget.pendidikan +
+                                widget.emailPelamar)
+                            .update({
+                          'status': "TAHAP1",
+                        });
+                        dialogInfo(
+                            context,
+                            "${widget.namaPelamar}-${widget.namaFormasiPelamar} TAHAP1!",
+                            1);
+                        futureDelayNavBack(context, 1);
+                      },
+                      child: const Text("Tahap 1"))
+                  : widget.statusPelamar == "TAHAP1"
+                      ? ElevatedButton(
+                          onPressed: () {
+                            CollectionReference ref = FirebaseFirestore.instance
+                                .collection('listApplyKAI');
+                            ref
+                                .doc(widget.namaFormasiPelamar +
+                                    widget.pendidikan +
+                                    widget.emailPelamar)
+                                .update({
+                              'status': "TAHAP2",
+                            });
+                            dialogInfo(
+                                context,
+                                "${widget.namaPelamar}-${widget.namaFormasiPelamar} TAHAP2!",
+                                1);
+                            futureDelayNavBack(context, 1);
+                          },
+                          child: const Text("Tahap 2"))
+                      : widget.statusPelamar == "TAHAP2"
+                          ? ElevatedButton(
+                              onPressed: () {
+                                CollectionReference ref = FirebaseFirestore
+                                    .instance
+                                    .collection('listApplyKAI');
+                                ref
+                                    .doc(widget.namaFormasiPelamar +
+                                        widget.pendidikan +
+                                        widget.emailPelamar)
+                                    .update({
+                                  'status': "TAHAP3",
+                                });
+                                dialogInfo(
+                                    context,
+                                    "${widget.namaPelamar}-${widget.namaFormasiPelamar} TAHAP3!",
+                                    1);
+                                futureDelayNavBack(context, 1);
+                              },
+                              child: const Text("Tahap 3"))
+                          : widget.statusPelamar == "TAHAP3"
+                              ? ElevatedButton(
+                                  onPressed: () {
+                                    CollectionReference ref = FirebaseFirestore
+                                        .instance
+                                        .collection('listApplyKAI');
+                                    ref
+                                        .doc(widget.namaFormasiPelamar +
+                                            widget.pendidikan +
+                                            widget.emailPelamar)
+                                        .update({
+                                      'status': "TAHAP4",
+                                    });
+                                    dialogInfo(
+                                        context,
+                                        "${widget.namaPelamar}-${widget.namaFormasiPelamar} DITERIMA!",
+                                        1);
+                                    futureDelayNavBack(context, 1);
+                                  },
+                                  child: const Text("Tahap 4"))
+                              : widget.statusPelamar == "TAHAP4"
+                                  ? ElevatedButton(
+                                      onPressed: () {
+                                        CollectionReference ref =
+                                            FirebaseFirestore.instance
+                                                .collection('listApplyKAI');
+                                        ref
+                                            .doc(widget.namaFormasiPelamar +
+                                                widget.pendidikan +
+                                                widget.emailPelamar)
+                                            .update({
+                                          'status': "TAHAP5",
+                                        });
+                                        dialogInfo(
+                                            context,
+                                            "${widget.namaPelamar}-${widget.namaFormasiPelamar} DITERIMA!",
+                                            1);
+                                        futureDelayNavBack(context, 1);
+                                      },
+                                      child: const Text("Tahap 5"))
+                                  : const SizedBox(),
               ElevatedButton(
                   onPressed: () {
                     CollectionReference ref =
@@ -328,7 +445,7 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                     if (widget.emailPelamar != null) {
                       if (widget.statusPelamar == "DITERIMA") {
                         final Uri url = Uri.parse(
-                            "mailto:${widget.emailPelamar}?cc=&bcc=&subject=${widget.statusPelamar}_${widget.namaPelamar}_${widget.namaFormasiPelamar}&body=Selamat%20anda%20${widget.namaPelamar}%20telah%20${widget.statusPelamar}%20di%20PT%20KAI%20${widget.lokasiPelamar}%20sebagai%20${widget.namaFormasiPelamar}.%20Untuk%20informasi%20seleksi%20silahkan%20kunjungi%20website%20https://recruitment.kai.id/news");
+                            "mailto:${widget.emailPelamar}?cc=&bcc=&subject=${widget.statusPelamar}_${widget.namaPelamar}_${widget.namaFormasiPelamar}&body=Selamat%20anda%20${widget.namaPelamar}%20telah%20${widget.statusPelamar}%20di%20PT%20KAI%20${widget.lokasiPelamar}%20sebagai%20${widget.namaFormasiPelamar}.%20Untuk%20informasi%20selanjutnya%20silahkan%20kunjungi%20website%20https://recruitment.kai.id/news");
                         if (!await launchUrl(url,
                             mode: LaunchMode.externalApplication)) {
                           throw "Could not launch $url";
@@ -347,6 +464,34 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                             mode: LaunchMode.externalApplication)) {
                           throw "Could not launch $url";
                         }
+                      } else if (widget.statusPelamar == "TAHAP1") {
+                        final Uri url = Uri.parse(
+                            "mailto:${widget.emailPelamar}?cc=&bcc=&subject=${widget.statusPelamar}_${widget.namaPelamar}_${widget.namaFormasiPelamar}&body=Selamat%20anda%20${widget.namaPelamar}%20telah%20LOLOS%20${widget.statusPelamar}%20di%20PT%20KAI%20${widget.lokasiPelamar}%20sebagai%20${widget.namaFormasiPelamar}.%20Silahkan%20lanjut%20 ke%20 TAHAP2%20 Psikotest%20 dengan%20 maksimal%20 pengerjaan%20 2%20 hari!.%20 Terimakasih");
+                        if (!await launchUrl(url,
+                            mode: LaunchMode.externalApplication)) {
+                          throw "Could not launch $url";
+                        }
+                      } else if (widget.statusPelamar == "TAHAP2") {
+                        final Uri url = Uri.parse(
+                            "mailto:${widget.emailPelamar}?cc=&bcc=&subject=${widget.statusPelamar}_${widget.namaPelamar}_${widget.namaFormasiPelamar}&body=Selamat%20anda%20${widget.namaPelamar}%20telah%20LOLOS%20${widget.statusPelamar}%20di%20PT%20KAI%20${widget.lokasiPelamar}%20sebagai%20${widget.namaFormasiPelamar}%20 dengan%20 nilai%20xx.%20Untuk%20informasi%20selanjutnya%20silahkan%20kunjungi%20website%20https://recruitment.kai.id/news");
+                        if (!await launchUrl(url,
+                            mode: LaunchMode.externalApplication)) {
+                          throw "Could not launch $url";
+                        }
+                      } else if (widget.statusPelamar == "TAHAP3") {
+                        final Uri url = Uri.parse(
+                            "mailto:${widget.emailPelamar}?cc=&bcc=&subject=${widget.statusPelamar}_${widget.namaPelamar}_${widget.namaFormasiPelamar}&body=Selamat%20anda%20${widget.namaPelamar}%20telah%20LOLOS%20${widget.statusPelamar}%20di%20PT%20KAI%20${widget.lokasiPelamar}%20sebagai%20${widget.namaFormasiPelamar}%20 dengan%20 nilai%20xx. %20Silahkan%20 melanjutkan%20 ke%20 TAHAP4%20 Wawancara%20Untuk%20%20informasi%20selanjutnya%20silahkan%20kunjungi%20website%20https://recruitment.kai.id/news");
+                        if (!await launchUrl(url,
+                            mode: LaunchMode.externalApplication)) {
+                          throw "Could not launch $url";
+                        }
+                      } else if (widget.statusPelamar == "TAHAP4") {
+                        final Uri url = Uri.parse(
+                            "mailto:${widget.emailPelamar}?cc=&bcc=&subject=${widget.statusPelamar}_${widget.namaPelamar}_${widget.namaFormasiPelamar}&body=Selamat%20anda%20${widget.namaPelamar}%20telah%20LOLOS%20${widget.statusPelamar}%20di%20PT%20KAI%20${widget.lokasiPelamar}%20sebagai%20${widget.namaFormasiPelamar}%20 Silahkan %20melanjutkan %20TAHAP5 %20Medical %20Check-up.%20Untuk%20informasi%20selanjutnya%20silahkan%20kunjungi%20website%20https://recruitment.kai.id/news");
+                        if (!await launchUrl(url,
+                            mode: LaunchMode.externalApplication)) {
+                          throw "Could not launch $url";
+                        }
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
@@ -355,22 +500,6 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                     }
                   },
                   child: const Text("Email")),
-              ElevatedButton(
-                  onPressed: () async {
-                    if (widget.cvURLPelamar != null) {
-                      final Uri url = Uri.parse(widget.cvURLPelamar);
-                      if (!await launchUrl(url,
-                          mode: LaunchMode.externalApplication)) {
-                        throw "Could not launch $url";
-                      }
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text("Could not launch URL!")));
-                    }
-                  },
-                  child: const Text(
-                    "Download CV",
-                  )),
             ],
           ),
           ElevatedButton(

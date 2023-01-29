@@ -5,10 +5,12 @@ class DataAdministrasi extends StatelessWidget {
   const DataAdministrasi(
       {super.key,
       required this.namaAdminstrasi,
+      this.onTap,
       required this.fileAdministrasi});
 
   final String namaAdminstrasi;
   final String fileAdministrasi;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -16,21 +18,22 @@ class DataAdministrasi extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(namaAdminstrasi,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         TextFormField(
           readOnly: true,
+          onTap: onTap,
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             border: OutlineInputBorder(
-                borderSide: BorderSide(width: 2, color: colorBlueSecondKAI)),
+                borderSide: BorderSide(width: 1.5, color: colorBlueSecondKAI)),
             enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 2, color: colorBlueSecondKAI)),
+                borderSide: BorderSide(width: 1.5, color: colorBlueSecondKAI)),
             hintText: fileAdministrasi,
           ),
         ),
         const SizedBox(
-          height: 10.0,
+          height: 3.0,
         ),
       ],
     );
