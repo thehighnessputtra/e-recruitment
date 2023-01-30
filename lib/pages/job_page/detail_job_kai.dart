@@ -179,7 +179,8 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
                         "about": about,
                         "avatarUrl": avatarUrl,
                         "status": "Menunggu",
-                        "pendidikan": widget.pendidikan
+                        "pendidikan": widget.pendidikan,
+                        "nilaiPsikotest": 0
                       });
                       Navigator.pop(context);
                       dialogInfo(context, "Success Apply Job!", 2);

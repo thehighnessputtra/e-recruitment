@@ -1,11 +1,14 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:latihan_firebase/pages/tahap_seleksi/tahap2/psikotest_page.dart';
 import 'package:latihan_firebase/utils/constant.dart';
 import 'package:latihan_firebase/widget/data_administrasi_widget.dart';
 import 'package:latihan_firebase/widget/dialog_widget.dart';
+import 'package:latihan_firebase/widget/transition_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AppliedDetailKAI extends StatefulWidget {
@@ -27,6 +30,7 @@ class AppliedDetailKAI extends StatefulWidget {
   final String namaPelamar;
   final String statusPelamar;
   final String pendidikan;
+  final int nilaiPsikotest;
   const AppliedDetailKAI(
       {super.key,
       required this.biografiPelamar,
@@ -46,21 +50,18 @@ class AppliedDetailKAI extends StatefulWidget {
       required this.toeflNamePelamar,
       required this.toeflURLPelamar,
       required this.transNilaiNamePelamar,
-      required this.transNilaiURLPelamar});
+      required this.transNilaiURLPelamar,
+      required this.nilaiPsikotest});
 
   @override
   State<AppliedDetailKAI> createState() => _AppliedDetailKAIState();
 }
 
 class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
-  String? name;
-  String? email;
   String? role;
-  String? cvName;
-  String? cvURL;
-  String? about;
-  String? avatarUrl;
-  Future getDocID() async {
+  int? nilaiPsikotest;
+
+  Future getRole() async {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.email)
@@ -68,13 +69,7 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
         .then((snapshot) async {
       if (snapshot.exists) {
         setState(() {
-          name = snapshot.data()!['name'];
-          email = snapshot.data()!['email'];
           role = snapshot.data()!['role'];
-          cvName = snapshot.data()!['cvName'];
-          cvURL = snapshot.data()!['cvURL'];
-          about = snapshot.data()!['about'];
-          avatarUrl = snapshot.data()!['avatarUrl'];
         });
       }
     });
@@ -82,7 +77,7 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
 
   @override
   void initState() {
-    getDocID();
+    getRole();
     super.initState();
   }
 
@@ -155,19 +150,50 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
               const SizedBox(
                 height: 10.0,
               ),
-              widget.statusPelamar == "TAHAP1" ||
-                      widget.statusPelamar == "TAHAP2" ||
-                      widget.statusPelamar == "TAHAP3" ||
-                      widget.statusPelamar == "TAHAP4" ||
-                      widget.statusPelamar == "TAHAP5"
-                  ? const Text("Nilai Psikotest = ")
-                  : const SizedBox(),
+              widget.statusPelamar == "TAHAP2"
+                  ? Text("Nilai Psikotest = ${widget.nilaiPsikotest}")
+                  : widget.statusPelamar == "TAHAP3" ||
+                          widget.statusPelamar == "TAHAP4" ||
+                          widget.statusPelamar == "TAHAP5" ||
+                          widget.statusPelamar == "DITERIMA" ||
+                          widget.statusPelamar == "DITOLAK"
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Nilai Psikotest = ${widget.nilaiPsikotest}"),
+                            Text("Nilai Toefl = ${widget.nilaiPsikotest}"),
+                          ],
+                        )
+                      : SizedBox(),
+              // widget.statusPelamar == "TAHAP1" ||
+              //         widget.statusPelamar == "TAHAP2" ||
+              //         widget.statusPelamar == "TAHAP3" ||
+              //         widget.statusPelamar == "TAHAP4" ||
+              //         widget.statusPelamar == "TAHAP5"
+              //     ? Text("Nilai Psikotest = ${widget.nilaiPsikotest}")
+              //     : const SizedBox(),
               widget.statusPelamar == "TAHAP1"
                   ? const Text(
                       "Mohon menunggu beberapa hari untuk seleksi TAHAP1 Administrasi")
                   : widget.statusPelamar == "TAHAP2"
                       ? TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (widget.nilaiPsikotest >= 5) {
+                              print("ga bisa ngerjain lagi cok");
+                            }
+                            if (widget.nilaiPsikotest == 0) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PsikotestPage(
+                                          namaFormasi:
+                                              widget.namaFormasiPelamar,
+                                          email: widget.emailPelamar,
+                                          pendidikan: widget.pendidikan,
+                                        )),
+                              );
+                            }
+                          },
                           child: const Text("Mengejarkan Psikotest"))
                       : widget.statusPelamar == "TAHAP3"
                           ? TextButton(

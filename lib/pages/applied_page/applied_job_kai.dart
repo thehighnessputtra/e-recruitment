@@ -105,12 +105,14 @@ class _ListApplyState extends State<ListApply> {
           String namaPelamar = itemsApply['namaPelamar'];
           String status = itemsApply['status'];
           String pendidikan = itemsApply['pendidikan'];
+          int nilaiPsikotest = itemsApply['nilaiPsikotest'];
 
           return GestureDetector(
               onTap: () {
                 navPushTransition(
                     context,
                     AppliedDetailKAI(
+                        nilaiPsikotest: nilaiPsikotest,
                         pendidikan: pendidikan,
                         biografiPelamar: biografi,
                         avatarUrlPelamar: avatarUrl,
