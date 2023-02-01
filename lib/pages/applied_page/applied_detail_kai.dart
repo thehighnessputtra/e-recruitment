@@ -1,6 +1,5 @@
-// ignore_for_file: unnecessary_null_comparison
+// ignore_for_file: unnecessary_null_comparison, avoid_print
 
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,6 @@ import 'package:latihan_firebase/pages/tahap_seleksi/tahap2/psikotest_page.dart'
 import 'package:latihan_firebase/utils/constant.dart';
 import 'package:latihan_firebase/widget/data_administrasi_widget.dart';
 import 'package:latihan_firebase/widget/dialog_widget.dart';
-import 'package:latihan_firebase/widget/transition_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AppliedDetailKAI extends StatefulWidget {
@@ -164,7 +162,7 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                             Text("Nilai Toefl = ${widget.nilaiPsikotest}"),
                           ],
                         )
-                      : SizedBox(),
+                      : const SizedBox(),
               // widget.statusPelamar == "TAHAP1" ||
               //         widget.statusPelamar == "TAHAP2" ||
               //         widget.statusPelamar == "TAHAP3" ||

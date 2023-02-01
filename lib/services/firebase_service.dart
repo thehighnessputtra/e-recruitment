@@ -1,11 +1,7 @@
 // ignore_for_file: unused_catch_clause
 
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:latihan_firebase/pages/auth/login_page.dart';
 import 'package:latihan_firebase/pages/navbar/navbottom_bar.dart';
@@ -118,6 +114,7 @@ class FirebaseService {
       String prosedurSeleksi,
       String lokasi,
       String urlPict) async {
+    // ignore: unused_local_variable
     var user = FirebaseAuth.instance.currentUser;
     CollectionReference ref =
         FirebaseFirestore.instance.collection('listJobKAI');

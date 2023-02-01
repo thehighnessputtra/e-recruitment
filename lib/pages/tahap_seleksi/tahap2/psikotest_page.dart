@@ -1,6 +1,7 @@
+// ignore_for_file: avoid_print
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:latihan_firebase/utils/constant.dart';
 import 'package:latihan_firebase/widget/transition_widget.dart';
@@ -40,7 +41,6 @@ class _PsikotestPageState extends State<PsikotestPage> {
                     style: ElevatedButton.styleFrom(
                         backgroundColor: colorOrangeSecondKAI),
                     onPressed: () {
-                      var user = FirebaseAuth.instance.currentUser;
                       CollectionReference ref =
                           FirebaseFirestore.instance.collection('listApplyKAI');
                       ref
@@ -167,47 +167,47 @@ class _PsikotestPageState extends State<PsikotestPage> {
         child: CarouselSlider(
           items: [
             // 1
-            PsikotestSoalWidget(
-                soalPG: const Text(
+            const PsikotestSoalWidget(
+                soalPG: Text(
                     "Kegiatan untuk membangun 1 unit rumah dibutuhkan waktu selama 36 hari dengan bantuan 12 tenaga kerja. Berapa waktu yang dihabiskan untuk membangun rumah dengan tenaga kerja 24 orang?"),
-                optionA: const Text("18 Hari"),
-                optionB: const Text("15 Hari"),
-                optionC: const Text("14 Hari"),
-                optionD: const Text("16 Hari"),
-                optionE: const Text("12 Hari")),
+                optionA: Text("18 Hari"),
+                optionB: Text("15 Hari"),
+                optionC: Text("14 Hari"),
+                optionD: Text("16 Hari"),
+                optionE: Text("12 Hari")),
             // 2
-            PsikotestSoalWidget(
-                soalPG: const Text(
+            const PsikotestSoalWidget(
+                soalPG: Text(
                     "Perbandingan uang Chaca dan Citra yaitu 3:2. Jika uang Chaca dan Citra berjumlah Rp 150.000, berapa masing-masing uang yang dimiliki oleh Chaca dan Citra?"),
-                optionA: const Text("Rp 80.000 dan Rp 60.000"),
-                optionB: const Text("Rp 90.000 dan Rp 60.000"),
-                optionC: const Text("Rp 90.000 dan Rp 70.000"),
-                optionD: const Text("Rp 100.000 dan Rp 80.000"),
-                optionE: const Text("Rp 100.000 dan Rp 90.000")),
+                optionA: Text("Rp 80.000 dan Rp 60.000"),
+                optionB: Text("Rp 90.000 dan Rp 60.000"),
+                optionC: Text("Rp 90.000 dan Rp 70.000"),
+                optionD: Text("Rp 100.000 dan Rp 80.000"),
+                optionE: Text("Rp 100.000 dan Rp 90.000")),
             // 3
-            PsikotestSoalWidget(
-                soalPG: const Text("2,8,14,20,…….,32"),
-                optionA: const Text("28"),
-                optionB: const Text("25"),
-                optionC: const Text("26"),
-                optionD: const Text("30"),
-                optionE: const Text("35")),
+            const PsikotestSoalWidget(
+                soalPG: Text("2,8,14,20,…….,32"),
+                optionA: Text("28"),
+                optionB: Text("25"),
+                optionC: Text("26"),
+                optionD: Text("30"),
+                optionE: Text("35")),
             // 4
-            PsikotestSoalWidget(
-                soalPG: const Text("365, 363, 359,…….,…….., 335, 323"),
-                optionA: const Text("353 dan 340"),
-                optionB: const Text("348 dan 345"),
-                optionC: const Text("355 dan 350"),
-                optionD: const Text("353 dan 345"),
-                optionE: const Text("355 dan 344")),
+            const PsikotestSoalWidget(
+                soalPG: Text("365, 363, 359,…….,…….., 335, 323"),
+                optionA: Text("353 dan 340"),
+                optionB: Text("348 dan 345"),
+                optionC: Text("355 dan 350"),
+                optionD: Text("353 dan 345"),
+                optionE: Text("355 dan 344")),
             // 5
-            PsikotestSoalWidget(
-                soalPG: const Text("A,B,C,P,G,H,I,Q,…..,…..,…….,….."),
-                optionA: const Text("N, O, P"),
-                optionB: const Text("R, S, T"),
-                optionC: const Text("J, K, L"),
-                optionD: const Text("R, S, T"),
-                optionE: const Text("M, N, O")),
+            const PsikotestSoalWidget(
+                soalPG: Text("A,B,C,P,G,H,I,Q,…..,…..,…….,….."),
+                optionA: Text("N, O, P"),
+                optionB: Text("R, S, T"),
+                optionC: Text("J, K, L"),
+                optionD: Text("R, S, T"),
+                optionE: Text("M, N, O")),
             // 6
             PsikotestSoalWidget(
                 soalPG: Image.network(
@@ -287,112 +287,111 @@ class _PsikotestPageState extends State<PsikotestPage> {
                     "https://firebasestorage.googleapis.com/v0/b/latihan-firebase-yogi.appspot.com/o/myStorage%2Fsoal%2010%2F10_d.png?alt=media&token=4c7fd261-3fb3-4dc2-aeaf-c3729580ec10"),
                 optionE: Image.network(
                     "https://firebasestorage.googleapis.com/v0/b/latihan-firebase-yogi.appspot.com/o/myStorage%2Fsoal%2010%2F10_e.png?alt=media&token=4c7fd261-3fb3-4dc2-aeaf-c3729580ec10")),
-            PsikotestSoalWidget(
-                soalPG: const Text(
+            const PsikotestSoalWidget(
+                soalPG: Text(
                     "Siswa kelas 4 baru saja akan naik kelas 5, jika memang sudah lulus ujian perkalian. Nina dan Budi adalah murid kelas 5. Kesimpulan yang paling tepat untuk pertanyaan tersebut yaitu?"),
-                optionA: const Expanded(
+                optionA: Expanded(
                   child: Text(
                       "Budi dan Nina pasti mampu menghadapi ujian perkalian"),
                 ),
-                optionB: const Expanded(
+                optionB: Expanded(
                     child: Text("Budi tidak lulus mengikuti ujian perkalian")),
-                optionC: const Expanded(
-                    child: Text("Budi lebih pandai daripada Nina")),
-                optionD: const Expanded(
+                optionC:
+                    Expanded(child: Text("Budi lebih pandai daripada Nina")),
+                optionD: Expanded(
                   child: Text(
                       "Budi dan Nina belum tentu mampu mengerjakan ujian perkalian"),
                 ),
-                optionE: const Expanded(
+                optionE: Expanded(
                   child: Text(
                       "Nina ternyata tidak lulus mengikuti ujian perkalian"),
                 )),
-            PsikotestSoalWidget(
-                soalPG: const Text(
+            const PsikotestSoalWidget(
+                soalPG: Text(
                     "Setiap tanaman memiliki buah. Sebagian tanaman ada yang berbunga merah. Kesimpulan yang tepat dari soal dibawah ini yaitu."),
-                optionA: const Expanded(
+                optionA: Expanded(
                   child:
                       Text("Setiap tanaman memiliki buah yang berbunga merah"),
                 ),
-                optionB: const Expanded(
+                optionB: Expanded(
                   child: Text(
                       "Sebagian tanaman memiliki buah, bunganya bukan merah"),
                 ),
-                optionC: const Expanded(
+                optionC: Expanded(
                   child: Text(
                       "Semua tanaman tidak memiliki buah, bunganya tidak merah"),
                 ),
-                optionD: const Expanded(
+                optionD: Expanded(
                   child: Text(
                       "Semua tanaman tentu saja memiliki buah, bunganya tidak merah"),
                 ),
-                optionE: const Expanded(
+                optionE: Expanded(
                   child: Text(
                       "Sebagian tanaman tidak memiliki buah dan bunganya warna merah"),
                 )),
-            PsikotestSoalWidget(
-                soalPG: const Text(
+            const PsikotestSoalWidget(
+                soalPG: Text(
                     "Saat nanti Budi berhasil lulus kuliah kurang dari atau sama dengan 4 tahun, maka Budi akan langsung diterima sebagai karyawan perusahaan A. Jika Budi berhasil bekerja di perusahaan A, maka ayahnya akan membelikannya mobil. Budi tidak mendapatkan mobil dari ayahnya. "),
-                optionA: const Expanded(
+                optionA: Expanded(
                   child:
                       Text("Budi berhasil selesai studi tepat selama 4 tahun"),
                 ),
-                optionB: const Expanded(child: Text("Budi kerja naik mobil")),
-                optionC: const Expanded(
+                optionB: Expanded(child: Text("Budi kerja naik mobil")),
+                optionC: Expanded(
                   child: Text("Budi berhasil selesai studi lebih dari 4 tahun"),
                 ),
-                optionD:
-                    const Expanded(child: Text("Budi bekerja di perusahaan A")),
-                optionE: const Expanded(
+                optionD: Expanded(child: Text("Budi bekerja di perusahaan A")),
+                optionE: Expanded(
                     child: Text("Budi selesai studi kurang dari 4 tahun"))),
-            PsikotestSoalWidget(
-                soalPG: const Text("Motor – Bensin = Pelari – …….."),
-                optionA: const Text("Sepatu"),
-                optionB: const Text("Kaos"),
-                optionC: const Text("Lintasan"),
-                optionD: const Text("Makanan"),
-                optionE: const Text("Minuman")),
-            PsikotestSoalWidget(
-                soalPG: const Text("Tulang- Patah = Perut – ……."),
-                optionA: const Text("Batuk"),
-                optionB: const Text("Kaos"),
-                optionC: const Text("Pilek"),
-                optionD: const Text("Gemuk"),
-                optionE: const Text("Mules")),
-            PsikotestSoalWidget(
-                soalPG: const Text("Kupu-Kupu – Terbang = Jalan – ……."),
-                optionA: const Text("Jauh"),
-                optionB: const Text("Singa"),
-                optionC: const Text("Lebah"),
-                optionD: const Text("Ayam"),
-                optionE: const Text("Minuman")),
-            PsikotestSoalWidget(
-                soalPG: const Text("Minyak – Supermarket = Pakaian – ….."),
-                optionA: const Text("Laundry"),
-                optionB: const Text("Butik"),
-                optionC: const Text("Rok"),
-                optionD: const Text("Celana"),
-                optionE: const Text("Kemeja")),
-            PsikotestSoalWidget(
-                soalPG: const Text("Kain Sutera – Ulat = Madu – ……."),
-                optionA: const Text("Manis"),
-                optionB: const Text("Asin"),
-                optionC: const Text("Lebah"),
-                optionD: const Text("Bunga"),
-                optionE: const Text("Segar")),
-            PsikotestSoalWidget(
-                soalPG: const Text("Apel –Buah = Sapi – ……"),
-                optionA: const Text("Kebau"),
-                optionB: const Text("Gemuk`"),
-                optionC: const Text("Tumbuhan"),
-                optionD: const Text("Binatang"),
-                optionE: const Text("Kambing")),
-            PsikotestSoalWidget(
-                soalPG: const Text("Papan Tulis – Spidol = Dinding – ….."),
-                optionA: const Text("Meja"),
-                optionB: const Text("Kayu`"),
-                optionC: const Text("Pulpen"),
-                optionD: const Text("Amplas"),
-                optionE: const Text("Kuas")),
+            const PsikotestSoalWidget(
+                soalPG: Text("Motor – Bensin = Pelari – …….."),
+                optionA: Text("Sepatu"),
+                optionB: Text("Kaos"),
+                optionC: Text("Lintasan"),
+                optionD: Text("Makanan"),
+                optionE: Text("Minuman")),
+            const PsikotestSoalWidget(
+                soalPG: Text("Tulang- Patah = Perut – ……."),
+                optionA: Text("Batuk"),
+                optionB: Text("Kaos"),
+                optionC: Text("Pilek"),
+                optionD: Text("Gemuk"),
+                optionE: Text("Mules")),
+            const PsikotestSoalWidget(
+                soalPG: Text("Kupu-Kupu – Terbang = Jalan – ……."),
+                optionA: Text("Jauh"),
+                optionB: Text("Singa"),
+                optionC: Text("Lebah"),
+                optionD: Text("Ayam"),
+                optionE: Text("Minuman")),
+            const PsikotestSoalWidget(
+                soalPG: Text("Minyak – Supermarket = Pakaian – ….."),
+                optionA: Text("Laundry"),
+                optionB: Text("Butik"),
+                optionC: Text("Rok"),
+                optionD: Text("Celana"),
+                optionE: Text("Kemeja")),
+            const PsikotestSoalWidget(
+                soalPG: Text("Kain Sutera – Ulat = Madu – ……."),
+                optionA: Text("Manis"),
+                optionB: Text("Asin"),
+                optionC: Text("Lebah"),
+                optionD: Text("Bunga"),
+                optionE: Text("Segar")),
+            const PsikotestSoalWidget(
+                soalPG: Text("Apel –Buah = Sapi – ……"),
+                optionA: Text("Kebau"),
+                optionB: Text("Gemuk`"),
+                optionC: Text("Tumbuhan"),
+                optionD: Text("Binatang"),
+                optionE: Text("Kambing")),
+            const PsikotestSoalWidget(
+                soalPG: Text("Papan Tulis – Spidol = Dinding – ….."),
+                optionA: Text("Meja"),
+                optionB: Text("Kayu`"),
+                optionC: Text("Pulpen"),
+                optionD: Text("Amplas"),
+                optionE: Text("Kuas")),
             Text("Nilai : $hasil")
           ],
           options: CarouselOptions(
@@ -415,7 +414,7 @@ class _PsikotestPageState extends State<PsikotestPage> {
 }
 
 class PsikotestSoalWidget extends StatefulWidget {
-  PsikotestSoalWidget({
+  const PsikotestSoalWidget({
     super.key,
     required this.soalPG,
     required this.optionA,
@@ -519,6 +518,5 @@ class _PsikotestSoalWidgetState extends State<PsikotestSoalWidget> {
         ],
       ),
     );
-    ;
   }
 }

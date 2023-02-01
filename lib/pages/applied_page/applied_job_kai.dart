@@ -230,7 +230,7 @@ class _ListApplyState extends State<ListApply> {
                             ),
                           ),
                         )
-                      : SizedBox());
+                      : const SizedBox());
         });
   }
 }

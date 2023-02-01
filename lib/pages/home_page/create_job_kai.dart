@@ -1,11 +1,10 @@
+// ignore_for_file: use_build_context_synchronously, avoid_print
+
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:latihan_firebase/models/job_profile_model.dart';
-import 'package:latihan_firebase/services/firebase_service.dart';
 import 'package:latihan_firebase/utils/constant.dart';
 import 'package:latihan_firebase/view_model/firebase_view_model.dart';
 import 'package:latihan_firebase/widget/custom_dropdown_field.dart';

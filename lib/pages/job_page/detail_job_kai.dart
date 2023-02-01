@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
+// ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables, use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,8 +23,9 @@ class DetailJobKAI extends StatefulWidget {
   final String urlPict;
   final String persyaratanUmum;
 
-  DetailJobKAI(
-      {required this.createAt,
+  const DetailJobKAI(
+      {super.key,
+      required this.createAt,
       required this.formasi,
       required this.jenisKelamin,
       required this.jurusan,
@@ -549,17 +550,18 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
         ),
         Container(
           padding: const EdgeInsets.all(10),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            // Text("Prosedur Seleksi",
-            //     style: size20.copyWith(
-            //         fontWeight: fw600, color: colorBlueSecondKAI)),
-            // Text(
-            //     textAlign: TextAlign.justify,
-            //     style:
-            //         size16.copyWith(color: colorOrangeSecondKAI.withOpacity(1)),
-            //     widget.prosedurSeleksi),
-          ]),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                // Text("Prosedur Seleksi",
+                //     style: size20.copyWith(
+                //         fontWeight: fw600, color: colorBlueSecondKAI)),
+                // Text(
+                //     textAlign: TextAlign.justify,
+                //     style:
+                //         size16.copyWith(color: colorOrangeSecondKAI.withOpacity(1)),
+                //     widget.prosedurSeleksi),
+              ]),
         ),
       ],
     );
