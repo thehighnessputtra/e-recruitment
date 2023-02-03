@@ -4,9 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:latihan_firebase/pages/tahap_seleksi/tahap2/psikotest_page.dart';
+import 'package:latihan_firebase/pages/tahap_seleksi/tahap3/toefl_page.dart';
+import 'package:latihan_firebase/pages/tahap_seleksi/tahap5/medical_checkup.dart';
 import 'package:latihan_firebase/utils/constant.dart';
 import 'package:latihan_firebase/widget/data_administrasi_widget.dart';
 import 'package:latihan_firebase/widget/dialog_widget.dart';
+import 'package:latihan_firebase/widget/transition_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AppliedDetailKAI extends StatefulWidget {
@@ -28,7 +31,10 @@ class AppliedDetailKAI extends StatefulWidget {
   final String namaPelamar;
   final String statusPelamar;
   final String pendidikan;
+  final String medicalcheckupNamePelamar;
+  final String medicalcheckupURLPelamar;
   final int nilaiPsikotest;
+  final int nilaiToefl;
   const AppliedDetailKAI(
       {super.key,
       required this.biografiPelamar,
@@ -49,7 +55,10 @@ class AppliedDetailKAI extends StatefulWidget {
       required this.toeflURLPelamar,
       required this.transNilaiNamePelamar,
       required this.transNilaiURLPelamar,
-      required this.nilaiPsikotest});
+      required this.nilaiPsikotest,
+      required this.nilaiToefl,
+      required this.medicalcheckupNamePelamar,
+      required this.medicalcheckupURLPelamar});
 
   @override
   State<AppliedDetailKAI> createState() => _AppliedDetailKAIState();
@@ -159,7 +168,7 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("Nilai Psikotest = ${widget.nilaiPsikotest}"),
-                            Text("Nilai Toefl = ${widget.nilaiPsikotest}"),
+                            Text("Nilai Toefl = ${widget.nilaiToefl}"),
                           ],
                         )
                       : const SizedBox(),
@@ -174,37 +183,72 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                   ? const Text(
                       "Mohon menunggu beberapa hari untuk seleksi TAHAP1 Administrasi")
                   : widget.statusPelamar == "TAHAP2"
-                      ? TextButton(
-                          onPressed: () {
-                            if (widget.nilaiPsikotest >= 5) {
-                              print("ga bisa ngerjain lagi cok");
-                            }
-                            if (widget.nilaiPsikotest == 0) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PsikotestPage(
-                                          namaFormasi:
-                                              widget.namaFormasiPelamar,
-                                          email: widget.emailPelamar,
-                                          pendidikan: widget.pendidikan,
-                                        )),
-                              );
-                            }
-                          },
-                          child: const Text("Mengejarkan Psikotest"))
-                      : widget.statusPelamar == "TAHAP3"
+                      ? widget.nilaiPsikotest <= 5
                           ? TextButton(
-                              onPressed: () {},
-                              child: const Text("Mengerjakan Toefl"))
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => PsikotestPage(
+                                            namaFormasi:
+                                                widget.namaFormasiPelamar,
+                                            email: widget.emailPelamar,
+                                            pendidikan: widget.pendidikan,
+                                          )),
+                                );
+                              },
+                              child: const Text("Mengejarkan Psikotest"))
+                          : SizedBox()
+                      : widget.statusPelamar == "TAHAP3"
+                          ? widget.nilaiToefl <= 5
+                              ? TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ToeflPage(
+                                                namaFormasi:
+                                                    widget.namaFormasiPelamar,
+                                                email: widget.emailPelamar,
+                                                pendidikan: widget.pendidikan,
+                                              )),
+                                    );
+                                  },
+                                  child: const Text("Mengejarkan Toefl"))
+                              : SizedBox()
                           : widget.statusPelamar == "TAHAP4"
                               ? TextButton(
                                   onPressed: () {},
                                   child: const Text("Mulai Test Wawancara"))
                               : widget.statusPelamar == "TAHAP5"
-                                  ? const Text(
-                                      "Lampirkan hasil medical checkup")
+                                  ? TextButton(
+                                      child: const Text(
+                                          "Lampirkan hasil medical checkup"),
+                                      onPressed: () {
+                                        navPushTransition(context,
+                                            const MedicalCheckupPage());
+                                      },
+                                    )
                                   : const SizedBox(),
+              widget.statusPelamar == "TAHAP5"
+                  ? DataAdministrasi(
+                      onTap: () async {
+                        if (widget.medicalcheckupURLPelamar != null) {
+                          final Uri url =
+                              Uri.parse(widget.medicalcheckupURLPelamar);
+                          if (!await launchUrl(url,
+                              mode: LaunchMode.externalApplication)) {
+                            throw "Could not launch $url";
+                          }
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text("Could not launch URL!")));
+                        }
+                      },
+                      fileAdministrasi: widget.medicalcheckupNamePelamar,
+                      namaAdminstrasi: "Medical checkup")
+                  : const SizedBox(),
               DataAdministrasi(
                   fileAdministrasi: widget.namaPelamar,
                   namaAdminstrasi: "Nama"),
@@ -497,7 +541,7 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                         }
                       } else if (widget.statusPelamar == "TAHAP2") {
                         final Uri url = Uri.parse(
-                            "mailto:${widget.emailPelamar}?cc=&bcc=&subject=${widget.statusPelamar}_${widget.namaPelamar}_${widget.namaFormasiPelamar}&body=Selamat%20anda%20${widget.namaPelamar}%20telah%20LOLOS%20${widget.statusPelamar}%20di%20PT%20KAI%20${widget.lokasiPelamar}%20sebagai%20${widget.namaFormasiPelamar}%20 dengan%20 nilai%20xx.%20Untuk%20informasi%20selanjutnya%20silahkan%20kunjungi%20website%20https://recruitment.kai.id/news");
+                            "mailto:${widget.emailPelamar}?subject=${widget.statusPelamar}_${widget.namaFormasiPelamar}_${widget.pendidikan}&body=Yth%20${widget.namaPelamar}%2C%0D%0AAnda%20diundang%20untuk%20mengikuti%20tes%20seleksi%20${widget.namaFormasiPelamar}%20${widget.pendidikan},%20${widget.lokasiPelamar}%20sebagai%20berikut%20%3A%0D%0A%0D%0ATahapan%20Tes%20%3A%20${widget.statusPelamar}%0D%0AEmail%20Peserta%20%3A%20${widget.emailPelamar}%0D%0ATempat%20%3A%20Aplikasi%20E-Recruitment%20Jobfinders%0D%0A%0D%0AJika%20ada%20pertanyaan%20bisa%20menghubungi%20Customer%20Service%20pada%20aplikasi%20atau%20WhatsApp%20https://wa.me/6289652366540");
                         if (!await launchUrl(url,
                             mode: LaunchMode.externalApplication)) {
                           throw "Could not launch $url";

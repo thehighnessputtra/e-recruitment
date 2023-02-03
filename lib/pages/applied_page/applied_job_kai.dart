@@ -93,6 +93,8 @@ class _ListApplyState extends State<ListApply> {
           String cvURL = itemsApply['cvURL'];
           String ktpName = itemsApply['ktpName'];
           String ktpURL = itemsApply['ktpURL'];
+          String medicalcheckupName = itemsApply['medicalcheckupName'];
+          String medicalcheckupURL = itemsApply['medicalcheckupURL'];
           String ijazahName = itemsApply['ijazahName'];
           String ijazahURL = itemsApply['ijazahURL'];
           String toeflName = itemsApply['toeflName'];
@@ -106,31 +108,36 @@ class _ListApplyState extends State<ListApply> {
           String status = itemsApply['status'];
           String pendidikan = itemsApply['pendidikan'];
           int nilaiPsikotest = itemsApply['nilaiPsikotest'];
+          int nilaiToefl = itemsApply['nilaiToefl'];
 
           return GestureDetector(
               onTap: () {
                 navPushTransition(
                     context,
                     AppliedDetailKAI(
-                        nilaiPsikotest: nilaiPsikotest,
-                        pendidikan: pendidikan,
-                        biografiPelamar: biografi,
-                        avatarUrlPelamar: avatarUrl,
-                        cvNamePelamar: cvName,
-                        cvURLPelamar: cvURL,
-                        ktpNamePelamar: ktpName,
-                        ktpURLPelamar: ktpURL,
-                        ijazahNamePelamar: ijazahName,
-                        ijazahURLPelamar: ijazahURL,
-                        toeflNamePelamar: toeflName,
-                        toeflURLPelamar: toeflURL,
-                        transNilaiNamePelamar: transNilaiName,
-                        transNilaiURLPelamar: transNilaiURL,
-                        emailPelamar: emailPelamar,
-                        lokasiPelamar: lokasi,
-                        namaFormasiPelamar: namaFormasi,
-                        namaPelamar: namaPelamar,
-                        statusPelamar: status));
+                      nilaiToefl: nilaiToefl,
+                      nilaiPsikotest: nilaiPsikotest,
+                      pendidikan: pendidikan,
+                      biografiPelamar: biografi,
+                      avatarUrlPelamar: avatarUrl,
+                      cvNamePelamar: cvName,
+                      cvURLPelamar: cvURL,
+                      ktpNamePelamar: ktpName,
+                      ktpURLPelamar: ktpURL,
+                      ijazahNamePelamar: ijazahName,
+                      ijazahURLPelamar: ijazahURL,
+                      toeflNamePelamar: toeflName,
+                      toeflURLPelamar: toeflURL,
+                      transNilaiNamePelamar: transNilaiName,
+                      transNilaiURLPelamar: transNilaiURL,
+                      emailPelamar: emailPelamar,
+                      lokasiPelamar: lokasi,
+                      namaFormasiPelamar: namaFormasi,
+                      namaPelamar: namaPelamar,
+                      statusPelamar: status,
+                      medicalcheckupNamePelamar: medicalcheckupName,
+                      medicalcheckupURLPelamar: medicalcheckupURL,
+                    ));
               },
               child: email == emailPelamar
                   ? Card(
