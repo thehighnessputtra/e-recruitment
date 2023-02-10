@@ -186,47 +186,49 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                       ? widget.nilaiPsikotest <= 5
                           ? TextButton(
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => PsikotestPage(
-                                            namaFormasi:
-                                                widget.namaFormasiPelamar,
-                                            email: widget.emailPelamar,
-                                            pendidikan: widget.pendidikan,
-                                          )),
-                                );
+                                navPushTransition(
+                                    context,
+                                    PsikotestPage(
+                                      namaFormasi: widget.namaFormasiPelamar,
+                                      email: widget.emailPelamar,
+                                      pendidikan: widget.pendidikan,
+                                    ));
                               },
                               child: const Text("Mengejarkan Psikotest"))
-                          : SizedBox()
+                          : const SizedBox()
                       : widget.statusPelamar == "TAHAP3"
                           ? widget.nilaiToefl <= 5
                               ? TextButton(
                                   onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => ToeflPage(
-                                                namaFormasi:
-                                                    widget.namaFormasiPelamar,
-                                                email: widget.emailPelamar,
-                                                pendidikan: widget.pendidikan,
-                                              )),
-                                    );
+                                    navPushTransition(
+                                        context,
+                                        ToeflPage(
+                                          namaFormasi:
+                                              widget.namaFormasiPelamar,
+                                          email: widget.emailPelamar,
+                                          pendidikan: widget.pendidikan,
+                                        ));
                                   },
                                   child: const Text("Mengejarkan Toefl"))
-                              : SizedBox()
+                              : const SizedBox()
                           : widget.statusPelamar == "TAHAP4"
-                              ? TextButton(
-                                  onPressed: () {},
-                                  child: const Text("Mulai Test Wawancara"))
+                              ? Text(
+                                  "Silahkan check email untuk informasi TAHAP4 Wawancara!",
+                                  style: size18.copyWith(fontWeight: fw800),
+                                )
                               : widget.statusPelamar == "TAHAP5"
                                   ? TextButton(
                                       child: const Text(
                                           "Lampirkan hasil medical checkup"),
                                       onPressed: () {
-                                        navPushTransition(context,
-                                            const MedicalCheckupPage());
+                                        navPushTransition(
+                                            context,
+                                            MedicalCheckupPage(
+                                              namaFormasi:
+                                                  widget.namaFormasiPelamar,
+                                              email: widget.emailPelamar,
+                                              pendidikan: widget.pendidikan,
+                                            ));
                                       },
                                     )
                                   : const SizedBox(),
@@ -249,6 +251,9 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                       fileAdministrasi: widget.medicalcheckupNamePelamar,
                       namaAdminstrasi: "Medical checkup")
                   : const SizedBox(),
+              const SizedBox(
+                height: 20.0,
+              ),
               DataAdministrasi(
                   fileAdministrasi: widget.namaPelamar,
                   namaAdminstrasi: "Nama"),
