@@ -238,6 +238,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   uploadImage() async {
+    dialogInfo(context, "Avatar sukses diupload!", 2);
     final result = await FilePicker.platform
         .pickFiles(allowMultiple: true, type: FileType.image);
     if (result != null) {
@@ -258,11 +259,11 @@ class _ProfilePageState extends State<ProfilePage> {
       // });
 
       // ignore: use_build_context_synchronously
+      dialogInfo(context, "Avatar sukses diupload!", 2);
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("File Selected")));
     } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("No file selected!")));
+      dialogInfo(context, "Avatar gagal diupload!", 2);
     }
   }
 }

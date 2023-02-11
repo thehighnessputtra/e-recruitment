@@ -20,6 +20,7 @@ class EditAdministrasiWidget extends StatelessWidget {
         Text(namaAdministrasi,
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         TextFormField(
+          onTap: onPress,
           readOnly: true,
           decoration: InputDecoration(
             contentPadding:

@@ -127,15 +127,6 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
     });
   }
 
-  validasiCV() {
-    Future.delayed(const Duration(seconds: 1), () {
-      if (cvName == "Masukan CV anda!") {
-        dialogWarning(context,
-            "Anda belum melampirkan file CV anda! silahkan anda melampirkan CV anda pada halaman profile");
-      }
-    });
-  }
-
   @override
   void initState() {
     getDocID();
@@ -149,8 +140,13 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: CustomButton(
             onPress: () {
-              if (cvName == "Masukan CV anda!") {
-                validasiCV();
+              if (cvName == "Masukan CV anda!" ||
+                  ktpName == "Masukan KTP anda!" ||
+                  ijazahName == "Masukan Ijazah anda!" ||
+                  toeflName == "Masukan Sertifikat TOEFL anda!" ||
+                  transNilaiName == "Masukan Transkrip Nilai anda!") {
+                dialogInfo(context,
+                    "Mohon lengkapi administrasi anda terlebih dahulu!", 2);
               } else {
                 dialogValidasi(
                   context,

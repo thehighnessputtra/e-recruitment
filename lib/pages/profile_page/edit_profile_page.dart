@@ -214,10 +214,6 @@ class _EditProfileState extends State<EditProfile> {
                               }
                             }),
                         CustomButton(
-                          onPress: () => uploadCV(),
-                          text: "Upload CV",
-                        ),
-                        CustomButton(
                           onPress: () {
                             setState(() {
                               biography = aboutController.text;
@@ -270,11 +266,9 @@ class _EditProfileState extends State<EditProfile> {
       // });
 
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("File Selected")));
+      dialogInfo(context, "Avatar sukses diupload!", 2);
     } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("No file selected!")));
+      dialogInfo(context, "Avatar gagal diupload!", 2);
     }
   }
 
@@ -303,12 +297,10 @@ class _EditProfileState extends State<EditProfile> {
       // });
 
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("File Selected")));
+      dialogInfo(context, "CV sukses diupload!", 2);
     } else {
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("No file selected!")));
+      dialogInfo(context, "CV gagal diupload!", 2);
     }
   }
 
@@ -328,12 +320,10 @@ class _EditProfileState extends State<EditProfile> {
         ktpURL = getDownloadUrl;
       });
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("File Selected")));
+      dialogInfo(context, "KTP sukses diupload!", 2);
     } else {
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("No file selected!")));
+      dialogInfo(context, "KTP gagal diupload!", 2);
     }
   }
 
@@ -353,12 +343,10 @@ class _EditProfileState extends State<EditProfile> {
         ijazahURL = getDownloadUrl;
       });
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("File Selected")));
+      dialogInfo(context, "Ijazah sukses diupload!", 2);
     } else {
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("No file selected!")));
+      dialogInfo(context, "Ijazah gagal diupload!", 2);
     }
   }
 
@@ -378,12 +366,10 @@ class _EditProfileState extends State<EditProfile> {
         toeflURL = getDownloadUrl;
       });
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("File Selected")));
+      dialogInfo(context, "TOEFL sukses diupload!", 2);
     } else {
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("No file selected!")));
+      dialogInfo(context, "TOEFL sukses diupload!", 2);
     }
   }
 
@@ -406,12 +392,10 @@ class _EditProfileState extends State<EditProfile> {
         transNilaiURL = getDownloadUrl;
       });
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("File Selected")));
+      dialogInfo(context, "Transkrip Nilai sukses diupload!", 2);
     } else {
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("No file selected!")));
+      dialogInfo(context, "Transkrip Nilai gagal diupload!", 2);
     }
   }
 

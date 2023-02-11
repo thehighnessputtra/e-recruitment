@@ -21,14 +21,17 @@ class _HomeScreenState extends State<HomeScreen> {
   String? email;
   String? role;
   String? cvName;
-
-  @override
-  void initState() {
-    getDocID();
-    validasiCV();
-    super.initState();
-  }
-
+  String? cvURL;
+  String? ktpName;
+  String? ktpURL;
+  String? ijazahName;
+  String? ijazahURL;
+  String? toeflName;
+  String? toeflURL;
+  String? transNilaiName;
+  String? transNilaiURL;
+  String? about;
+  String? avatarUrl;
   Future getDocID() async {
     await FirebaseFirestore.instance
         .collection('users')
@@ -41,19 +44,41 @@ class _HomeScreenState extends State<HomeScreen> {
           email = snapshot.data()!['email'];
           role = snapshot.data()!['role'];
           cvName = snapshot.data()!['cvName'];
+          cvURL = snapshot.data()!['cvURL'];
+          ktpName = snapshot.data()!['ktpName'];
+          ktpURL = snapshot.data()!['ktpURL'];
+          ijazahName = snapshot.data()!['ijazahName'];
+          ijazahURL = snapshot.data()!['ijazahURL'];
+          toeflName = snapshot.data()!['toeflName'];
+          toeflURL = snapshot.data()!['toeflURL'];
+          transNilaiName = snapshot.data()!['transNilaiName'];
+          transNilaiURL = snapshot.data()!['transNilaiURL'];
+          about = snapshot.data()!['about'];
+          avatarUrl = snapshot.data()!['avatarUrl'];
         });
       }
     });
   }
 
-  validasiCV() {
+  validasiAdministrasi() {
     Future.delayed(const Duration(seconds: 1), () {
       print(cvName);
-      if (cvName == "Masukan CV anda!") {
+      if (cvName == "Masukan CV anda!" ||
+          ktpName == "Masukan KTP anda!" ||
+          ijazahName == "Masukan Ijazah anda!" ||
+          toeflName == "Masukan Sertifikat TOEFL anda!" ||
+          transNilaiName == "Masukan Transkrip Nilai anda!") {
         dialogWarning(context,
-            "Anda belum melampirkan file CV anda! silahkan anda melampirkan CV anda pada halaman profile");
+            "Data administrasi anda belum lengkap! silahkan lengkapi data administrasi anda pada halaman profile");
       }
     });
+  }
+
+  @override
+  void initState() {
+    validasiAdministrasi();
+    getDocID();
+    super.initState();
   }
 
   @override
