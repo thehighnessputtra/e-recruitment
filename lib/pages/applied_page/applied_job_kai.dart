@@ -217,11 +217,13 @@ class _ListApplyState extends State<ListApply> {
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(30),
-                                      color: status == "Menunggu"
-                                          ? colorOrangeSecondKAI
-                                          : status == "DITERIMA"
-                                              ? Colors.green
-                                              : Colors.red,
+                                      color: status == "DITERIMA"
+                                          ? Colors.green
+                                          : status == "DITOLAK"
+                                              ? Colors.red
+                                              : status == "Menunggu"
+                                                  ? colorOrangeSecondKAI
+                                                  : Colors.blue,
                                     ),
                                     padding: const EdgeInsets.all(5),
                                     child: Text(status,

@@ -539,28 +539,35 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                         }
                       } else if (widget.statusPelamar == "TAHAP1") {
                         final Uri url = Uri.parse(
-                            "mailto:${widget.emailPelamar}?cc=&bcc=&subject=${widget.statusPelamar}_${widget.namaPelamar}_${widget.namaFormasiPelamar}&body=Selamat%20anda%20${widget.namaPelamar}%20telah%20LOLOS%20${widget.statusPelamar}%20di%20PT%20KAI%20${widget.lokasiPelamar}%20sebagai%20${widget.namaFormasiPelamar}.%20Silahkan%20lanjut%20 ke%20 TAHAP2%20 Psikotest%20 dengan%20 maksimal%20 pengerjaan%20 2%20 hari!.%20 Terimakasih");
+                            "mailto:${widget.emailPelamar}?subject=${widget.statusPelamar}_${widget.namaFormasiPelamar}(${widget.pendidikan})_${widget.namaPelamar}&body=Yth%20${widget.namaPelamar}%2C%0D%0AAnda%20dapat%20mengikuti%20seleksi%20TAHAP1%20Administrasi%20pada%20${widget.namaFormasiPelamar}%20${widget.pendidikan}%2C%20${widget.lokasiPelamar}%20pastikan%20anda%20melampirkan%20data%20Administrasi%20yang%20benar%20dan%20sesuai!%0D%0A%0D%0AJika%20ada%20pertanyaan%20bisa%20menghubungi%20Customer%20Service%20pada%20aplikasi%20atau%20WhatsApp%20https%3A%2F%2Fwa.me%2F6289652366540");
                         if (!await launchUrl(url,
                             mode: LaunchMode.externalApplication)) {
                           throw "Could not launch $url";
                         }
                       } else if (widget.statusPelamar == "TAHAP2") {
                         final Uri url = Uri.parse(
-                            "mailto:${widget.emailPelamar}?subject=${widget.statusPelamar}_${widget.namaFormasiPelamar}_${widget.pendidikan}&body=Yth%20${widget.namaPelamar}%2C%0D%0AAnda%20diundang%20untuk%20mengikuti%20tes%20seleksi%20${widget.namaFormasiPelamar}%20${widget.pendidikan},%20${widget.lokasiPelamar}%20sebagai%20berikut%20%3A%0D%0A%0D%0ATahapan%20Tes%20%3A%20${widget.statusPelamar}%0D%0AEmail%20Peserta%20%3A%20${widget.emailPelamar}%0D%0ATempat%20%3A%20Aplikasi%20E-Recruitment%20Jobfinders%0D%0A%0D%0AJika%20ada%20pertanyaan%20bisa%20menghubungi%20Customer%20Service%20pada%20aplikasi%20atau%20WhatsApp%20https://wa.me/6289652366540");
+                            "mailto:${widget.emailPelamar}?subject=${widget.statusPelamar}_${widget.namaFormasiPelamar}(${widget.pendidikan})_${widget.namaPelamar}&body=Yth%20${widget.namaPelamar}%2C%0D%0AAnda%20diundang%20untuk%20mengikuti%20tes%20seleksi%20${widget.namaFormasiPelamar}%20${widget.pendidikan}%2C%20${widget.lokasiPelamar}%20sebagai%20berikut%20%3A%0D%0A%0D%0ATahapan%20Tes%20%3A%20${widget.statusPelamar}%20-%20Psikotest%0D%0AEmail%20Peserta%20%3A%20${widget.emailPelamar}%0D%0ATempat%20%3A%20Aplikasi%20E-Recruitment%20Jobfinders%0D%0A%0D%0AJika%20ada%20pertanyaan%20bisa%20menghubungi%20Customer%20Service%20pada%20aplikasi%20atau%20WhatsApp%20https%3A%2F%2Fwa.me%2F6289652366540");
                         if (!await launchUrl(url,
                             mode: LaunchMode.externalApplication)) {
                           throw "Could not launch $url";
                         }
                       } else if (widget.statusPelamar == "TAHAP3") {
                         final Uri url = Uri.parse(
-                            "mailto:${widget.emailPelamar}?cc=&bcc=&subject=${widget.statusPelamar}_${widget.namaPelamar}_${widget.namaFormasiPelamar}&body=Selamat%20anda%20${widget.namaPelamar}%20telah%20LOLOS%20${widget.statusPelamar}%20di%20PT%20KAI%20${widget.lokasiPelamar}%20sebagai%20${widget.namaFormasiPelamar}%20 dengan%20 nilai%20xx. %20Silahkan%20 melanjutkan%20 ke%20 TAHAP4%20 Wawancara%20Untuk%20%20informasi%20selanjutnya%20silahkan%20kunjungi%20website%20https://recruitment.kai.id/news");
+                            "mailto:${widget.emailPelamar}?subject=${widget.statusPelamar}_${widget.namaFormasiPelamar}(${widget.pendidikan})_${widget.namaPelamar}&body=Yth%20${widget.namaPelamar}%2C%0D%0AAnda%20diundang%20untuk%20mengikuti%20test%20TOEFL%20pada%20${widget.namaFormasiPelamar}%20${widget.pendidikan}%2C%20${widget.lokasiPelamar}%20sebagai%20berikut%20%3A%0D%0A%0D%0ATahapan%20Tes%20%3A%20${widget.statusPelamar}%20-%20TOEFL%0D%0AEmail%20Peserta%20%3A%20${widget.emailPelamar}%0D%0ATempat%20%3A%20Aplikasi%20E-Recruitment%20Jobfinders%0D%0A%0D%0AJika%20ada%20pertanyaan%20bisa%20menghubungi%20Customer%20Service%20pada%20aplikasi%20atau%20WhatsApp%20https%3A%2F%2Fwa.me%2F6289652366540");
                         if (!await launchUrl(url,
                             mode: LaunchMode.externalApplication)) {
                           throw "Could not launch $url";
                         }
                       } else if (widget.statusPelamar == "TAHAP4") {
                         final Uri url = Uri.parse(
-                            "mailto:${widget.emailPelamar}?cc=&bcc=&subject=${widget.statusPelamar}_${widget.namaPelamar}_${widget.namaFormasiPelamar}&body=Selamat%20anda%20${widget.namaPelamar}%20telah%20LOLOS%20${widget.statusPelamar}%20di%20PT%20KAI%20${widget.lokasiPelamar}%20sebagai%20${widget.namaFormasiPelamar}%20 Silahkan %20melanjutkan %20TAHAP5 %20Medical %20Check-up.%20Untuk%20informasi%20selanjutnya%20silahkan%20kunjungi%20website%20https://recruitment.kai.id/news");
+                            "mailto:${widget.emailPelamar}?subject=${widget.statusPelamar}_${widget.namaFormasiPelamar}(${widget.pendidikan})_${widget.namaPelamar}&body=Yth%20${widget.namaPelamar}%2C%0D%0AAnda%20diundang%20untuk%20mengikuti%20test%20WAWANCARA%20pada%20${widget.namaFormasiPelamar}%20${widget.pendidikan}%2C%20${widget.lokasiPelamar}%20sebagai%20berikut%20%3A%0D%0A%0D%0ATahapan%20Tes%20%3A%20${widget.statusPelamar}%20-%20WAWANCARA%0D%0AEmail%20Peserta%20%3A%20${widget.emailPelamar}%0D%0ATempat%20%3A%20Link%20GMeet%0D%0A%0D%0AJika%20ada%20pertanyaan%20bisa%20menghubungi%20Customer%20Service%20pada%20aplikasi%20atau%20WhatsApp%20https%3A%2F%2Fwa.me%2F6289652366540");
+                        if (!await launchUrl(url,
+                            mode: LaunchMode.externalApplication)) {
+                          throw "Could not launch $url";
+                        }
+                      } else if (widget.statusPelamar == "TAHAP5") {
+                        final Uri url = Uri.parse(
+                            "mailto:${widget.emailPelamar}?subject=${widget.statusPelamar}_${widget.namaFormasiPelamar}(${widget.pendidikan})_${widget.namaPelamar}&body=Yth%20${widget.namaPelamar}%2C%0D%0ASelamat%20anda%20sudah%20sampai%20ditahap%20terakhir%20yaitu%20TAHAP5%20Medical%20check-up%20pada%20${widget.namaFormasiPelamar}%20${widget.pendidikan}%2C%20${widget.lokasiPelamar}.%20untuk%20menyelesaikan%20tahap%20ini%20silahkan%20anda%20melampirkan%20hasil%20Medical%20check-up%20anda%20pada%20Aplikasi%20E-Recruitment%20Jobfinders%0D%0A%0D%0AJika%20ada%20pertanyaan%20bisa%20menghubungi%20Customer%20Service%20pada%20aplikasi%20atau%20WhatsApp%20https%3A%2F%2Fwa.me%2F6289652366540");
                         if (!await launchUrl(url,
                             mode: LaunchMode.externalApplication)) {
                           throw "Could not launch $url";
