@@ -183,7 +183,7 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                   ? const Text(
                       "Mohon menunggu beberapa hari untuk seleksi TAHAP1 Administrasi")
                   : widget.statusPelamar == "TAHAP2"
-                      ? widget.nilaiPsikotest <= 5
+                      ? widget.nilaiPsikotest < 5
                           ? TextButton(
                               onPressed: () {
                                 navPushTransition(
@@ -197,7 +197,7 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                               child: const Text("Mengejarkan Psikotest"))
                           : const SizedBox()
                       : widget.statusPelamar == "TAHAP3"
-                          ? widget.nilaiToefl <= 5
+                          ? widget.nilaiToefl < 5
                               ? TextButton(
                                   onPressed: () {
                                     navPushTransition(
@@ -451,7 +451,7 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                                     });
                                     dialogInfo(
                                         context,
-                                        "${widget.namaPelamar}-${widget.namaFormasiPelamar} DITERIMA!",
+                                        "${widget.namaPelamar}-${widget.namaFormasiPelamar} TAHAP4!",
                                         1);
                                     futureDelayNavBack(context, 1);
                                   },
@@ -471,7 +471,7 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                                         });
                                         dialogInfo(
                                             context,
-                                            "${widget.namaPelamar}-${widget.namaFormasiPelamar} DITERIMA!",
+                                            "${widget.namaPelamar}-${widget.namaFormasiPelamar} TAHAP5!",
                                             1);
                                         futureDelayNavBack(context, 1);
                                       },
@@ -560,7 +560,7 @@ class _AppliedDetailKAIState extends State<AppliedDetailKAI> {
                         }
                       } else if (widget.statusPelamar == "TAHAP4") {
                         final Uri url = Uri.parse(
-                            "mailto:${widget.emailPelamar}?subject=${widget.statusPelamar}_${widget.namaFormasiPelamar}(${widget.pendidikan})_${widget.namaPelamar}&body=Yth%20${widget.namaPelamar}%2C%0D%0AAnda%20diundang%20untuk%20mengikuti%20test%20WAWANCARA%20pada%20${widget.namaFormasiPelamar}%20${widget.pendidikan}%2C%20${widget.lokasiPelamar}%20sebagai%20berikut%20%3A%0D%0A%0D%0ATahapan%20Tes%20%3A%20${widget.statusPelamar}%20-%20WAWANCARA%0D%0AEmail%20Peserta%20%3A%20${widget.emailPelamar}%0D%0ATempat%20%3A%20Link%20GMeet%0D%0A%0D%0AJika%20ada%20pertanyaan%20bisa%20menghubungi%20Customer%20Service%20pada%20aplikasi%20atau%20WhatsApp%20https%3A%2F%2Fwa.me%2F6289652366540");
+                            "mailto:${widget.emailPelamar}?subject=${widget.statusPelamar}_${widget.namaFormasiPelamar}(${widget.pendidikan})_${widget.namaPelamar}&body=Yth%20${widget.namaPelamar}%2C%0D%0AAnda%20diundang%20untuk%20mengikuti%20test%20WAWANCARA%20pada%20${widget.namaFormasiPelamar}%20${widget.pendidikan}%2C%20${widget.lokasiPelamar}%20sebagai%20berikut%20%3A%0D%0A%0D%0ATahapan%20Tes%20%3A%20${widget.statusPelamar}%20-%20WAWANCARA%0D%0AEmail%20Peserta%20%3A%20${widget.emailPelamar}%0D%0ATempat%20%3A%20Link%20GMeet%0D%0AHari/Tanggal%20%3A%20Hari, %20Tanggal%0D%0AWaktu%20%3A%20Waktu%0D%0A%0D%0AJika%20ada%20pertanyaan%20bisa%20menghubungi%20Customer%20Service%20pada%20aplikasi%20atau%20WhatsApp%20https%3A%2F%2Fwa.me%2F6289652366540");
                         if (!await launchUrl(url,
                             mode: LaunchMode.externalApplication)) {
                           throw "Could not launch $url";

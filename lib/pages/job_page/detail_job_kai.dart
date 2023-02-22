@@ -177,8 +177,8 @@ class _DetailJobKAIState extends State<DetailJobKAI> {
                         "avatarUrl": avatarUrl,
                         "status": "Menunggu",
                         "pendidikan": widget.pendidikan,
-                        "nilaiPsikotest": 1,
-                        "nilaiToefl": 1,
+                        "nilaiPsikotest": 0,
+                        "nilaiToefl": 0,
                         "medicalcheckupName": "Kosong",
                         "medicalcheckupURL": "Kosong"
                       });
